@@ -1,0 +1,13 @@
+[user]
+	name = ziv
+	email = zivvv0@gmail.com
+[alias]
+	c = config
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	l = log -1 HEAD
+	pl = pull
+	ps = push
+	ro = remote
