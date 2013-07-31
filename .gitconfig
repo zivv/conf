@@ -3,6 +3,7 @@
 	email = zivvv0@gmail.com
 [alias]
 	c = config
+    a = add
 	co = checkout
 	br = branch
 	ci = commit
