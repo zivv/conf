@@ -1,9 +1,12 @@
 [user]
 	name = ziv
 	email = zivvv0@gmail.com
+[push]
+	default = simple
+[core]
+	excludesfile = ~/.gitignore_global
 [alias]
 	c = config
-    a = add
 	co = checkout
 	br = branch
 	ci = commit

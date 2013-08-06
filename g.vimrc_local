@@ -1,0 +1,120 @@
+let g:google_tags_user_mixer=0
+let g:google_tags_proxy='chinaproxy2:3128'
+syntax on
+source /usr/share/vim/google/google.vim
+Glug youcompleteme-google
+source /usr/share/vim/google/gtags.vim
+"source /google/src/head/depot/eng/vim/runtime/util/piper_tools.vim
+
+":Grok. The "Grok" command looks up the identifier under the cursor in grok,
+"opens a new tab window, and loads the grok results in the window's location
+"list.
+":GrokV. Same as :Grok but verbose
+":GrokDef. Same as :Grok, but using a default set of edge kinds that should
+"point to the definitions or declarations of the identifier.
+":GrokRef. Same as :Grok, but using a default set of edge kinds that should
+"point to the references or usages of the identifier.
+":GrokCallers. Same as :Grok, but using the CALLGRAPH_FROM edge.
+":GrokCallees. Same as :Grok, but using the CALLGRAPH_TO edge.
+source /usr/share/vim/google/runtime/grok.vim
+
+command CC call PT_GetCommentsQuickfix()
+"source /home/build/nonconf/google3/tools/tags/gtags.vim
+"nmap <C-]> :call Gtag(expand('<cword>'))<CR>
+"ignore searching case
+":set ignorecase
+:set noignorecase
+
+:set incsearch
+" tcsh's command line completion style. see :help cmdline-completion
+:set wildmode=longest,list
+
+
+"set columns=85
+set winwidth=84
+":set lines=49
+:set number
+:set encoding=utf-8
+:set hlsearch
+" perforce commands
+ command! -nargs=* -complete=file PEdit :!g4 edit %
+ command! -nargs=* -complete=file PRevert :!g4 revert %
+ command! -nargs=* -complete=file PDiff :!g4 diff %
+
+function! s:CheckOutFile()
+  if filereadable(expand("%")) && ! filewritable(expand("%"))
+    let s:pos = getpos('.')
+    let option = confirm("Readonly file, do you want to checkout from p4?"
+          \, "&Yes\n&No", 1, "Question")
+    if option == 1
+        PEdit
+    endif
+    edit!
+    call cursor(s:pos[1:3])
+  endif
+endfunction
+  au FileChangedRO * nested :call <SID>CheckOutFile()
+
+function! HighlightTooLongLines()
+  highlight def link RightMargin Error
+  if &textwidth != 0
+    exec 'match RightMargin /\%<' . (&textwidth + 3) . 'v.\%>' . (&textwidth + 1) . 'v/'
+  endif
+endfunction
+
+
+"augroup filetypedetect
+"augroup END
+
+"switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.* with ,h ,i
+",c ,p ,j ,t ,u
+""(portion from old mail from David Reiss)
+let pattern = '\(\(_\(unit\)\?test\)\?\.\(cc\|js\|py\)\|\(-inl\)\?\.h\)$'
+nmap ,c :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
+nmap ,h :fin <C-R>=substitute(expand("%"), pattern, ".h", "")<CR><CR>
+nmap ,i :fin <C-R>=substitute(expand("%"), pattern, "-inl.h", "")<CR><CR>
+nmap ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nmap ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+"nmap ,p :e <C-R>=substitute(expand("%"), pattern, ".py", "")<CR><CR>
+"nmap ,j :e <C-R>=substitute(expand("%"), pattern, ".js", "")<CR><CR>
+
+"Build the targets associated with your current file.
+nnoremap ,bb :call BlazeBuildCurrentTargets()<CR>
+"Build and test the targets associated with your current file.
+nnoremap ,bt :call BlazeTestCurrentTargets()<CR>
+"Ignore warnings by default.
+"g:blazevim_ignore_warnings = 0
+"Desktop notification on blaze finish.
+let g:blazevim_notify_after_blaze = 1
+
+let g:auto_buildifier = 1
+
+" jumps to last position in file
+:au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+
+" reading //depot files
+"autocmd BufReadCmd //depot/* exe "0r !p4 print -q <afile>"
+"autocmd BufReadCmd //depot/* 1
+"autocmd BufReadCmd //depot/* set readonly
+
+"colorscheme torte
+:set guifont=Bitstream\ Vera\ Sans\ Mono\ 13
+:highlight SpellBad ctermfg=Red ctermbg=Black
+:highlight SpellCap ctermbg=Black term=underline
+:highlight RightMargin ctermfg=Green ctermbg=Red
+
+" Cancels cindent in sawzall file.
+autocmd FileType sawzall setlocal cinkeys-=#
+
+:highlight TWGroup ctermbg=green
+augroup autohighlight
+"au BufReadPost,WinEnter,BufNewFile,BufRead * call HighlightTooLongLines()
+:au BufReadPost,WinEnter,BufNewFile,BufRead * call HighlightTooLongLines()
+:au BufReadPost,WinEnter,BufNewFile,BufRead * call matchadd("TWGroup", '[ ]\+\n')
+augroup END
+
+"set mouse=a
+
+noremap <silent> <C-K> :ClangFormat<CR>
+inoremap <silent> <C-K> <C-O>:ClangFormat<CR>

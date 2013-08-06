@@ -1,0 +1,27 @@
+# To add this to the config, run:
+# git config --global core.excludesfile ~/.gitignore_global
+
+# Compiled source #
+###################
+*.pyc
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Vim swapfiles #
+#################
+.*.swp
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
