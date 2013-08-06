@@ -1,0 +1,4 @@
+let $VIMRUNTIME="/usr/share/vim/vim74b"
+set runtimepath=/usr/share/vim/vim74b
+
+syntax enable
