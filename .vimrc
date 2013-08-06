@@ -1,8 +1,16 @@
+" Basic paths -------------------------------------------------------------{{{1
+if filereadable(expand('~/.vimrc_path'))
+  source ~/.vimrc_path
+endif
+
+
 " Basic settings ----------------------------------------------------------{{{1
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+
+syntax enable
 
 set cursorline
 hi CursorLine cterm=none ctermbg=darkgrey
@@ -39,6 +47,8 @@ nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "") . substitute(exp
 nm ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
 " nm ,p :e <C-R>=substitute(expand("%"), pattern, ".py", "")<CR><CR>
 " nm ,j :e <C-R>=substitute(expand("%"), pattern, ".js", "")<CR><CR>
+
+
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
 "        -- https://github.com/gmarik/vundle#readme
