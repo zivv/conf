@@ -1,6 +1,0 @@
-alias t='vim' # run favorite text editorhere
-alias s='source ~/.bashrc'
-
-if [ -f ~/.bashrc_local ]; then
-  . ~/.bashrc_local
-fi
