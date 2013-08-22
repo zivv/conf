@@ -1,3 +1,6 @@
+# To add this to the config, run:
+# echo "[[ -f ~/.bash_base ]] && . ~/.bash_base" >> ~/.bashrc
+
 alias v='vim'
 alias s='source ~/.bashrc'
 
