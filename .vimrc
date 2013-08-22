@@ -64,7 +64,7 @@ Bundle 'gmarik/vundle'
 " Plugins -----------------------------------------------------------------{{{2
 " original repos on github
 
-" SnipMate
+" SnipMate -- provide support for textual snippets
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
@@ -74,7 +74,7 @@ let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['cpp'] = 'cpp,c,common'
 let g:snipMate.scope_aliases['python'] = 'python,common'
 
-" YCM
+" YCM -- code completion engine
 "     -- require vim 7.3.584+
 if filereadable(expand('~/.at_google'))
   " Google-only

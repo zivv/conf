@@ -1,6 +1,4 @@
 alias v='vim'
 alias s='source ~/.bashrc'
 
-if [ -f ~/.bash_local ]; then
-  . ~/.bash_local
-fi
+[[ -f ~/.bash_local ]] && . ~/.bash_local
