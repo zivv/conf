@@ -23,6 +23,10 @@ set hlsearch " highlight when search
 
 set ruler " show line number and column number in bottom right
 
+" show trailing whithspace
+hi ExtraWhitespace ctermbg=darkgreen
+match ExtraWhitespace /\s\+$/
+
 
 " Basic custom commands ---------------------------------------------------{{{1
 nn <silent> zz zz:nohl<cr>
