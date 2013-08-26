@@ -71,8 +71,8 @@ Bundle 'garbas/vim-snipmate'
 " SnipMate settings
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['cpp'] = 'cpp,c,common'
-let g:snipMate.scope_aliases['python'] = 'python,common'
+let g:snipMate.scope_aliases['c'] = 'c,cstyle'
+let g:snipMate.scope_aliases['java'] = 'java,cstyle'
 
 " YCM -- code completion engine
 "     -- require vim 7.3.584+
