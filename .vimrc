@@ -27,6 +27,8 @@ set ruler " show line number and column number in bottom right
 hi ExtraWhitespace ctermbg=darkgreen
 match ExtraWhitespace /\s\+$/
 
+au BufNewFile makefile 0r ~/.vim/skeletons/makefile
+
 
 " Basic custom commands ---------------------------------------------------{{{1
 nn <silent> zz zz:nohl<cr>
