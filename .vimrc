@@ -20,6 +20,7 @@ hi CursorColumn cterm=none ctermbg=darkgrey
 set number " show line number
 
 set hlsearch " highlight when search
+hi Search cterm=none ctermfg=darkgrey ctermbg=yellow
 
 set ruler " show line number and column number in bottom right
 
@@ -28,6 +29,7 @@ hi ExtraWhitespace ctermbg=darkgreen
 match ExtraWhitespace /\s\+$/
 
 au BufNewFile makefile 0r ~/.vim/skeletons/makefile
+au BufNewFile tex 0r ~/.vim/skeletons/skeleton.tex
 
 
 " Basic custom commands ---------------------------------------------------{{{1
@@ -38,11 +40,6 @@ set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 
 " easy to copy
 nm <silent> zn :set nu!<cr>
-
-nm <C-h> <C-w>h
-nm <C-j> <C-w>j
-nm <C-k> <C-w>k
-nm <C-l> <C-w>l
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
 let pattern = '\(\(_\(unit\)\?test\)\?\.\(cc\|js\|py\)\|\(-inl\)\?\.h\)$'
