@@ -29,7 +29,7 @@ hi ExtraWhitespace ctermbg=darkgreen
 match ExtraWhitespace /\s\+$/
 
 au BufNewFile makefile 0r ~/.vim/skeletons/makefile
-au BufNewFile tex 0r ~/.vim/skeletons/skeleton.tex
+au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
 
 
 " Basic custom commands ---------------------------------------------------{{{1
