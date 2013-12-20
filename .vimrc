@@ -30,6 +30,7 @@ match ExtraWhitespace /\s\+$/
 
 au BufNewFile makefile 0r ~/.vim/skeletons/makefile
 au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
+au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
 
 
 " Basic custom commands ---------------------------------------------------{{{1
@@ -41,9 +42,13 @@ set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 " easy to copy
 nm <silent> zn :set nu!<cr>
 
+" delete code after //-
+nm <silent> dc :%s#^ *//-.*\n##g<cr>
+
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
 let pattern = '\(\(_\(unit\)\?test\)\?\.\(cc\|js\|py\)\|\(-inl\)\?\.h\)$'
 nm ,c :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
+nm ,cp :fin <C-R>=substitute(expand("%"), pattern, ".cpp", "")<CR><CR>
 nm ,h :fin <C-R>=substitute(expand("%"), pattern, ".h", "")<CR><CR>
 nm ,i :fin <C-R>=substitute(expand("%"), pattern, "-inl.h", "")<CR><CR>
 nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
