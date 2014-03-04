@@ -17,3 +17,5 @@
 	ro = remote
   mg = merge
   po = push origin
+  pm = push origin master
+  pz = push origin ziv
