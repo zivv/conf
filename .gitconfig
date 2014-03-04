@@ -15,3 +15,4 @@
 	pl = pull
 	ps = push
 	ro = remote
+  mg = merge
