@@ -16,3 +16,4 @@
 	ps = push
 	ro = remote
   mg = merge
+  po = push origin
