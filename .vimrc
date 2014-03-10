@@ -56,6 +56,15 @@ nm ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "") . substitute
 " nm ,p :e <C-R>=substitute(expand("%"), pattern, ".py", "")<CR><CR>
 " nm ,j :e <C-R>=substitute(expand("%"), pattern, ".js", "")<CR><CR>
 
+" add a new line
+nm zo o<C-[>
+
+" add a line of 80 '-'
+nm z- 80i-<C-[>zo
+
+" move to column 80
+nm z80 079l
+
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1

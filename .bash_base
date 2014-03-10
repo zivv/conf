@@ -2,6 +2,8 @@
 # echo "[[ -f ~/.bash_base ]] && . ~/.bash_base" >> ~/.bashrc
 
 alias v='vim'
+alias vd='vimdiff'
 alias s='source ~/.bashrc'
+alias g='git'
 
 [[ -f ~/.bash_local ]] && . ~/.bash_local

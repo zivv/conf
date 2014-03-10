@@ -19,3 +19,6 @@
   po = push origin
   pm = push origin master
   pz = push origin ziv
+  d = diff
+  dc = diff --cached
+  dh = diff HEAD
