@@ -16,7 +16,7 @@ source /usr/share/vim/google/gtags.vim
 "point to the references or usages of the identifier.
 ":GrokCallers. Same as :Grok, but using the CALLGRAPH_FROM edge.
 ":GrokCallees. Same as :Grok, but using the CALLGRAPH_TO edge.
-source /usr/share/vim/google/runtime/grok.vim
+Glug grok
 
 command CC call PT_GetCommentsQuickfix()
 "source /home/build/nonconf/google3/tools/tags/gtags.vim

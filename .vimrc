@@ -46,8 +46,9 @@ nm <silent> zn :set nu!<cr>
 nm <silent> dc :%s#^ *//-.*\n##g<cr>
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
-let pattern = '\(\(_\(unit\)\?test\)\?\.\(cc\|js\|py\)\|\(-inl\)\?\.h\)$'
-nm ,c :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
+let pattern = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
+nm ,c :fin <C-R>=substitute(expand("%"), pattern, ".c", "")<CR><CR>
+nm ,cc :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
 nm ,cp :fin <C-R>=substitute(expand("%"), pattern, ".cpp", "")<CR><CR>
 nm ,h :fin <C-R>=substitute(expand("%"), pattern, ".h", "")<CR><CR>
 nm ,i :fin <C-R>=substitute(expand("%"), pattern, "-inl.h", "")<CR><CR>
