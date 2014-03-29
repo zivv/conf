@@ -31,3 +31,7 @@
 *.log
 *.sql
 *.sqlite
+
+# ctags #
+#########
+tags

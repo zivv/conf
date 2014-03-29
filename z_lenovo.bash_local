@@ -1,0 +1,11 @@
+# for srt
+alias sshA='ssh Administrator:speech@166.111.139.215'
+
+# for raspberrypi
+alias rasmenuconf='make ARCH=arm BOARD=raspberrypi menuconfig'
+alias rasmenuconfsave='cp obj/.config src/kern-ucore/arch/arm/configs/raspberrypi_defconfig'
+alias rasdef='make ARCH=arm BOARD=raspberrypi defconfig'
+alias rascleandef='make clean && rasdef'
+alias rasmake='make sfsimg && make kernel'
+alias rascleandefmake='rascleandef && rasmake'
+export PATH=~/lib/raspi/arm-2013.11/bin:$PATH

@@ -14,5 +14,6 @@ fi
 
 if [ -f ~/.at_z_lenovo ]; then
   echo "at z_lenovo"
+  cp z_lenovo.bash_local ~/.bash_local
   cp z_lenovo.vimrc_path ~/.vimrc_path
 fi
