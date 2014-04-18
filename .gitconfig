@@ -23,3 +23,6 @@
   dc = diff --cached
   dh = diff HEAD
   rh = reset --hard
+  lo = pull origin
+  lm = pull origin master
+  lz = pull origin ziv
