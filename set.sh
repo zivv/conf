@@ -5,6 +5,7 @@ cp .gitignore_global ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
 cp -r skeletons ~/.vim/
+cp -r vims ~/.vim/
 
 if [ -f ~/.at_google ]; then
   echo "at google"

@@ -35,3 +35,7 @@
 # ctags #
 #########
 tags
+
+# cscope #
+##########
+cscope.*

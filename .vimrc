@@ -34,7 +34,7 @@ au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
 
 
 " Basic custom commands ---------------------------------------------------{{{1
-nn <silent> ;x :nohl<CR>
+nn <silent> zh :nohl<CR>
 
 nm <silent> ;p :set spell!<CR>
 set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
@@ -61,11 +61,19 @@ nm ;o o<C-[>
 nm ;80 079l
 
 " delete the comment, in current line
-nm <silent> dc :.s#[ ]*[#"] .*$\\|[ ]*// .*$##g<CR>;x
+nm <silent> dc :.s#[ ]*[#"] .*$\\|[ ]*// .*$##g<CR>zh
 
 " delete the extra spaces, in current line
-nm <silent> ds :.s/ *$//g<CR>;x
+nm <silent> ds :.s/[ \t]*$//g<CR>zh
 
+" for window size
+nm [r :resize 
+nm [v :vert resize 
+
+" for quickfix window
+nm <silent> [w :cw<CR>
+nm <silent> [n :cn<CR>
+nm <silent> [p :cp<CR>
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
@@ -123,7 +131,7 @@ Plugin 'taglist.vim'
 "            -- http://vim.sourceforge.net/scripts/script.php?script_id=95
 Plugin 'winmanager'
 " use <C-n> and <C-p> to switch between explorers in same group
-let g:winManagerWindowLayout='FileExplorer|TagList'
+let g:winManagerWindowLayout='FileExplorer,TagList'
 nm <silent> ;wm :WMToggle<cr>
 
 " scripts not on GitHub
@@ -132,8 +140,11 @@ nm <silent> ;wm :WMToggle<cr>
 " git repos on your local machine (i.e. when working on your own plugin)
 "   eg. Plugin 'file:///home/gmarik/path/to/plugin'
 
-filetype plugin indent on     " required! for vindle
+filetype plugin indent on     " required! for vundle
 
+
+" Specific settings -------------------------------------------------------{{{1
+source ~/.vim/vims/cscope_maps.vim
 
 
 " Local settings ----------------------------------------------------------{{{1
