@@ -22,6 +22,7 @@
   d = diff
   dc = diff --cached
   dh = diff HEAD
+  dl = diff HEAD HEAD~1
   rh = reset --hard
   lo = pull origin
   lm = pull origin master

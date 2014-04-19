@@ -34,7 +34,7 @@ au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
 
 
 " Basic custom commands ---------------------------------------------------{{{1
-nn <silent> zh :nohl<CR>
+nn <silent> ;h :nohl<CR>
 
 nm <silent> ;p :set spell!<CR>
 set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
@@ -61,10 +61,10 @@ nm ;o o<C-[>
 nm ;80 079l
 
 " delete the comment, in current line
-nm <silent> dc :.s#[ ]*[#"] .*$\\|[ ]*// .*$##g<CR>zh
+nm <silent> dc :.s#[ ]*[#"] .*$\\|[ ]*// .*$##g<CR>;h
 
 " delete the extra spaces, in current line
-nm <silent> ds :.s/[ \t]*$//g<CR>zh
+nm <silent> ds :.s/[ \t]*$//g<CR>;h
 
 " for window size
 nm [r :resize 
