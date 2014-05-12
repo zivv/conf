@@ -11,3 +11,4 @@ alias rascleandefmake='rascleandef && rasmake'
 export PATH=~/lib/raspi/arm-2013.11/bin:$PATH
 alias rascd='cd /home/z/lib/raspi/arm_raspi'
 alias rascom='sudo minicom -b 115200 -o -w -D $(ls /dev/ttyUSB?)'
+alias rascp='cp /home/z/dev/ucore_plus/kernel.img /media/boot/'

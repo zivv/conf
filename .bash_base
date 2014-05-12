@@ -1,9 +1,18 @@
 # To add this to the config, run:
 # echo "[[ -f ~/.bash_base ]] && . ~/.bash_base" >> ~/.bashrc
 
+# Use 'unalias' to cancle
 alias v='vim'
 alias vd='vimdiff'
 alias s='source ~/.bashrc'
 alias g='git'
+
+function fg() {
+  find $1 | grep $2
+}
+
+function fxg() {
+  find $1 | xargs grep $2
+}
 
 [[ -f ~/.bash_local ]] && . ~/.bash_local
