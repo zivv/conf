@@ -23,7 +23,7 @@
 .*.swp
 
 # Gedit swapfiles #
-#################
+###################
 *~
 
 # Logs and databases #
@@ -39,3 +39,9 @@ tags
 # cscope #
 ##########
 cscope.*
+
+# tex output #
+##############
+*.aux
+*.out
+*.toc

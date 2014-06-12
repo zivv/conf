@@ -7,11 +7,11 @@ alias vd='vimdiff'
 alias s='source ~/.bashrc'
 alias g='git'
 
-function fg() {
+function fgr() {
   find $1 | grep $2
 }
 
-function fxg() {
+function fxgr() {
   find $1 | xargs grep $2
 }
 

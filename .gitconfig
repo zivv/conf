@@ -27,3 +27,4 @@
   lo = pull origin
   lm = pull origin master
   lz = pull origin ziv
+  ls = ls-files
