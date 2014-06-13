@@ -1,3 +1,9 @@
+alias cddeh='cd googledata/i18n/input/engine/hmm/'
+alias cdds='cd googledata/i18n/input/server/'
+alias cds='cd i18n/input/server/'
+alias cdeh='cd i18n/input/engine/hmm'
+
+
 # g4 alias --------------------------------------------------------------------
 
 alias ga='g4 add'         # Run 'ga [file]' to add a file to Perforce
