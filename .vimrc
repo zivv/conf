@@ -1,3 +1,8 @@
+" set up steps:
+"   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"   :PluginInstall
+"   git clone https://github.com/zivv/vim_snippets.git ~/.vim/snippets
+
 " Basic paths -------------------------------------------------------------{{{1
 if filereadable(expand('~/.vimrc_path'))
   source ~/.vimrc_path
@@ -78,10 +83,11 @@ nm <silent> [p :cp<CR>
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
 "        -- https://github.com/gmarik/vundle#readme
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 Plugin 'gmarik/vundle'
