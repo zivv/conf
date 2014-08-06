@@ -1,10 +1,19 @@
+# for input
 alias cddeh='cd googledata/i18n/input/engine/hmm/'
 alias cdds='cd googledata/i18n/input/server/'
 alias cds='cd i18n/input/server/'
-alias cdeh='cd i18n/input/engine/hmm'
+alias cdeh='cd i18n/input/engine/hmm/'
+
+# for phonenumber
+alias cdpn='cd java/com/google/i18n/phonenumbers/'
+alias cdtpn='cd javatests/com/google/i18n/phonenumbers/'
+alias cddpn='cd googledata/i18n/phonenumbers/testdata/'
+alias cdez='cd experimental/ziye/'
 
 
 # g4 alias --------------------------------------------------------------------
+
+alias gt='g4 patch -c'    # Run 'gt [CL#]' to clone a CL.
 
 alias ga='g4 add'         # Run 'ga [file]' to add a file to Perforce
 alias gc='g4 addto -c'    # Run 'gc [CL#] [file]' to move a file to this CL.
