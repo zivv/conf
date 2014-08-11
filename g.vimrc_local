@@ -1,10 +1,29 @@
 "let g:google_tags_user_mixer=0
 "let g:google_tags_proxy='chinaproxy2:3128'
+
 syntax on
-source /usr/share/vim/google/google.vim
-Glug youcompleteme-google
+
+source /usr/share/vim/google/default.vim
+
+" You can also format the current file by typing :FormatCode<CR>
+Glug codefmt auto_filetypes+=blazebuild,cpp,java
+
+Glug piper plugin[mappings]
+Glug relatedfiles plugin[mappings]
+
 source /usr/share/vim/google/gtags.vim
 "source /google/src/head/depot/eng/vim/runtime/util/piper_tools.vim
+
+Glug gtimporter
+nm <unique> <leader>j :GtImporter<CR>
+
+Glug youcompleteme-google
+
+Glug g4
+
+Glug corpweb
+nm <unique> <leader>cs :CorpWebCs<Space>
+nm <unique> <leader>cf :CorpWebCsFile<CR>
 
 ":Grok. The "Grok" command looks up the identifier under the cursor in grok,
 "opens a new tab window, and loads the grok results in the window's location
@@ -62,7 +81,6 @@ function! HighlightTooLongLines()
   endif
 endfunction
 
-
 "augroup filetypedetect
 "augroup END
 
@@ -80,7 +98,6 @@ let g:auto_buildifier = 1
 
 " jumps to last position in file
 :au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
-
 
 " reading //depot files
 "autocmd BufReadCmd //depot/* exe "0r !p4 print -q <afile>"
@@ -102,8 +119,6 @@ augroup autohighlight
 :au BufReadPost,WinEnter,BufNewFile,BufRead * call HighlightTooLongLines()
 :au BufReadPost,WinEnter,BufNewFile,BufRead * call matchadd("TWGroup", '[ ]\+\n')
 augroup END
-
-"set mouse=a
 
 noremap <silent> <C-K> :ClangFormat<CR>
 inoremap <silent> <C-K> <C-O>:ClangFormat<CR>

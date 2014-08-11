@@ -1,3 +1,5 @@
+alias cdz='cd experimental/ziye/'
+
 # for input
 alias cddeh='cd googledata/i18n/input/engine/hmm/'
 alias cdds='cd googledata/i18n/input/server/'
@@ -7,8 +9,7 @@ alias cdeh='cd i18n/input/engine/hmm/'
 # for phonenumber
 alias cdpn='cd java/com/google/i18n/phonenumbers/'
 alias cdtpn='cd javatests/com/google/i18n/phonenumbers/'
-alias cddpn='cd googledata/i18n/phonenumbers/testdata/'
-alias cdez='cd experimental/ziye/'
+alias cddpn='cd googledata/third_party/i18n/phonenumbers/'
 
 
 # g4 alias --------------------------------------------------------------------

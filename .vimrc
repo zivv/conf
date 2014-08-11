@@ -2,6 +2,8 @@
 "   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 "   :PluginInstall
 "   git clone https://github.com/zivv/vim_snippets.git ~/.vim/snippets
+"
+"   `vim -u NONE -c "helptags vim-fugitive/doc" -c q` to install fugitive
 
 " Basic paths -------------------------------------------------------------{{{1
 if filereadable(expand('~/.vimrc_path'))
@@ -54,8 +56,8 @@ nm ,cc :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
 nm ,cp :fin <C-R>=substitute(expand("%"), pattern, ".cpp", "")<CR><CR>
 nm ,h :fin <C-R>=substitute(expand("%"), pattern, ".h", "")<CR><CR>
 nm ,i :fin <C-R>=substitute(expand("%"), pattern, "-inl.h", "")<CR><CR>
-nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-" nm ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "").substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+" nm ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "").substitute(expand("%:e"), "h", "cc", "")<CR><CR>
 " nm ,p :e <C-R>=substitute(expand("%"), pattern, ".py", "")<CR><CR>
 " nm ,j :e <C-R>=substitute(expand("%"), pattern, ".js", "")<CR><CR>
 
@@ -79,6 +81,11 @@ nm [v :vert resize
 nm <silent> [w :cw<CR>
 nm <silent> [n :cn<CR>
 nm <silent> [p :cp<CR>
+
+" quit all files without saving
+nm ;q :qa!<CR>
+" saving
+nm ;w :w<CR>
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
@@ -122,6 +129,10 @@ let g:ycm_key_list_select_completion = ['<Down>, <C-n>']
 " default is ['<S-TAB>', '<Up>']
 let g:ycm_key_list_previous_completion = ['<Up>, <C-p>']
 
+" fugitive -- a Git wrapper
+"          -- `vim -u NONE -c "helptags vim-fugitive/doc" -c q` to install
+Plugin 'tpope/vim-fugitive'
+
 " Not widely used
 " Plugin "derekwyatt/scala"
 " Plugin "digitaltoad/vim-jade"
@@ -146,8 +157,6 @@ nm <silent> ;wm :WMToggle<cr>
 " git repos on your local machine (i.e. when working on your own plugin)
 "   eg. Plugin 'file:///home/gmarik/path/to/plugin'
 
-filetype plugin indent on     " required! for vundle
-
 
 " Specific settings -------------------------------------------------------{{{1
 source ~/.vim/vims/cscope_maps.vim
@@ -157,3 +166,7 @@ source ~/.vim/vims/cscope_maps.vim
 if filereadable(expand('~/.vimrc_local'))
   source ~/.vimrc_local
 endif
+
+
+" Enable all the plugins
+filetype plugin indent on
