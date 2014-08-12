@@ -83,7 +83,9 @@ nm <silent> [n :cn<CR>
 nm <silent> [p :cp<CR>
 
 " quit all files without saving
-nm ;q :qa!<CR>
+nm ;aq :qa!<CR>
+" quit current file without saving
+nm ;q :q!<CR>
 " saving
 nm ;w :w<CR>
 
