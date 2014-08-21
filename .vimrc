@@ -88,6 +88,11 @@ nm ;aq :qa!<CR>
 nm ;q :q!<CR>
 " saving
 nm ;w :w<CR>
+" tab edit
+nm ;e :tabe 
+" switch between tabs
+nm <C-S-i> :tabp<CR>
+nm <C-S-o> :tabn<CR>
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
@@ -99,7 +104,7 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 
 " Plugins -----------------------------------------------------------------{{{2
@@ -107,15 +112,21 @@ Plugin 'gmarik/vundle'
 " scripts on GitHub repos
 "   eg. Plugin 'gmarik/vundle' for http://github.com/gmarik/vundle
 
-" SnipMate -- provide support for textual snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-" SnipMate settings
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['c'] = 'c,cstyle'
-let g:snipMate.scope_aliases['java'] = 'java,cstyle'
+" UltiSnips -- The ultimate solution for snippets in Vim
+Plugin 'SirVer/ultisnips'
+" UltiSnips settings
+" default is <Tab>
+let g:UltiSnipsExpandTrigger = "<C-j>"
+" default is <C-Tab>, no need to worry about since using 'honza/vim-snippets'
+"let g:UltiSnipsListSnippets = "<C-Tab>"
+" default is <C-j>
+"let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+" default is <C-k>
+"let g:UltiSnipsJumpBackwardTrigger = "<C-Tab>"
+
+" Snipmate & UltiSnip Snippets
+"   supports C-p & C-n to choose trigger
+Plugin 'honza/vim-snippets'
 
 " YCM -- code completion engine
 "     -- require vim 7.3.584+
@@ -126,13 +137,13 @@ else
   Plugin 'Valloric/YouCompleteMe'
 endif
 " YCM settings
-" default is ['<TAB>', '<Down>'], and '<TAB>' will conflict with snippets
-let g:ycm_key_list_select_completion = ['<Down>, <C-n>']
+" default is ['<TAB>', '<Down>']
+"let g:ycm_key_list_select_completion = ['<Down>']
 " default is ['<S-TAB>', '<Up>']
-let g:ycm_key_list_previous_completion = ['<Up>, <C-p>']
+"let g:ycm_key_list_previous_completion = ['<Up>']
 
 " fugitive -- a Git wrapper
-"          -- `vim -u NONE -c "helptags vim-fugitive/doc" -c q` to install
+"   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
 Plugin 'tpope/vim-fugitive'
 
 " Not widely used
