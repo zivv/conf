@@ -24,7 +24,7 @@ hi CursorLine cterm=none ctermbg=darkgrey
 set cursorcolumn
 hi CursorColumn cterm=none ctermbg=darkgrey
 
-set number " show line number
+set relativenumber " show relative line number
 
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=darkgrey ctermbg=yellow
@@ -47,7 +47,7 @@ nm <silent> ;p :set spell!<CR>
 set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 
 " easy to copy
-nm <silent> ;n :set nu!<CR>
+nm <silent> ;n :set rnu!<CR>:set nu!<CR>
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
 let pattern = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
@@ -61,38 +61,44 @@ nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "").substitute(expan
 " nm ,p :e <C-R>=substitute(expand("%"), pattern, ".py", "")<CR><CR>
 " nm ,j :e <C-R>=substitute(expand("%"), pattern, ".js", "")<CR><CR>
 
-" add a new line
-nm ;o o<C-[>
-
 " move to column 80
 nm ;80 079l
 
 " delete the comment, in current line
+" TODO(ziv): collect the comment leading character and then update this
 nm <silent> dc :.s#[ ]*[#"] .*$\\|[ ]*// .*$##g<CR>;h
 
 " delete the extra spaces, in current line
+" TODO(ziv): update to could be used for a selected block
 nm <silent> ds :.s/[ \t]*$//g<CR>;h
 
 " for window size
 nm [r :resize 
 nm [v :vert resize 
 
-" for quickfix window
+" specific for quickfix window
 nm <silent> [w :cw<CR>
 nm <silent> [n :cn<CR>
 nm <silent> [p :cp<CR>
 
 " quit all files without saving
-nm ;aq :qa!<CR>
+nm <silent> ;aq :qa!<CR>
 " quit current file without saving
-nm ;q :q!<CR>
+nm <silent> ;q :q!<CR>
 " saving
 nm ;w :w<CR>
+" edit
+nm ;e :e 
 " tab edit
-nm ;e :tabe 
+nm ;t :tabe 
 " switch between tabs
 nm <C-S-i> :tabp<CR>
 nm <C-S-o> :tabn<CR>
+
+" using jk to get out of insert mode
+ino jk <Esc>
+" len of time vi waits for a complete command, default is 1000ms
+set timeoutlen=200
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
@@ -115,8 +121,8 @@ Plugin 'gmarik/Vundle.vim'
 " UltiSnips -- The ultimate solution for snippets in Vim
 Plugin 'SirVer/ultisnips'
 " UltiSnips settings
-" default is <Tab>
-let g:UltiSnipsExpandTrigger = "<C-j>"
+" default is <Tab>, better to be different with JumpForward key
+let g:UltiSnipsExpandTrigger = "<C-h>"
 " default is <C-Tab>, no need to worry about since using 'honza/vim-snippets'
 "let g:UltiSnipsListSnippets = "<C-Tab>"
 " default is <C-j>
@@ -125,7 +131,7 @@ let g:UltiSnipsExpandTrigger = "<C-j>"
 "let g:UltiSnipsJumpBackwardTrigger = "<C-Tab>"
 
 " Snipmate & UltiSnip Snippets
-"   supports C-p & C-n to choose trigger
+"   seems support <C-p>(or <Tab>) & <C-n> to choose trigger
 Plugin 'honza/vim-snippets'
 
 " YCM -- code completion engine
