@@ -50,6 +50,7 @@ set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 nm <silent> ;n :set rnu!<CR>:set nu!<CR>
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
+" TODO(ziv): understand and update it
 let pattern = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
 nm ,c :fin <C-R>=substitute(expand("%"), pattern, ".c", "")<CR><CR>
 nm ,cc :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
@@ -95,10 +96,8 @@ nm ;t :tabe
 nm <C-S-i> :tabp<CR>
 nm <C-S-o> :tabn<CR>
 
-" using jk to get out of insert mode
+" get out of insert mode
 ino jk <Esc>
-" len of time vi waits for a complete command, default is 1000ms
-set timeoutlen=200
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
@@ -136,6 +135,7 @@ Plugin 'honza/vim-snippets'
 
 " YCM -- code completion engine
 "     -- require vim 7.3.584+
+" TODO(ziv): can not work now
 if filereadable(expand('~/.at_google'))
   " Google-only
 else
