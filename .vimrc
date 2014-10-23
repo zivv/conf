@@ -88,6 +88,8 @@ nm <silent> ;aq :qa!<CR>
 nm <silent> ;q :q!<CR>
 " saving
 nm ;w :w<CR>
+" forced saving
+nm ;fw :w!<CR>
 " edit
 nm ;e :e 
 " tab edit

@@ -1,29 +1,43 @@
 [user]
-	name = ziv
-	email = zivvv0@gmail.com
+  name = ziv
+  email = zivvv0@gmail.com
 [push]
-	default = simple
+  default = simple
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
+[diff]
+  tool = vimdiff
+[merge]
+  tool = vimdiff
+[difftool]
+  prompt = false
 [alias]
-	c = config
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
-	l = log -1 HEAD
-	pl = pull
-	ps = push
-	ro = remote
+  c = config
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+  l = log
+  l1 = log -1 HEAD
+  ro = remote
   mg = merge
-  po = push origin
-  pm = push origin master
-  pz = push origin ziv
+  rh = reset --hard
+  lf = ls-files
+
+  ps = push
+  pso = push origin
+  psm = push origin master
+  psz = push origin ziv
+  pl = pull
+  plo = pull origin
+  plm = pull origin master
+  plz = pull origin ziv
+
   d = diff
   dc = diff --cached
   dh = diff HEAD
   dl = diff HEAD~1 HEAD
-  rh = reset --hard
-  lo = pull origin
-  lm = pull origin master
-  lz = pull origin ziv
+  dt = difftool
+  dtc = difftool --cached
+  dth = difftool HEAD
+  dtl = difftool HEAD~1 HEAD
