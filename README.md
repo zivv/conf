@@ -1,4 +1,4 @@
 Configure Files
 ====
 
-Run ./set.sh to configure it.
+Run `./set.sh` to configure it.
