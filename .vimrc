@@ -1,3 +1,10 @@
+" set up steps:
+"   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"   :PluginInstall
+"   git clone https://github.com/zivv/vim_snippets.git ~/.vim/snippets
+"
+"   `vim -u NONE -c "helptags vim-fugitive/doc" -c q` to install fugitive
+
 " Basic paths -------------------------------------------------------------{{{1
 if filereadable(expand('~/.vimrc_path'))
   source ~/.vimrc_path
@@ -17,7 +24,7 @@ hi CursorLine cterm=none ctermbg=darkgrey
 set cursorcolumn
 hi CursorColumn cterm=none ctermbg=darkgrey
 
-set number " show line number
+set relativenumber " show relative line number
 
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=darkgrey ctermbg=yellow
@@ -40,51 +47,71 @@ nm <silent> ;p :set spell!<CR>
 set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 
 " easy to copy
-nm <silent> ;n :set nu!<CR>
+nm <silent> ;n :set rnu!<CR>:set nu!<CR>
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
+" TODO(ziv): understand and update it
 let pattern = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
 nm ,c :fin <C-R>=substitute(expand("%"), pattern, ".c", "")<CR><CR>
 nm ,cc :fin <C-R>=substitute(expand("%"), pattern, ".cc", "")<CR><CR>
 nm ,cp :fin <C-R>=substitute(expand("%"), pattern, ".cpp", "")<CR><CR>
 nm ,h :fin <C-R>=substitute(expand("%"), pattern, ".h", "")<CR><CR>
 nm ,i :fin <C-R>=substitute(expand("%"), pattern, "-inl.h", "")<CR><CR>
-nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-" nm ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "") . substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nm ,t :fin <C-R>=substitute(expand("%"), pattern, "_test.", "").substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+" nm ,u :fin <C-R>=substitute(expand("%"), pattern, "_unittest.", "").substitute(expand("%:e"), "h", "cc", "")<CR><CR>
 " nm ,p :e <C-R>=substitute(expand("%"), pattern, ".py", "")<CR><CR>
 " nm ,j :e <C-R>=substitute(expand("%"), pattern, ".js", "")<CR><CR>
-
-" add a new line
-nm ;o o<C-[>
 
 " move to column 80
 nm ;80 079l
 
 " delete the comment, in current line
+" TODO(ziv): collect the comment leading character and then update this
 nm <silent> dc :.s#[ ]*[#"] .*$\\|[ ]*// .*$##g<CR>;h
 
 " delete the extra spaces, in current line
+" TODO(ziv): update to could be used for a selected block
 nm <silent> ds :.s/[ \t]*$//g<CR>;h
 
 " for window size
 nm [r :resize 
 nm [v :vert resize 
 
-" for quickfix window
+" specific for quickfix window
 nm <silent> [w :cw<CR>
 nm <silent> [n :cn<CR>
 nm <silent> [p :cp<CR>
 
+" quit all files without saving
+nm <silent> ;aq :qa!<CR>
+" quit current file without saving
+nm <silent> ;q :q!<CR>
+" saving
+nm ;w :w<CR>
+" forced saving
+nm ;fw :w!<CR>
+" edit
+nm ;e :e 
+" tab edit
+nm ;t :tabe 
+" switch between tabs
+nm <C-S-i> :tabp<CR>
+nm <C-S-o> :tabn<CR>
+
+" get out of insert mode
+ino jk <Esc>
+
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
 "        -- https://github.com/gmarik/vundle#readme
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 
 " Plugins -----------------------------------------------------------------{{{2
@@ -92,18 +119,25 @@ Plugin 'gmarik/vundle'
 " scripts on GitHub repos
 "   eg. Plugin 'gmarik/vundle' for http://github.com/gmarik/vundle
 
-" SnipMate -- provide support for textual snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-" SnipMate settings
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['c'] = 'c,cstyle'
-let g:snipMate.scope_aliases['java'] = 'java,cstyle'
+" UltiSnips -- The ultimate solution for snippets in Vim
+Plugin 'SirVer/ultisnips'
+" UltiSnips settings
+" default is <Tab>, better to be different with JumpForward key
+let g:UltiSnipsExpandTrigger = "<C-h>"
+" default is <C-Tab>, no need to worry about since using 'honza/vim-snippets'
+"let g:UltiSnipsListSnippets = "<C-Tab>"
+" default is <C-j>
+"let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+" default is <C-k>
+"let g:UltiSnipsJumpBackwardTrigger = "<C-Tab>"
+
+" Snipmate & UltiSnip Snippets
+"   seems support <C-p>(or <Tab>) & <C-n> to choose trigger
+Plugin 'honza/vim-snippets'
 
 " YCM -- code completion engine
 "     -- require vim 7.3.584+
+" TODO(ziv): can not work now
 if filereadable(expand('~/.at_google'))
   " Google-only
 else
@@ -111,10 +145,14 @@ else
   Plugin 'Valloric/YouCompleteMe'
 endif
 " YCM settings
-" default is ['<TAB>', '<Down>'], and '<TAB>' will conflict with snippets
-let g:ycm_key_list_select_completion = ['<Down>, <C-n>']
+" default is ['<TAB>', '<Down>']
+"let g:ycm_key_list_select_completion = ['<Down>']
 " default is ['<S-TAB>', '<Up>']
-let g:ycm_key_list_previous_completion = ['<Up>, <C-p>']
+"let g:ycm_key_list_previous_completion = ['<Up>']
+
+" fugitive -- a Git wrapper
+"   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
+Plugin 'tpope/vim-fugitive'
 
 " Not widely used
 " Plugin "derekwyatt/scala"
@@ -140,8 +178,6 @@ nm <silent> ;wm :WMToggle<cr>
 " git repos on your local machine (i.e. when working on your own plugin)
 "   eg. Plugin 'file:///home/gmarik/path/to/plugin'
 
-filetype plugin indent on     " required! for vundle
-
 
 " Specific settings -------------------------------------------------------{{{1
 source ~/.vim/vims/cscope_maps.vim
@@ -151,3 +187,7 @@ source ~/.vim/vims/cscope_maps.vim
 if filereadable(expand('~/.vimrc_local'))
   source ~/.vimrc_local
 endif
+
+
+" Enable all the plugins
+filetype plugin indent on

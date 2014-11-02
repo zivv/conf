@@ -6,8 +6,9 @@ alias v='vim'
 alias vd='vimdiff'
 alias s='source ~/.bashrc'
 alias g='git'
+alias tma='tmux attach'
 
-function fgr() {
+function fig() {
   find $1 | grep $2
 }
 
