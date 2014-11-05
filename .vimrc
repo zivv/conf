@@ -98,8 +98,8 @@ nm ;e :e
 " tab edit
 nm ;t :tabe 
 " switch between tabs
-nm <C-S-i> :tabp<CR>
-nm <C-S-o> :tabn<CR>
+nm ;i :tabp<CR>
+nm ;o :tabn<CR>
 
 " get out of insert mode
 ino jk <Esc>
@@ -141,7 +141,7 @@ Plugin 'honza/vim-snippets'
 " YCM -- code completion engine
 "     -- require vim 7.3.584+
 "   Install: `cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer`
-" TODO(ziv): can not work now
+" TODO(ziv): learn how to work with CMake
 if filereadable(expand('~/.at_google'))
   " Google-only
 else
@@ -156,10 +156,12 @@ endif
 " Global conf file, see YCM's own .ycm_extra_conf.py:
 "   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
 let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
+" Shortcuts for YCM commands
+" jump to definition or declaration
+nm <silent> z[ :YcmCompleter GoTo<CR>
 
 " fugitive -- a Git wrapper
 "   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
-" TODO(ziv): learn it.....
 Plugin 'tpope/vim-fugitive'
 
 " Not widely used

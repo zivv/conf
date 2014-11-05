@@ -1,4 +1,10 @@
 Configure Files
 ====
 
-Run `./set.sh` to configure it.
+Configure it:
+
+`./set.sh`
+
+If it is the first time:
+
+`echo '[[ -f ~/.bash_base ]] && . ~/.bash_base' >> ~/.bashrc`
