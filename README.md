@@ -1,10 +1,22 @@
 Configure Files
 ====
 
-Configure it:
+Include configure files for `bash, vim, git, tmux`.
 
-`./set.sh`
+Use the existence of file `~/.at_YOUR_PLACE` - checked by `set.sh` - to distinguish and configure different environment.
 
-If it is the first time:
+Note that `.XXX_local` which keeps local configurations is embedded by the default configure file.
 
-`echo '[[ -f ~/.bash_base ]] && . ~/.bash_base' >> ~/.bashrc`
+Run `./set.sh` to set it after each update.
+
+
+Set up
+----
+
+    cd conf/
+    ./set.sh
+
+    echo '[[ -f ~/.bash_base ]] && . ~/.bash_base' >> ~/.bashrc
+    source ~/.bashrc
+
+And then, read .vimrc to set up vim.
