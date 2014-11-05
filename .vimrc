@@ -1,9 +1,12 @@
 " set up steps:
 "   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 "   :PluginInstall
-"   git clone https://github.com/zivv/vim_snippets.git ~/.vim/snippets
+"   git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
-"   `vim -u NONE -c "helptags vim-fugitive/doc" -c q` to install fugitive
+" Install YouCompleteMe
+"   cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer
+" Install fugitive:
+"   vim -u NONE -c "helptags vim-fugitive/doc" -c q
 
 " Basic paths -------------------------------------------------------------{{{1
 if filereadable(expand('~/.vimrc_path'))
@@ -137,6 +140,7 @@ Plugin 'honza/vim-snippets'
 
 " YCM -- code completion engine
 "     -- require vim 7.3.584+
+"   Install: `cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer`
 " TODO(ziv): can not work now
 if filereadable(expand('~/.at_google'))
   " Google-only
@@ -149,9 +153,13 @@ endif
 "let g:ycm_key_list_select_completion = ['<Down>']
 " default is ['<S-TAB>', '<Up>']
 "let g:ycm_key_list_previous_completion = ['<Up>']
+" Global conf file, see YCM's own .ycm_extra_conf.py:
+"   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
+let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 
 " fugitive -- a Git wrapper
 "   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
+" TODO(ziv): learn it.....
 Plugin 'tpope/vim-fugitive'
 
 " Not widely used
@@ -180,7 +188,7 @@ nm <silent> ;wm :WMToggle<cr>
 
 
 " Specific settings -------------------------------------------------------{{{1
-source ~/.vim/vims/cscope_maps.vim
+source ~/.vim/files/cscope_maps.vim
 
 
 " Local settings ----------------------------------------------------------{{{1

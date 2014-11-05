@@ -5,8 +5,7 @@ cp .gitconfig ~/
 cp .gitignore_global ~/
 cp .tmux.conf ~/
 cp .vimrc ~/
-cp -r skeletons ~/.vim/
-cp -r vims ~/.vim/
+cp -r vim/* ~/.vim/
 
 if [ -f ~/.at_z_lenovo ]; then
   echo "at z_lenovo"
