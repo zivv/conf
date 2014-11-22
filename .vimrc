@@ -38,6 +38,10 @@ set ruler " show line number and column number in bottom right
 hi ExtraWhitespace ctermbg=darkgreen
 match ExtraWhitespace /\s\+$/
 
+" set different indent setting for certain file type
+au BufNewFile *.py set softtabstop=4 | set shiftwidth=4
+au FileType python set softtabstop=4 | set shiftwidth=4
+
 au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
 au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
 au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
@@ -50,7 +54,7 @@ nm <silent> ;p :set spell!<CR>
 set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 
 " easy to copy
-nm <silent> ;n :set rnu!<CR>:set nu!<CR>
+nm <silent> ;n :set rnu!<CR>
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
 " TODO(ziv): understand and update it
