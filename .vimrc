@@ -27,6 +27,7 @@ hi CursorLine cterm=none ctermbg=darkgrey
 set cursorcolumn
 hi CursorColumn cterm=none ctermbg=darkgrey
 
+set number " show line number
 set relativenumber " show relative line number
 
 set hlsearch " highlight when search
@@ -54,7 +55,7 @@ nm <silent> ;p :set spell!<CR>
 set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 
 " easy to copy
-nm <silent> ;n :set rnu!<CR>
+nm <silent> ;n :set rnu!<CR>:set nu!<CR>
 
 " switch between .h / -inl.h / .cc / .py / .js / _test.* / _unittest.*
 " TODO(ziv): understand and update it
