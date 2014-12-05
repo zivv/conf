@@ -4,9 +4,12 @@
 "   git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
 " Install YouCompleteMe
-"   cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer
-" Install fugitive:
-"   vim -u NONE -c "helptags vim-fugitive/doc" -c q
+"   Make sure cmake, gcc, g++ and python-dev are installed (if need clang)
+"     cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer
+" Install fugitive
+"     vim -u NONE -c "helptags vim-fugitive/doc" -c q
+" Install Taglist
+"   Make sure exuberant-ctags is installed
 
 " Basic paths -------------------------------------------------------------{{{1
 if filereadable(expand('~/.vimrc_path'))
@@ -19,6 +22,8 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+
+set textwidth=79
 
 syntax enable
 
@@ -124,11 +129,12 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins -----------------------------------------------------------------{{{2
 
-" scripts on GitHub repos
+" scripts on GitHub repos -----------------------------------------------------
 "   eg. Plugin 'gmarik/vundle' for http://github.com/gmarik/vundle
 
-" UltiSnips -- The ultimate solution for snippets in Vim
+" UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{3
 Plugin 'SirVer/ultisnips'
+
 " UltiSnips settings
 " default is <Tab>, better to be different with JumpForward key
 let g:UltiSnipsExpandTrigger = "<C-h>"
@@ -139,11 +145,11 @@ let g:UltiSnipsExpandTrigger = "<C-h>"
 " default is <C-k>
 "let g:UltiSnipsJumpBackwardTrigger = "<C-Tab>"
 
-" Snipmate & UltiSnip Snippets
+" Snipmate & UltiSnip Snippets -- for UltiSnips
 "   seems support <C-p>(or <Tab>) & <C-n> to choose trigger
 Plugin 'honza/vim-snippets'
 
-" YCM -- code completion engine
+" YCM -- code completion engine -------------------------------------------{{{3
 "     -- require vim 7.3.584+
 "   Install: `cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer`
 " TODO(ziv): learn how to work with CMake
@@ -153,6 +159,7 @@ else
   " Non-Google only
   Plugin 'Valloric/YouCompleteMe'
 endif
+
 " YCM settings
 " default is ['<TAB>', '<Down>']
 "let g:ycm_key_list_select_completion = ['<Down>']
@@ -161,36 +168,43 @@ endif
 " Global conf file, see YCM's own .ycm_extra_conf.py:
 "   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
 let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
+
 " Shortcuts for YCM commands
 " jump to definition or declaration
 nm <silent> z[ :YcmCompleter GoTo<CR>
 
-" fugitive -- a Git wrapper
+" fugitive -- a Git wrapper -----------------------------------------------{{{3
 "   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
 Plugin 'tpope/vim-fugitive'
+
+" Shortcuts for fugitive commands
+nm <silent> Gs :Gstatus<CR>
+nm <silent> Ga :Git add . -A<CR>
+nm <silent> Gl :Gpull<CR>
+nm <silent> Gu :Gpush<CR>
 
 " Not widely used
 " Plugin "derekwyatt/scala"
 " Plugin "digitaltoad/vim-jade"
 
-" scripts from http://vim-scripts.org/vim/scripts.html
+" scripts from http://vim-scripts.org/vim/scripts.html ------------------------
 "   eg. Plugin 'L9'
 
-" taglist.vim -- Source code browser
+" taglist.vim -- Source code browser --------------------------------------{{{3
 "             -- http://www.vim.org/scripts/script.php?script_id=273
 Plugin 'taglist.vim'
 
-" winmanager -- A windows style IDE for Vim 6.0
+" winmanager -- A windows style IDE for Vim 6.0 ---------------------------{{{3
 "            -- http://vim.sourceforge.net/scripts/script.php?script_id=95
 Plugin 'winmanager'
 " use <C-n> and <C-p> to switch between explorers in same group
 let g:winManagerWindowLayout='FileExplorer,TagList'
 nm <silent> ;wm :WMToggle<cr>
 
-" scripts not on GitHub
+" scripts not on GitHub -------------------------------------------------------
 "   eg. Plugin 'git://git.wincent.com/command-t.git'
 
-" git repos on your local machine (i.e. when working on your own plugin)
+" git repos on your local machine (i.e. when working on your own plugin) ------
 "   eg. Plugin 'file:///home/gmarik/path/to/plugin'
 
 
