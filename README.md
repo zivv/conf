@@ -17,14 +17,17 @@ Run following commands to put all configure files into right place(create file `
     cd conf/
     ./set.sh
 
-For bash
+For bash in Linux
 
-    echo '[[ -f ~/.bash_base ]] && . ~/.bash_base' >> ~/.bashrc
-    source ~/.bashrc
+    echo '[[ -f ~/.bash_base ]] && . ~/.bash_base' >> ~/.bashrc && source ~/.bashrc
+
+For bash in OSX
+
+    echo '[[ -f ~/.bash_base ]] && . ~/.bash_base' >> ~/.bash_profile && source ~/.bash_profile
 
 For tmux
 
-    Type `<C-b>:source ~/.tmux.conf<Enter>` when running tmux.
+    If not work, try `<C-b>:source ~/.tmux.conf<Enter>` when running tmux.
 
 For vim
 

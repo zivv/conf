@@ -40,6 +40,9 @@ hi Search cterm=none ctermfg=darkgrey ctermbg=yellow
 
 set ruler " show line number and column number in bottom right
 
+set encoding=utf-8
+set fileencodings=utf-8,gb2312 " gb2312 is windows' default encoding
+
 " show trailing whithspace
 hi ExtraWhitespace ctermbg=darkgreen
 match ExtraWhitespace /\s\+$/
@@ -182,6 +185,20 @@ nm <silent> Gs :Gstatus<CR>
 nm <silent> Ga :Git add . -A<CR>
 nm <silent> Gl :Gpull<CR>
 nm <silent> Gu :Gpush<CR>
+
+" Solarized -- Precision colors for machines and people -------------------{{{3
+"   Note that if need to add Solarized osx terminal profiles, see
+"     folder 'osx-terminal.app-colors-solarized'
+"     under 'https://github.com/altercation/solarized/'
+Plugin 'altercation/vim-colors-solarized'
+
+set background=dark
+" For mac, must set terminal as 'xterm-256color' in preference
+let g:solarized_termcolors=256
+colorscheme solarized
+
+" Required settings
+" dark or light background mode
 
 " Not widely used
 " Plugin "derekwyatt/scala"

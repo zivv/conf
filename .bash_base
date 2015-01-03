@@ -1,14 +1,16 @@
-# To add this to the config, run:
-# echo "[[ -f ~/.bash_base ]] && . ~/.bash_base" >> ~/.bashrc
+# To add this to the config,
+# if in Linux:
+#     echo "[[ -f ~/.bash_base ]] && . ~/.bash_base" >> ~/.bashrc
+# if in OSX:
+#     echo "[[ -f ~/.bash_base ]] && . ~/.bash_base" >> ~/.bash_profile
 
 # Use 'unalias' to cancle
 alias v='vim'
 alias vd='vimdiff'
-alias s='source ~/.bashrc'
 alias g='git'
 alias tma='tmux attach'
 
-function fig() {
+function figr() {
   find $1 | grep $2
 }
 
