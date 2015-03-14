@@ -10,6 +10,12 @@
 "     vim -u NONE -c "helptags vim-fugitive/doc" -c q
 " Install Taglist
 "   Make sure exuberant-ctags is installed
+"
+" Notes:
+"   for Definition/Reference jump:
+"     exuberant-ctags & cscope & quickfix & YouCompleteMe & winmanager
+"     commands like: C-] C-t <C-\>s [w z]
+"     See 'conf/vim/files/cscope_maps.vim' for commands of cscope.
 
 " Basic paths -------------------------------------------------------------{{{1
 if filereadable(expand('~/.vimrc_path'))
@@ -174,7 +180,7 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 
 " Shortcuts for YCM commands
 " jump to definition or declaration
-nm <silent> z[ :YcmCompleter GoTo<CR>
+nm <silent> z] :YcmCompleter GoTo<CR>
 
 " fugitive -- a Git wrapper -----------------------------------------------{{{3
 "   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
