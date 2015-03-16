@@ -16,4 +16,5 @@ fi
 if [ -f ~/.at_z_mac ]; then
   echo "at z_mac"
   cp z_mac.bash_local ~/.bash_local
+  cp z_mac.vimrc_local ~/.vimrc_local
 fi

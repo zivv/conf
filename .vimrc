@@ -27,25 +27,13 @@ set textwidth=79
 
 syntax enable
 
-set cursorline
-hi CursorLine cterm=none ctermbg=darkgrey
-set cursorcolumn
-hi CursorColumn cterm=none ctermbg=darkgrey
-
 set number " show line number
 set relativenumber " show relative line number
-
-set hlsearch " highlight when search
-hi Search cterm=none ctermfg=darkgrey ctermbg=yellow
 
 set ruler " show line number and column number in bottom right
 
 set encoding=utf-8
 set fileencodings=utf-8,gb2312 " gb2312 is windows' default encoding
-
-" show trailing whithspace
-hi ExtraWhitespace ctermbg=darkgreen
-match ExtraWhitespace /\s\+$/
 
 " set different indent setting for certain file type
 au BufNewFile *.py set softtabstop=4 | set shiftwidth=4
@@ -196,6 +184,19 @@ set background=dark
 " For mac, must set terminal as 'xterm-256color' in preference
 let g:solarized_termcolors=256
 colorscheme solarized
+
+" Basic color settings --------------------------------------------------------
+set cursorline
+hi CursorLine cterm=none ctermbg=235
+set cursorcolumn
+hi CursorColumn cterm=none ctermbg=235
+
+set hlsearch " highlight when search
+hi Search cterm=none ctermfg=grey ctermbg=darkyellow
+
+" show trailing whithspace
+hi ExtraWhitespace ctermbg=darkgreen
+match ExtraWhitespace /\s\+$/
 
 " Required settings
 " dark or light background mode
