@@ -1,10 +1,18 @@
 #!/bin/bash
 
-cp .bash_base ~/
-cp .gitconfig ~/
-cp .gitignore_global ~/
-cp .tmux.conf ~/
-cp .vimrc ~/
+files=(
+".bash_base"
+".tmux.conf"
+".vimrc"
+".gitconfig" ".gitignore_global"
+".mongorc.js"
+)
+
+for file in ${files[@]}
+do
+  cp $file ~/
+done
+
 cp -r vim/* ~/.vim/
 
 if [ -f ~/.at_z_lenovo ]; then
