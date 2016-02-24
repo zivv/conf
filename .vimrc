@@ -1,11 +1,12 @@
-" Set up steps:
+" Set up steps ------------------------------------------------------------{{{1
 "   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 "   :PluginInstall
 "   git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
 " Install YouCompleteMe
 "   Make sure cmake, gcc, g++ and python-dev are installed (if need clang)
-"     cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer --gocode-completer
+"     cd ~/.vim/bundle/YouCompleteMe
+"     ./install.sh --clang-completer --gocode-completer
 " Install different formatprograms for vim-autoformat
 "   See https://github.com/Chiel92/vim-autoformat, or README.md
 " Install vim-go
@@ -15,7 +16,7 @@
 " Install Taglist
 "   Make sure exuberant-ctags is installed
 "
-" Notes:
+" Notes -------------------------------------------------------------------{{{1
 "   for Definition/Reference jump:
 "     exuberant-ctags & cscope & quickfix & YouCompleteMe & winmanager
 "     commands like: C-] C-t <C-\>s [w z;
@@ -41,13 +42,15 @@ set textwidth=80
 
 syntax enable
 
-set number " show line number
-set relativenumber " show relative line number
+set number  " show line number
+set relativenumber  " show relative line number
 
-set ruler " show line number and column number in bottom right
+set ruler  " show line number and column number in bottom right
 
 set encoding=utf-8
-set fileencodings=utf-8,gb2312 " gb2312 is windows' default encoding
+set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
+
+set foldmethod=marker  " autofold by marker {{{ and }}}
 
 " set different indent setting for certain file type
 aug SpecialIndent
@@ -80,17 +83,17 @@ nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 
 " switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
 let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
-nn ,c<space> :fin <C-R>=substitute(expand("%"), pat, ".c", "")<CR><CR>
-nn ,cc :fin <C-R>=substitute(expand("%"), pat, ".cc", "")<CR><CR>
-nn ,cp :fin <C-R>=substitute(expand("%"), pat, ".cpp", "")<CR><CR>
-nn ,h  :fin <C-R>=substitute(expand("%"), pat, ".h", "")<CR><CR>
-nn ,i  :fin <C-R>=substitute(expand("%"), pat, "-inl.h", "")<CR><CR>
-nn ,t  :fin <C-R>=substitute(expand("%"), pat, "_test.", "").
-                 \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn ,u  :fin <C-R>=substitute(expand("%"), pat, "_unittest.", "").
-                 \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn ,p  :e <C-R>=substitute(expand("%"), pat, ".py", "")<CR><CR>
-nn ,j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
+nn <space>c<space> :fin <C-R>=substitute(expand("%"), pat, ".c", "")<CR><CR>
+nn <space>cc :fin <C-R>=substitute(expand("%"), pat, ".cc", "")<CR><CR>
+nn <space>cp :fin <C-R>=substitute(expand("%"), pat, ".cpp", "")<CR><CR>
+nn <space>h  :fin <C-R>=substitute(expand("%"), pat, ".h", "")<CR><CR>
+nn <space>i  :fin <C-R>=substitute(expand("%"), pat, "-inl.h", "")<CR><CR>
+nn <space>t  :fin <C-R>=substitute(expand("%"), pat, "_test.", "").
+      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nn <space>u  :fin <C-R>=substitute(expand("%"), pat, "_unittest.", "").
+      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nn <space>p  :e <C-R>=substitute(expand("%"), pat, ".py", "")<CR><CR>
+nn <space>j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
 
 " move to column 80
 nn ;80 079l
@@ -112,11 +115,11 @@ nn <silent> \ ;
 nn <silent> <bar> ,
 
 " quit all files without saving
-nn <silent> ;aq :qa!<CR>
+nn <silent> ;qa :qa!<CR>
 " quit current file without saving
-nn <silent> ;q :q!<CR>
+nn <silent> ;qq :q!<CR>
 " close all windows but current without saving
-nn <silent> ;oq :only!<CR>
+nn <silent> ;qo :only!<CR>
 " saving
 nn ;w :w<CR>
 " forced saving
@@ -145,8 +148,16 @@ call vundle#rc()
 Plugin 'gmarik/Vundle.vim'
 
 
-" scripts on GitHub repos -----------------------------------------------------
-"   eg. Plugin 'gmarik/vundle' for http://github.com/gmarik/vundle
+" Examples of adding scripts from different repos
+"   scripts on GitHub repos
+"     eg. Plugin 'gmarik/vundle' for http://github.com/gmarik/vundle
+"   scripts from http://vim-scripts.org/vim/scripts.html
+"     eg. Plugin 'L9'
+"   scripts not on GitHub
+"     eg. Plugin 'git://git.wincent.com/command-t.git'
+"   git repos on your local machine (i.e. when working on your own plugin)
+"     eg. Plugin 'file:///home/gmarik/path/to/plugin'
+
 
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
 Plugin 'SirVer/ultisnips'
@@ -168,7 +179,9 @@ Plugin 'honza/vim-snippets'
 
 " YCM -- code completion engine -------------------------------------------{{{2
 "     -- require vim 7.3.584+
-"   Install: `cd ~/.vim/bundle/YouCompleteMe && ./install.sh --clang-completer --gocode-completer`
+"   Install:
+"     cd ~/.vim/bundle/YouCompleteMe
+"     ./install.sh --clang-completer --gocode-completer
 if filereadable(expand('~/.at_google'))
   " Google-only
 else
@@ -203,15 +216,26 @@ nn <silent> <F5> :YcmForceCompileAndDiagnostics<CR>
 Plugin 'Chiel92/vim-autoformat'
 
 " vim-autoformat settings
+" only change the style option to Google
+" default style is a complex dict, see vim-autoformat/plugin/defaults.vim
+let g:formatdef_clangformat = "'clang-format ".
+      \"-lines='.a:firstline.':'.a:lastline.' ".
+      \"--assume-filename='.bufname('%').' -style=google'"
 " default style is 'ansi'
-let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google --indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google -pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google -pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_java = '"astyle --mode=java --style=google -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
+      \'--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
+      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
+      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
+      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 
 " Shortcuts for vim-autoformat commands
 " for Normal, Visual, Select, Operator-pending modes
 map <silent> <C-j> :Autoformat<CR>
+
+Plugin 'scrooloose/nerdcommenter'
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
@@ -280,7 +304,8 @@ set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 
-" Basic color settings --------------------------------------------------------
+
+" Basic color settings ----------------------------------------------------{{{2
 set cursorline
 hi CursorLine cterm=none ctermbg=235
 set cursorcolumn
@@ -297,9 +322,18 @@ match TrailingWhitespace /\s\+$/
 hi TODOs ctermfg=white ctermbg=darkgreen
 2match TODOs /TODO:\|TODO(.*):/
 
+" Google-logo \o/
+hi default googleBlue ctermfg=blue guifg=blue
+hi default googleRed ctermfg=red guifg=red
+hi default googleYellow ctermfg=yellow guifg=yellow
+hi default googleGreen ctermfg=green guifg=green
+syntax match googleBlue /[Gg]\(oogle\)\@=/ containedin=ALL display
+syntax match googleRed /\([Gg]\)\@<=o\(ogle\)\@=/ containedin=ALL display
+syntax match googleYellow /\([Gg]o\)\@<=o\(gle\)\@=/ containedin=ALL display
+syntax match googleBlue /\([Gg]oo\)\@<=g\(le\)\@=/ containedin=ALL display
+syntax match googleGreen /\([Gg]oog\)\@<=l\(e\)\@=/ containedin=ALL display
+syntax match googleRed /\([Gg]oogl\)\@<=e/ containedin=ALL display
 
-" scripts from http://vim-scripts.org/vim/scripts.html ------------------------
-"   eg. Plugin 'L9'
 
 " taglist.vim -- Source code browser --------------------------------------{{{2
 "             -- http://www.vim.org/scripts/script.php?script_id=273
@@ -312,14 +346,6 @@ Plugin 'winmanager'
 " use <C-n> and <C-p> to switch between explorers in same group
 let g:winManagerWindowLayout='FileExplorer,TagList'
 nn <silent> ;wm :WMToggle<cr>
-
-
-" scripts not on GitHub -------------------------------------------------------
-"   eg. Plugin 'git://git.wincent.com/command-t.git'
-
-
-" git repos on your local machine (i.e. when working on your own plugin) ------
-"   eg. Plugin 'file:///home/gmarik/path/to/plugin'
 
 
 " Specific settings -------------------------------------------------------{{{1
