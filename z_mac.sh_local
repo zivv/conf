@@ -1,5 +1,11 @@
-alias s='source ~/.bash_profile'
+BASH_FILE='$HOME/.bash_profile'
 
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+
+# For a colorful `ls` command
 # need to run following commands first:
 #   brew install coreutils
 #   gdircolors --print-database > ~/.dir_colors
@@ -9,9 +15,4 @@ if brew list | grep coreutils > /dev/null ; then
   eval `gdircolors -b $HOME/.dir_colors`
 fi
 
-alias l='ls'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-
-export GOPATH='/Users/z/dev/goz'
+GOPATH='$HOME/dev/goz'

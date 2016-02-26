@@ -1,0 +1,4 @@
+alias s='source ~/.zshrc'
+
+# Uncomment it if usnig Powerline instead of oh-my-zsh
+# . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh

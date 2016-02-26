@@ -3,7 +3,7 @@
 # update files by last modification time
 
 files=(
-".bash_base"
+".sh_base" ".bash_local" ".zsh_local"
 ".tmux.conf"
 ".vimrc"
 ".gitconfig" ".gitignore_global"
@@ -17,17 +17,24 @@ locas=(
 )
 
 z_lenovo=(
-".bash_local"
+".sh_local"
 ".vimrc_path"
 )
 
 z_mac=(
-".bash_local"
-".vimrc_local"
+".sh_local"
 )
 
 diff_time() {
-  echo $(( $(stat -c %Y $1) - $(stat -c %Y $2) ))
+  if [[ ! -f $1 ]]; then
+    echo '0'
+  else
+    if [[ ! -f $2 ]]; then
+      echo '1'
+    else
+      echo $(( $(stat -c %Y $1) - $(stat -c %Y $2) ))
+    fi
+  fi
 }
 
 for file in ${files[@]}

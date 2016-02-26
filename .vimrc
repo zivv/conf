@@ -52,6 +52,17 @@ set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
 set foldmethod=marker  " autofold by marker {{{ and }}}
 
+" For Powerline
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+" Always display the statusline in all windows
+set laststatus=2
+" Always display the tabline, even if there is only one tab
+set showtabline=2
+" Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set noshowmode
+
 " set different indent setting for certain file type
 aug SpecialIndent
   au!

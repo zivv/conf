@@ -1,0 +1,29 @@
+# Set up steps
+#
+# if in OSX:
+#   brew install coreutils
+#
+# if using zsh:
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc
+# if using bash in Linux:
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc
+# if using bash in OSX:
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile
+
+# Use 'unalias' to cancle
+alias v='vim'
+alias vd='vimdiff'
+alias g='git'
+alias tma='tmux attach'
+alias nb='jupyter notebook > /dev/null 2>&1 &'
+alias knb='pkill -f notebook'
+
+LC_CTYPE='en_US.UTF-8'
+
+POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')
+
+# enviroment special
+[[ -f ~/.sh_local ]] && . ~/.sh_local
+# shell special
+[[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
+[[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local

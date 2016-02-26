@@ -23,6 +23,7 @@
   mg = merge
   rh = reset --hard
   lf = ls-files
+  a = add
 
   ps = push
   pso = push origin
