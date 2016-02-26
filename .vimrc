@@ -272,25 +272,29 @@ hi CursorColumn cterm=none ctermbg=235
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
-" show trailing whithspace
-hi TrailingWhitespace ctermbg=darkgreen
-syntax match TrailingWhitespace /\s\+$/
+" new syntax highlight rules
+aug NewSyntaxHighlight
+  au!
+  " show trailing whithspace
+  hi TrailingWhitespace ctermbg=darkgreen
+  au Syntax * syn match TrailingWhitespace /\s\+$/
 
-" highlight TODO
-hi TODOs ctermfg=white ctermbg=darkgreen
-syntax match TODOs /TODO:\|TODO(.*):/
+  " highlight TODO
+  hi TODOs ctermfg=white ctermbg=darkgreen
+  au Syntax * syn match TODOs /TODO:\|TODO(.*):/
 
-" Google-logo \o/
-hi googleBlue ctermfg=27 guifg=27
-hi googleRed ctermfg=160 guifg=160
-hi googleYellow ctermfg=214 guifg=214
-hi googleGreen ctermfg=34 guifg=34
-syntax match googleBlue /[Gg]\(oogle\)\@=/ containedin=ALL display
-syntax match googleRed /\([Gg]\)\@<=o\(ogle\)\@=/ containedin=ALL display
-syntax match googleYellow /\([Gg]o\)\@<=o\(gle\)\@=/ containedin=ALL display
-syntax match googleBlue /\([Gg]oo\)\@<=g\(le\)\@=/ containedin=ALL display
-syntax match googleGreen /\([Gg]oog\)\@<=l\(e\)\@=/ containedin=ALL display
-syntax match googleRed /\([Gg]oogl\)\@<=e/ containedin=ALL display
+  " Google-logo \o/
+  hi googleBlue ctermfg=27 guifg=27
+  hi googleRed ctermfg=160 guifg=160
+  hi googleYellow ctermfg=214 guifg=214
+  hi googleGreen ctermfg=34 guifg=34
+  au Syntax * syn match googleBlue /[Gg]\(oogle\)\@=/
+  au Syntax * syn match googleRed /\([Gg]\)\@<=o\(ogle\)\@=/ 
+  au Syntax * syn match googleYellow /\([Gg]o\)\@<=o\(gle\)\@=/ 
+  au Syntax * syn match googleBlue /\([Gg]oo\)\@<=g\(le\)\@=/ 
+  au Syntax * syn match googleGreen /\([Gg]oog\)\@<=l\(e\)\@=/ 
+  au Syntax * syn match googleRed /\([Gg]oogl\)\@<=e/ 
+aug END
 
 
 " Custom commands ---------------------------------------------------{{{1

@@ -27,5 +27,10 @@ ZSH_TMUX_AUTOSTART=true
 # color of autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue'
 
+alias gdh='g dh'
+alias gdc='g dc'
+alias ga.='g a .'
+alias gco-='g co --'
+
 # Uncomment it if usnig Powerline instead of oh-my-zsh
 # . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh
