@@ -27,124 +27,12 @@
 "     so you can use CTRL-O to jump back to where you where before invoking
 "     the command (and CTRL-I to jump forward; see :h jumplist for details).
 
-" Basic paths -------------------------------------------------------------{{{1
-if filereadable(expand('~/.vimrc_path'))
-  source ~/.vimrc_path
+" Basic path and setting -------------------------------------------------------------{{{1
+if filereadable(expand('~/.vim_path'))
+  source ~/.vim_path
 endif
 
-
-" Basic settings ----------------------------------------------------------{{{1
-set tabstop=8
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set textwidth=80
-
 syntax enable
-
-set number  " show line number
-set relativenumber  " show relative line number
-
-set ruler  " show line number and column number in bottom right
-
-set encoding=utf-8
-set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
-
-set foldmethod=marker  " autofold by marker {{{ and }}}
-
-" For Powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-" Always display the statusline in all windows
-set laststatus=2
-" Always display the tabline, even if there is only one tab
-set showtabline=2
-" Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set noshowmode
-
-" set different indent setting for certain file type
-aug SpecialIndent
-  au!
-  au BufNewFile *.py set softtabstop=4 | set shiftwidth=4
-  au FileType python set softtabstop=4 | set shiftwidth=4
-aug END
-
-" skeleton files
-aug SkeletonFiles
-  au!
-  au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
-  au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
-  au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
-aug END
-
-
-" Basic custom commands ---------------------------------------------------{{{1
-"   Note before adding new mappings, try `:verbose map <key>` to check it
-
-" easy to close highlighting after searching
-nn <silent> ;h :nohl<CR>
-
-" easy to open or close spell check
-nn <silent> ;p :set spell!<CR>
-set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
-
-" easy to copy
-nn <silent> ;n :set rnu!<CR>:set nu!<CR>
-
-" switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
-let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
-nn <space>c<space> :fin <C-R>=substitute(expand("%"), pat, ".c", "")<CR><CR>
-nn <space>cc :fin <C-R>=substitute(expand("%"), pat, ".cc", "")<CR><CR>
-nn <space>cp :fin <C-R>=substitute(expand("%"), pat, ".cpp", "")<CR><CR>
-nn <space>h  :fin <C-R>=substitute(expand("%"), pat, ".h", "")<CR><CR>
-nn <space>i  :fin <C-R>=substitute(expand("%"), pat, "-inl.h", "")<CR><CR>
-nn <space>t  :fin <C-R>=substitute(expand("%"), pat, "_test.", "").
-      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>u  :fin <C-R>=substitute(expand("%"), pat, "_unittest.", "").
-      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>p  :e <C-R>=substitute(expand("%"), pat, ".py", "")<CR><CR>
-nn <space>j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
-
-" move to column 80
-nn ;80 079l
-
-" for window size
-nn [r :resize 
-nn [v :vert resize 
-
-" specific for quickfix window
-nn <silent> [w :cw<CR>
-nn <silent> [n :cn<CR>
-nn <silent> [p :cp<CR>
-
-" just avoid plugins' mapping with default key \
-let mapleader = ","
-" keep the default behavior of key ; to other key
-nn <silent> \ ;
-" convenient use of pair \ and |
-nn <silent> <bar> ,
-
-" quit all files without saving
-nn <silent> ;qa :qa!<CR>
-" quit current file without saving
-nn <silent> ;qq :q!<CR>
-" close all windows but current without saving
-nn <silent> ;qo :only!<CR>
-" saving
-nn ;w :w<CR>
-" forced saving
-nn ;fw :w!<CR>
-" edit
-nn ;e :e 
-" tab edit
-nn ;t :tabe 
-" switch between tabs
-nn ;i :tabp<CR>
-nn ;o :tabn<CR>
-
-" get out of insert mode
-ino jk <Esc>
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
@@ -316,6 +204,65 @@ let g:solarized_termcolors=256
 colorscheme solarized
 
 
+" taglist.vim -- Source code browser --------------------------------------{{{2
+"             -- http://www.vim.org/scripts/script.php?script_id=273
+Plugin 'taglist.vim'
+
+
+" winmanager -- A windows style IDE for Vim 6.0 ---------------------------{{{2
+"            -- http://vim.sourceforge.net/scripts/script.php?script_id=95
+Plugin 'winmanager'
+" use <C-n> and <C-p> to switch between explorers in same group
+let g:winManagerWindowLayout='FileExplorer,TagList'
+nn <silent> ;wm :WMToggle<cr>
+
+
+" Settings ----------------------------------------------------------{{{1
+set tabstop=8
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set textwidth=80
+
+set number  " show line number
+set relativenumber  " show relative line number
+
+set ruler  " show line number and column number in bottom right
+
+set encoding=utf-8
+set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
+
+set foldmethod=marker  " autofold by marker {{{ and }}}
+
+" set different indent setting for certain file type
+aug SpecialIndent
+  au!
+  au BufNewFile *.py set softtabstop=4 | set shiftwidth=4
+  au FileType python set softtabstop=4 | set shiftwidth=4
+aug END
+
+" skeleton files
+aug SkeletonFiles
+  au!
+  au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
+  au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
+  au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
+aug END
+
+source ~/.vim/files/cscope_maps.vim
+
+" Powerline ---------------------------------------------------------------{{{2
+"   https://powerline.readthedocs.org/en/master/usage/other.html#vim-statusline
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+" Always display the statusline in all windows
+set laststatus=2
+" Always display the tabline, even if there is only one tab
+set showtabline=2
+" Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set noshowmode
+
 " Basic color settings ----------------------------------------------------{{{2
 set cursorline
 hi CursorLine cterm=none ctermbg=235
@@ -346,26 +293,77 @@ syntax match googleGreen /\([Gg]oog\)\@<=l\(e\)\@=/ containedin=ALL display
 syntax match googleRed /\([Gg]oogl\)\@<=e/ containedin=ALL display
 
 
-" taglist.vim -- Source code browser --------------------------------------{{{2
-"             -- http://www.vim.org/scripts/script.php?script_id=273
-Plugin 'taglist.vim'
+" Custom commands ---------------------------------------------------{{{1
+"   Note before adding new mappings, try `:verbose map <key>` to check it
 
+" easy to close highlighting after searching
+nn <silent> ;h :nohl<CR>
 
-" winmanager -- A windows style IDE for Vim 6.0 ---------------------------{{{2
-"            -- http://vim.sourceforge.net/scripts/script.php?script_id=95
-Plugin 'winmanager'
-" use <C-n> and <C-p> to switch between explorers in same group
-let g:winManagerWindowLayout='FileExplorer,TagList'
-nn <silent> ;wm :WMToggle<cr>
+" easy to open or close spell check
+nn <silent> ;p :set spell!<CR>
+set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
 
+" easy to copy
+nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 
-" Specific settings -------------------------------------------------------{{{1
-source ~/.vim/files/cscope_maps.vim
+" switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
+let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
+nn <space>c<space> :fin <C-R>=substitute(expand("%"), pat, ".c", "")<CR><CR>
+nn <space>cc :fin <C-R>=substitute(expand("%"), pat, ".cc", "")<CR><CR>
+nn <space>cp :fin <C-R>=substitute(expand("%"), pat, ".cpp", "")<CR><CR>
+nn <space>h  :fin <C-R>=substitute(expand("%"), pat, ".h", "")<CR><CR>
+nn <space>i  :fin <C-R>=substitute(expand("%"), pat, "-inl.h", "")<CR><CR>
+nn <space>t  :fin <C-R>=substitute(expand("%"), pat, "_test.", "").
+      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nn <space>u  :fin <C-R>=substitute(expand("%"), pat, "_unittest.", "").
+      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nn <space>p  :e <C-R>=substitute(expand("%"), pat, ".py", "")<CR><CR>
+nn <space>j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
+
+" move to column 80
+nn ;80 079l
+
+" for window size
+nn [r :resize 
+nn [v :vert resize 
+
+" specific for quickfix window
+nn <silent> [w :cw<CR>
+nn <silent> [n :cn<CR>
+nn <silent> [p :cp<CR>
+
+" just avoid plugins' mapping with default key \
+let mapleader = ","
+" keep the default behavior of key ; to other key
+nn <silent> \ ;
+" convenient use of pair \ and |
+nn <silent> <bar> ,
+
+" quit all files without saving
+nn <silent> ;qa :qa!<CR>
+" quit current file without saving
+nn <silent> ;qq :q!<CR>
+" close all windows but current without saving
+nn <silent> ;qo :only!<CR>
+" saving
+nn ;w :w<CR>
+" forced saving
+nn ;fw :w!<CR>
+" edit
+nn ;e :e 
+" tab edit
+nn ;t :tabe 
+" switch between tabs
+nn ;i :tabp<CR>
+nn ;o :tabn<CR>
+
+" get out of insert mode
+ino jk <Esc>
 
 
 " Local settings ----------------------------------------------------------{{{1
-if filereadable(expand('~/.vimrc_local'))
-  source ~/.vimrc_local
+if filereadable(expand('~/.vim_local'))
+  source ~/.vim_local
 endif
 
 

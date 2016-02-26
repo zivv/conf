@@ -18,7 +18,7 @@ locas=(
 
 z_lenovo=(
 ".sh_local"
-".vimrc_path"
+".vim_path"
 )
 
 z_mac=(

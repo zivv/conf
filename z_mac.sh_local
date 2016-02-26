@@ -16,3 +16,14 @@ if brew list | grep coreutils > /dev/null ; then
 fi
 
 GOPATH='$HOME/dev/goz'
+
+# Usage of osx
+#   tab           open the current directory in a new tab
+#   pfd           return the path of the frontmost Finder window
+#   pfs           return the current Finder selection
+#   cdf           cd to the current Finder directory
+#   pushdf        pushd to the current Finder directory
+#   quick-look    quick Look a specified file
+#   man-preview   open a specified man page in Preview
+#   itunes        iTunes control function, see `itunes -h` for usage
+ZSH_PLUGINS='osx'
