@@ -263,7 +263,7 @@ set showtabline=2
 " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set noshowmode
 
-" Basic color settings ----------------------------------------------------{{{2
+" Color settings ----------------------------------------------------{{{2
 set cursorline
 hi CursorLine cterm=none ctermbg=235
 set cursorcolumn
@@ -274,17 +274,17 @@ hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
 " show trailing whithspace
 hi TrailingWhitespace ctermbg=darkgreen
-match TrailingWhitespace /\s\+$/
+syntax match TrailingWhitespace /\s\+$/
 
 " highlight TODO
 hi TODOs ctermfg=white ctermbg=darkgreen
-2match TODOs /TODO:\|TODO(.*):/
+syntax match TODOs /TODO:\|TODO(.*):/
 
 " Google-logo \o/
-hi default googleBlue ctermfg=blue guifg=blue
-hi default googleRed ctermfg=red guifg=red
-hi default googleYellow ctermfg=yellow guifg=yellow
-hi default googleGreen ctermfg=green guifg=green
+hi googleBlue ctermfg=27 guifg=27
+hi googleRed ctermfg=160 guifg=160
+hi googleYellow ctermfg=214 guifg=214
+hi googleGreen ctermfg=34 guifg=34
 syntax match googleBlue /[Gg]\(oogle\)\@=/ containedin=ALL display
 syntax match googleRed /\([Gg]\)\@<=o\(ogle\)\@=/ containedin=ALL display
 syntax match googleYellow /\([Gg]o\)\@<=o\(gle\)\@=/ containedin=ALL display
