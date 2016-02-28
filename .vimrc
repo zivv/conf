@@ -6,15 +6,14 @@
 " Install YouCompleteMe
 "   Make sure cmake, gcc, g++ and python-dev are installed (if need clang)
 "     cd ~/.vim/bundle/YouCompleteMe
-"     ./install.sh --clang-completer --gocode-completer
+"     ./install.py --clang-completer --gocode-completer
 " Install different formatprograms for vim-autoformat
 "   See https://github.com/Chiel92/vim-autoformat, or README.md
 " Install vim-go
 "     vim -c "GoInstallBinaries" -c q
-" Install fugitive
-"     vim -u NONE -c "helptags vim-fugitive/doc" -c q
 " Install Taglist
 "   Make sure exuberant-ctags is installed
+"
 "
 " Notes -------------------------------------------------------------------{{{1
 "   for Definition/Reference jump:
@@ -27,7 +26,8 @@
 "     so you can use CTRL-O to jump back to where you where before invoking
 "     the command (and CTRL-I to jump forward; see :h jumplist for details).
 
-" Basic path and setting -------------------------------------------------------------{{{1
+
+" Basic path and setting --------------------------------------------------{{{1
 if filereadable(expand('~/.vim_path'))
   source ~/.vim_path
 endif
@@ -134,12 +134,38 @@ let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
 " for Normal, Visual, Select, Operator-pending modes
 map <silent> <C-j> :Autoformat<CR>
 
+
+" nerdcommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
+"   most frequent keys to me are: `,cl` `,cu`
 Plugin 'scrooloose/nerdcommenter'
+
+" nerdcommenter settings
+let g:NERDBlockComIgnoreEmpty = 0
+let g:NERDCommentWholeLinesInVMode = 1
+let g:NERDSpaceDelims = 1
+" default python-left is '# '
+let g:NERDCustomDelimiters = {
+      \ 'python': { 'left': '#' },
+      \ }
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
 "   Install: `vim -c "GoInstallBinaries" -c q`
 Plugin 'fatih/vim-go'
+
+" vim-go settings
+" By default when :GoInstallBinaries is called,
+" the binaries are installed to $GOBIN or $GOPATH/bin. To change it:
+let g:go_bin_path = expand("~/.gotools")
+" By default syntax-highlighting for Functions, Methods and Structs is
+" disabled. To change it:
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" Enable goimports to automatically insert import paths instead of gofmt:
+let g:go_fmt_command = "goimports"
 
 " Shortcuts for vim-go commands
 aug GoShortcuts
@@ -161,25 +187,12 @@ aug GoShortcuts
   au FileType go nn ge <Plug>(go-rename)
 aug END
 
-" vim-go settings
-" By default when :GoInstallBinaries is called,
-" the binaries are installed to $GOBIN or $GOPATH/bin. To change it:
-let g:go_bin_path = expand("~/.gotools")
-" By default syntax-highlighting for Functions, Methods and Structs is
-" disabled. To change it:
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-" Enable goimports to automatically insert import paths instead of gofmt:
-let g:go_fmt_command = "goimports"
 
+" {{{2
 Plugin 'majutsushi/tagbar'
 
 
 " fugitive -- a Git wrapper -----------------------------------------------{{{2
-"   Install: `vim -u NONE -c "helptags vim-fugitive/doc" -c q`
 Plugin 'tpope/vim-fugitive'
 
 " Shortcuts for fugitive commands
@@ -217,7 +230,7 @@ let g:winManagerWindowLayout='FileExplorer,TagList'
 nn <silent> ;wm :WMToggle<cr>
 
 
-" Settings ----------------------------------------------------------{{{1
+" Settings ----------------------------------------------------------------{{{1
 set tabstop=8
 set shiftwidth=2
 set softtabstop=2
@@ -252,7 +265,7 @@ aug END
 source ~/.vim/files/cscope_maps.vim
 
 " Powerline ---------------------------------------------------------------{{{2
-"   https://powerline.readthedocs.org/en/master/usage/other.html#vim-statusline
+"   https://powerline.readthedocs.org/en/master/usage/other.html
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
@@ -276,11 +289,11 @@ hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 aug NewSyntaxHighlight
   au!
   " show trailing whithspace
-  hi TrailingWhitespace ctermbg=darkgreen
+  hi TrailingWhitespace ctermbg=22
   au Syntax * syn match TrailingWhitespace /\s\+$/
 
   " highlight TODO
-  hi TODOs ctermfg=white ctermbg=darkgreen
+  hi TODOs ctermfg=white ctermbg=33
   au Syntax * syn match TODOs /TODO:\|TODO(.*):/
 
   " Google-logo \o/
@@ -328,8 +341,8 @@ nn <space>j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
 nn ;80 079l
 
 " for window size
-nn [r :resize 
-nn [v :vert resize 
+nn <silent> [r :resize +5<CR>
+nn <silent> [v :vert resize +5<CR>
 
 " specific for quickfix window
 nn <silent> [w :cw<CR>
@@ -360,9 +373,14 @@ nn ;t :tabe
 " switch between tabs
 nn ;i :tabp<CR>
 nn ;o :tabn<CR>
+" switch between windows
+nn ;u <C-W><C-W>
 
 " get out of insert mode
 ino jk <Esc>
+
+" delete trailing whithspace
+nn <silent> ds :%s#\s\+$##g<CR>
 
 
 " Local settings ----------------------------------------------------------{{{1

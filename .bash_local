@@ -1,12 +1,15 @@
 alias s='source $BASH_FILE'
 
+alias ~='cd ~'
 alias ..='cd ..'
 alias ...='.. && ..'
 alias ....='... && ..'
 
 alias gst='g st'
-alias gdh='g dh'
+alias gd='g d'
 alias gdc='g dc'
+alias gdh='g dh'
+alias gdt='g dt'
 alias ga='g a'
 alias ga.='g a .'
 alias gco-='g co --'

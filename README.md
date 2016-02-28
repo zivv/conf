@@ -12,10 +12,6 @@ Pip installation
 
     pip install powerline-status
 
-Find {powerline\_repository\_root} directory by using
-
-    pip show powerline-status
-
 The following steps are already done in conf files. :)
 
 Or find documentation [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up shell prompts and [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins(include vim, tmux, ipython, etc).
@@ -26,13 +22,37 @@ TODO(ziv): Powerline with tmux is not working and the doc is not good enough to 
 
 Download [zip](https://github.com/powerline/fonts/archive/master.zip) and run `./install.sh` to install all Powerline Fonts or see the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
 
+In OSX, set terminal(Terminal or iTerm) to use powerline fonts.
+
+### [trash-cli](https://github.com/andreafrancia/trash-cli)
+
+Command Line Interface to FreeDesktop.org Trash.
+
+It provides these commands:
+
+    trash-put           trashes files and directories.
+    trash-empty         empty the trashcan(s).
+    trash-list          list trashed file.
+    trash-restore       restore a trashed file.
+    trash-rm            remove individual files from trash can.
+
+Installation
+
+    easy_install trash-cli
+
+### OSX
+
+    brew install bash-completion coreutils
+
+GNU dircolors for `ls`
+
+    git clone https://github.com/seebi/dircolors-solarized.git && cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
+
 ## Set up
 
 First of all, run following commands to put all configure files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)).
 
-    git clone https://github.com/zivv/conf
-    cd conf/
-    ./set.sh
+    git clone https://github.com/zivv/conf ~/conf && (cd ~/conf && ./set.sh)
 
 Then check following steps for different tools.
 
