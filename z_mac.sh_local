@@ -1,21 +1,31 @@
-BASH_FILE='$HOME/.bash_profile'
+# Shell set up steps in OSX
+#
+#   brew install bash-completion coreutils
+
+BASH_FILE=${HOME}'/.bash_profile'
 
 alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 
-# For a colorful `ls` command
-# need to run following commands first:
-#   brew install coreutils
-#   gdircolors --print-database > ~/.dir_colors
-if brew list | grep coreutils > /dev/null ; then
-  PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-  alias ls='ls -F --show-control-chars --color=auto'
-  eval `gdircolors -b $HOME/.dir_colors`
+# bash-completion
+if brew list | grep bash-completion > /dev/null ; then
+  . $(brew --prefix)/etc/bash_completion
 fi
 
-GOPATH='$HOME/dev/goz'
+# coreutils
+if brew list | grep coreutils > /dev/null ; then
+  PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+  MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+fi
+
+# get `dircolors.256dark` from https://github.com/seebi/dircolors-solarized.git
+if [[ -f ~/.dircolors.256dark ]]; then
+  eval `dircolors ~/.dircolors.256dark`
+fi
+
+GOPATH=${HOME}'/dev/goz'
 
 # Usage of osx
 #   tab           open the current directory in a new tab

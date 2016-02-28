@@ -1,7 +1,9 @@
 # Set up steps
 #
-# if in OSX:
-#   brew install coreutils
+# install trash-cli:
+#   easy_install trash-cli
+#
+# if in OSX, read z_mac.sh_local to set up.
 #
 # if using zsh, read .zsh_local to set up.
 # if using bash in Linux:
@@ -14,7 +16,12 @@ alias v='vim'
 alias vd='vimdiff'
 alias g='git'
 alias q='exit'
+# please use trash-cli tool
+alias rm='echo "This is not the command you are looking for."; false'
 alias tma='tmux attach'
+
+alias tp='trash-put'
+alias tl='trash-list'
 
 alias nb='jupyter notebook > /dev/null 2>&1 &'
 alias knb='pkill -f notebook'

@@ -31,6 +31,7 @@ alias gdh='g dh'
 alias gdc='g dc'
 alias ga.='g a .'
 alias gco-='g co --'
+alias gc-m='g ci -m'
 
 # Uncomment it if usnig Powerline instead of oh-my-zsh
 # . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh

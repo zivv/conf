@@ -1,5 +1,19 @@
 alias s='source $BASH_FILE'
 
+alias ..='cd ..'
+alias ...='.. && ..'
+alias ....='... && ..'
+
+alias gst='g st'
+alias gdh='g dh'
+alias gdc='g dc'
+alias ga='g a'
+alias ga.='g a .'
+alias gco-='g co --'
+alias gc-m='g ci -m'
+alias gp='g ps'
+alias gl='g pl'
+
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
