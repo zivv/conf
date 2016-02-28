@@ -17,7 +17,9 @@ alias gc-m='g ci -m'
 alias gp='g ps'
 alias gl='g pl'
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. $POWERLINE_ROOT/powerline/bindings/bash/powerline.sh
+if pip show powerline-status > /dev/null ; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  . $POWERLINE_ROOT/powerline/bindings/bash/powerline.sh
+fi

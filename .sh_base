@@ -1,6 +1,14 @@
-# Set up steps
+# Set up steps ------------------------------------------------------------{{{1
 #
-# install trash-cli:
+# trash-cli -- Command Line Interface to FreeDesktop.org Trash.
+#     https://github.com/andreafrancia/trash-cli
+#   It provides these commands:
+#       trash-put           trashes files and directories.
+#       trash-empty         empty the trashcan(s).
+#       trash-list          list trashed file.
+#       trash-restore       restore a trashed file.
+#       trash-rm            remove individual files from trash can.
+# install trash-cli
 #   easy_install trash-cli
 #
 # if in OSX, read z_mac.sh_local to set up.
@@ -11,28 +19,38 @@
 # if using bash in OSX:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile
 
-# Use 'unalias' to cancle
+
+# Basic settings ----------------------------------------------------------{{{1
+LC_CTYPE='en_US.UTF-8'
+
+
+# Custom commands ---------------------------------------------------------{{{1
+#   Use 'unalias' to cancle
 alias v='vim'
 alias vd='vimdiff'
 alias g='git'
 alias q='exit'
-# please use trash-cli tool
+# Please use trash-cli tool
 alias rm='echo "This is not the command you are looking for."; false'
 alias tma='tmux attach'
 
 alias tp='trash-put'
 alias tl='trash-list'
 
-alias nb='jupyter notebook > /dev/null 2>&1 &'
-alias knb='pkill -f notebook'
-
 # Always keep `conf` dir under $HOME :)
 alias ss='(cd ~/conf; ./set.sh)'
 
-LC_CTYPE='en_US.UTF-8'
+
+# Software special --------------------------------------------------------{{{1
+alias nb='jupyter notebook > /dev/null 2>&1 &'
+alias knb='pkill -f notebook'
 
 POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')
 
+GOPATH=${HOME}'/dev/goz'
+
+
+# Local settings ----------------------------------------------------------{{{1
 # enviroment special
 [[ -f ~/.sh_local ]] && . ~/.sh_local
 # shell special

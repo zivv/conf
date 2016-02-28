@@ -1,6 +1,9 @@
-# Shell set up steps in OSX
+# Set up steps in OSX
 #
-#   brew install bash-completion coreutils
+#   brew install coreutils
+#
+#   git clone https://github.com/seebi/dircolors-solarized.git
+#   cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
 
 BASH_FILE=${HOME}'/.bash_profile'
 
@@ -9,23 +12,18 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 
-# bash-completion
-if brew list | grep bash-completion > /dev/null ; then
-  . $(brew --prefix)/etc/bash_completion
-fi
-
 # coreutils
 if brew list | grep coreutils > /dev/null ; then
   PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
   MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-fi
 
-# get `dircolors.256dark` from https://github.com/seebi/dircolors-solarized.git
-if [[ -f ~/.dircolors.256dark ]]; then
-  eval `dircolors ~/.dircolors.256dark`
+  # colorful `ls` :D
+  alias ls='ls -F --show-control-chars --color=auto'
+  # get `dircolors.256dark` from https://github.com/seebi/dircolors-solarized.git
+  if [[ -f ~/.dircolors.256dark ]]; then
+    eval `dircolors ~/.dircolors.256dark`
+  fi
 fi
-
-GOPATH=${HOME}'/dev/goz'
 
 # Usage of osx
 #   tab           open the current directory in a new tab

@@ -1,6 +1,6 @@
 # Configure Files
 
-Include configure files for zsh, vim, git, tmux, etc.
+Include configure files for shell, vim, git, tmux, etc.
 
 Use the existence of file `~/.at_YOUR_PLACE`, checked by `set.sh`, to distinguish and configure different environment.
 
@@ -64,19 +64,9 @@ Read [.vimrc](.vimrc) to set up.
 
 If not work, try `<C-b>:source ~/.tmux.conf<Enter>` when running tmux.
 
-### zsh
+### shell
 
-Read [.zsh_local](.zsh_local) to set up.
-
-### bash
-
-In Linux
-
-      echo '[[ -f ~/.sh_base ]] && . ~/.sh_base' >> ~/.bashrc && source ~/.bashrc
-
-In OSX
-
-      echo '[[ -f ~/.sh_base ]] && . ~/.sh_base' >> ~/.bash_profile && source ~/.bash_profile
+Read [.sh_base](.sh_base) to set up.
 
 ## Update
 
