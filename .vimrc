@@ -76,6 +76,11 @@ let g:UltiSnipsExpandTrigger = "<C-h>"
 Plugin 'honza/vim-snippets'
 
 
+" vim-multiple-cursors -- True Sublime Text style multiple selections -----{{{2
+" TODO(ziv): g:multi_cursor_quit_key & g:multi_cursor_normal_maps not working
+Plugin 'terryma/vim-multiple-cursors'
+
+
 " YCM -- code completion engine -------------------------------------------{{{2
 "     -- require vim 7.3.584+
 "   Install:
