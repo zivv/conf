@@ -35,5 +35,10 @@ alias ga.='g a .'
 alias gco-='g co --'
 alias gc-m='g ci -m'
 
+# looks like on-my-zsh alias l='ls -la'
+alias ls='ls -F --show-control-chars --color=auto'
+alias l='ls'
+alias la='ls -a'
+
 # Uncomment it if usnig Powerline instead of oh-my-zsh
 # . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh

@@ -3,5 +3,6 @@ UltiSnips	~/conf/.vimrc	/UltiSnips --
 YCM	~/conf/.vimrc	/YCM --
 fugitive	~/conf/.vimrc	/fugitive --
 nerdcommenter	~/conf/.vimrc	/nerdcommenter --
+startify	~/conf/.vimrc	/startify --
 vim-autoformat	~/conf/.vimrc	/vim-autoformat --
 vim-go	~/conf/.vimrc	/vim-go --

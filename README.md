@@ -24,30 +24,6 @@ Download [zip](https://github.com/powerline/fonts/archive/master.zip) and run `.
 
 In OSX, set terminal(Terminal or iTerm) to use powerline fonts.
 
-### [trash-cli](https://github.com/andreafrancia/trash-cli)
-
-Command Line Interface to FreeDesktop.org Trash.
-
-It provides these commands:
-
-    trash-put           trashes files and directories.
-    trash-empty         empty the trashcan(s).
-    trash-list          list trashed file.
-    trash-restore       restore a trashed file.
-    trash-rm            remove individual files from trash can.
-
-Installation
-
-    easy_install trash-cli
-
-### OSX
-
-    brew install bash-completion coreutils
-
-GNU dircolors for `ls`
-
-    git clone https://github.com/seebi/dircolors-solarized.git && cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
-
 ## Set up
 
 First of all, run following commands to put all configure files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)).

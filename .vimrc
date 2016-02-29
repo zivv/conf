@@ -135,6 +135,13 @@ let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
 map <silent> <C-j> :Autoformat<CR>
 
 
+" Tagbar -- a class outline viewer for Vim --------------------------------{{{2
+Plugin 'majutsushi/tagbar'
+
+" Shortcuts for Tagbar commands
+nn <silent> <F8> :TagbarToggle<CR>
+
+
 " nerdcommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
 "   most frequent keys to me are: `,cl` `,cu`
 Plugin 'scrooloose/nerdcommenter'
@@ -147,6 +154,63 @@ let g:NERDSpaceDelims = 1
 let g:NERDCustomDelimiters = {
       \ 'python': { 'left': '#' },
       \ }
+
+
+" startify -- The fancy start screen for Vim ------------------------------{{{2
+"   For sessions, these commands are used for convenience:
+"      :SLoad       load a session
+"      :SSave       save a session
+"      :SDelete[!]  delete a session(If ! is given, you won't get prompted.)
+"      :SClose      close a session
+Plugin 'mhinz/vim-startify'
+
+" startify settings
+let g:startify_enable_special         = 0
+let g:startify_relative_path          = 1
+let g:startify_change_to_dir          = 1
+" The default for Windows systems is '$HOME\vimfiles\session'.
+let g:startify_session_dir = '~/.vim/session'
+let g:startify_session_autoload       = 1
+let g:startify_session_persistence    = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_bookmarks = [
+      \ { 'v': '~/conf/.vimrc' },
+      \ ]
+let g:startify_custom_header =
+      \ ['', "   Hi Zi! \\o/", '']
+let g:startify_custom_footer = [
+      \ '',
+      \ "   Press 'e' for <empty buffer> and 'q' for <quit>.",
+      \ '',
+      \ "   Vim is charityware. Please read ':help uganda'.",
+      \ '',
+      \ "                           -- ziv @ Feb 2016",
+      \ '']
+
+
+" Solarized -- Precision colors for machines and people -------------------{{{2
+"   Note that if need to add Solarized osx terminal profiles, see
+"     folder 'osx-terminal.app-colors-solarized'
+"     under 'https://github.com/altercation/solarized/'
+Plugin 'altercation/vim-colors-solarized'
+
+" Required settings
+" dark or light background mode
+set background=dark
+" For mac, must set terminal as 'xterm-256color' in preference
+let g:solarized_termcolors=256
+colorscheme solarized
+
+
+" fugitive -- a Git wrapper -----------------------------------------------{{{2
+Plugin 'tpope/vim-fugitive'
+
+" Shortcuts for fugitive commands
+" `g?` to see help after `Gs`
+nn <silent> Gs :Gstatus<CR>
+nn <silent> Ga :Git add . -A<CR>
+nn <silent> Gl :Gpull<CR>
+nn <silent> Gu :Gpush<CR>
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
@@ -186,48 +250,6 @@ aug GoShortcuts
   " Rename the identifier under the cursor to a new name
   au FileType go nn ge <Plug>(go-rename)
 aug END
-
-
-" {{{2
-Plugin 'majutsushi/tagbar'
-
-
-" fugitive -- a Git wrapper -----------------------------------------------{{{2
-Plugin 'tpope/vim-fugitive'
-
-" Shortcuts for fugitive commands
-" `g?` to see help after `Gs`
-nn <silent> Gs :Gstatus<CR>
-nn <silent> Ga :Git add . -A<CR>
-nn <silent> Gl :Gpull<CR>
-nn <silent> Gu :Gpush<CR>
-
-
-" Solarized -- Precision colors for machines and people -------------------{{{2
-"   Note that if need to add Solarized osx terminal profiles, see
-"     folder 'osx-terminal.app-colors-solarized'
-"     under 'https://github.com/altercation/solarized/'
-Plugin 'altercation/vim-colors-solarized'
-
-" Required settings
-" dark or light background mode
-set background=dark
-" For mac, must set terminal as 'xterm-256color' in preference
-let g:solarized_termcolors=256
-colorscheme solarized
-
-
-" taglist.vim -- Source code browser --------------------------------------{{{2
-"             -- http://www.vim.org/scripts/script.php?script_id=273
-Plugin 'taglist.vim'
-
-
-" winmanager -- A windows style IDE for Vim 6.0 ---------------------------{{{2
-"            -- http://vim.sourceforge.net/scripts/script.php?script_id=95
-Plugin 'winmanager'
-" use <C-n> and <C-p> to switch between explorers in same group
-let g:winManagerWindowLayout='FileExplorer,TagList'
-nn <silent> ;wm :WMToggle<cr>
 
 
 " Settings ----------------------------------------------------------------{{{1
@@ -381,6 +403,10 @@ ino jk <Esc>
 
 " delete trailing whithspace
 nn <silent> ds :%s#\s\+$##g<CR>
+
+" always use zM instead of zm
+nn zm zM
+nn zr zR
 
 
 " Local settings ----------------------------------------------------------{{{1
