@@ -5,17 +5,20 @@ alias ..='cd ..'
 alias ...='.. && ..'
 alias ....='... && ..'
 
-alias gst='g st'
+alias su='sudo'
+
+alias ga='g a'
+alias ga.='g a .'
+alias gcb='g co -b'
+alias gco-='g co --'
+alias gc-m='g ci -m'
 alias gd='g d'
 alias gdc='g dc'
 alias gdh='g dh'
 alias gdt='g dt'
-alias ga='g a'
-alias ga.='g a .'
-alias gco-='g co --'
-alias gc-m='g ci -m'
-alias gp='g ps'
 alias gl='g pl'
+alias gp='g ps'
+alias gst='g st'
 
 if pip show powerline-status > /dev/null ; then
   powerline-daemon -q

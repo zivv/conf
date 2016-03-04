@@ -24,6 +24,8 @@ alias s='source ~/.zshrc'
 ZSH_THEME="agnoster"
 plugins=(git z sudo tmux zsh-autosuggestions $ZSH_PLUGINS)
 ZSH_TMUX_AUTOSTART=true
+# set false to use multiple tmux sessions
+ZSH_TMUX_AUTOQUIT=false
 . $ZSH/oh-my-zsh.sh
 # color of autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue'

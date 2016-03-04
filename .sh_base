@@ -33,6 +33,7 @@ alias q='exit'
 # Please use trash-cli tool
 alias rm='echo "This is not the command you are looking for."; false'
 alias tma='tmux attach'
+alias tmn='tmux new-session'
 
 alias tp='trash-put'
 alias tl='trash-list'
@@ -42,7 +43,7 @@ alias ss='(cd ~/conf; ./set.sh)'
 
 
 # Software special --------------------------------------------------------{{{1
-alias nb='jupyter notebook > /dev/null 2>&1 &'
+alias nb='(cd ~/dev/notebook && jupyter notebook)'
 alias knb='pkill -f notebook'
 
 POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')

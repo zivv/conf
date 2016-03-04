@@ -247,7 +247,7 @@ aug GoShortcuts
   au FileType go nn gr <Plug>(go-run)
   au FileType go nn gb <Plug>(go-build)
   au FileType go nn gt <Plug>(go-test)
-  " Display beautifully annotated source code to see which functions are covered
+  " beautifully annotated source code to see which functions are covered
   au FileType go nn gc <Plug>(go-coverage)
   " Open the relevant Godoc for the word under the cursor
   " For consistency of the same shortcut with YCM
@@ -273,6 +273,10 @@ set encoding=utf-8
 set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
 set foldmethod=marker  " autofold by marker {{{ and }}}
+
+" Highlight column 80 as well as 100 and onward
+" Google java style accepts a column limit of either 80 or 100 characters
+let &colorcolumn = "80,".join(range(100,256),",")
 
 " set different indent setting for certain file type
 aug SpecialIndent
@@ -303,11 +307,11 @@ set showtabline=2
 " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set noshowmode
 
-" Color settings ----------------------------------------------------{{{2
+" Color settings ----------------------------------------------------------{{{2
 set cursorline
-hi CursorLine cterm=none ctermbg=235
+hi CursorLine cterm=none ctermbg=237
 set cursorcolumn
-hi CursorColumn cterm=none ctermbg=235
+hi CursorColumn cterm=none ctermbg=237
 
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
@@ -337,7 +341,7 @@ aug NewSyntaxHighlight
 aug END
 
 
-" Custom commands ---------------------------------------------------{{{1
+" Custom commands ---------------------------------------------------------{{{1
 "   Note before adding new mappings, try `:verbose map <key>` to check it
 
 " easy to close highlighting after searching

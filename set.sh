@@ -2,13 +2,14 @@
 
 # update files by last modification time
 
+# file_name|dest_dir
 files=(
 ".sh_base" ".bash_local" ".zsh_local"
 ".tmux.conf"
 ".vimrc"
 ".gitconfig" ".gitignore_global"
 ".mongorc.js"
-"jupyter_notebook_config.py"
+"jupyter_notebook_config.py|.jupyter"
 )
 
 locas=(
@@ -27,7 +28,15 @@ z_mac=(
 
 for file in ${files[@]}
 do
+  if [[ ${file} =~ '|' ]]; then
+    new_dir=${HOME}'/'${file#*|}
+    if [[ ! -d ${new_dir} ]]; then
+      mkdir -p ${new_dir}
+    fi
+    cp -uv ${file%|*} ${new_dir}
+  else
     cp -uv ${file} ~/
+  fi
 done
 
 for file in $(find vim -type f)
