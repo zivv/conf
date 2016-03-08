@@ -1,0 +1,23 @@
+# To setup:
+# echo "[[ -f ~/.z.sh_base ]] && . ~/.z.sh_base" >> ~/.bashrc
+
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+
+alias ~='cd ~'
+alias ..='cd ..'
+alias ...='.. && ..'
+alias ....='... && ..'
+
+alias s='source ~/.bashrc'
+alias v='vim'
+alias vd='vimdiff'
+alias g='git'
+alias q='exit'
+
+alias su='sudo'
+
+alias spd='supervisord'
+alias spc='supervisorctl'

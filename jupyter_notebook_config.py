@@ -511,7 +511,7 @@ c.NotebookApp.port = 9883
 # c.FileContentsManager.post_save_hook = None
 
 #
-c.FileContentsManager.root_dir = '/Users/z/dev/notebook'
+c.FileContentsManager.root_dir = '/Users/z/ziv/notebook'
 
 # DEPRECATED, use post_save_hook
 # c.FileContentsManager.save_script = False

@@ -35,7 +35,7 @@ alias gdc='g dc'
 alias gdt='g dt'
 alias ga.='g a .'
 alias gco-='g co --'
-alias gc-m='g ci -m'
+alias gci-='g ci -m'
 
 # looks like on-my-zsh alias l='ls -la'
 alias ls='ls -F --show-control-chars --color=auto'

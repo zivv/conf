@@ -12,6 +12,8 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 
+alias cdnginx='cd /usr/local/etc/nginx/servers'
+
 # coreutils
 if brew list | grep coreutils > /dev/null ; then
   PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"

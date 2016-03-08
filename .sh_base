@@ -32,10 +32,11 @@ alias g='git'
 alias q='exit'
 # Please use trash-cli tool
 alias rm='echo "This is not the command you are looking for."; false'
-alias tma='tmux attach'
-alias tmn='tmux new-session'
+alias ta='tmux attach'
+alias tn='tmux new-session'
+alias t='tree'
 
-alias tp='trash-put'
+alias tt='trash-put'
 alias tl='trash-list'
 
 # Always keep `conf` dir under $HOME :)
@@ -43,12 +44,18 @@ alias ss='(cd ~/conf; ./set.sh)'
 
 
 # Software special --------------------------------------------------------{{{1
-alias nb='(cd ~/dev/notebook && jupyter notebook)'
+alias ms='mysql.server start'
+alias mr='mysql -u root -p'
+
+alias nb='(cd ~/ziv/notebook && jupyter notebook > /dev/null 2>&1 &)'
 alias knb='pkill -f notebook'
 
 POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')
 
-GOPATH=${HOME}'/dev/goz'
+GOPATH=${HOME}'/ziv/goz'
+
+alias spd='supervisord'
+alias spc='supervisorctl'
 
 
 # Local settings ----------------------------------------------------------{{{1

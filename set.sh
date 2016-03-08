@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # update files by last modification time
 
