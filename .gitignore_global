@@ -21,6 +21,7 @@
 # Vim swapfiles #
 #################
 .*.swp
+.*.swo
 
 # Gedit swapfiles #
 ###################

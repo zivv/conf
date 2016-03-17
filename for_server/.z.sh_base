@@ -16,8 +16,30 @@ alias v='vim'
 alias vd='vimdiff'
 alias g='git'
 alias q='exit'
+alias t='tree'
 
 alias su='sudo'
 
+alias ga='g a'
+alias ga.='g a .'
+alias gcb='g co -b'
+alias gco-='g co --'
+alias gc-m='g ci -m'
+alias gd='g d'
+alias gdc='g dc'
+alias gdh='g dh'
+alias gdt='g dt'
+alias gl='g pl'
+alias gp='g ps'
+alias gst='g st'
+
 alias spd='supervisord'
 alias spc='supervisorctl'
+
+#if pip show powerline-status > /dev/null ; then
+#  powerline-daemon -q
+#  POWERLINE_BASH_CONTINUATION=1
+#  POWERLINE_BASH_SELECT=1
+#  POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')
+#  . $POWERLINE_ROOT/powerline/bindings/bash/powerline.sh
+#fi

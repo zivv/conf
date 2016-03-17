@@ -1,6 +1,9 @@
 " To setup:
 " echo -e 'if filereadable(expand('\''~/.z.vimrc'\''))\n  source ~/.z.vimrc\nendif' >> .vimrc
 
+set number  " show line number
+set relativenumber  " show relative line number
+
 " easy to close highlighting after searching
 nn <silent> ;h :nohl<CR>
 
@@ -73,3 +76,15 @@ nn <silent> ds :%s#\s\+$##g<CR>
 " always use zM instead of zm
 nn zm zM
 nn zr zR
+
+"" Powerline
+""   Check `vim --version | grep +python` first
+"python3 from powerline.vim import setup as powerline_setup
+"python3 powerline_setup()
+"python3 del powerline_setup
+"" Always display the statusline in all windows
+"set laststatus=2
+"" Always display the tabline, even if there is only one tab
+"set showtabline=2
+"" Hide the default mode text (e.g. -- INSERT -- below the statusline)
+"set noshowmode

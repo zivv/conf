@@ -267,8 +267,6 @@ set textwidth=80
 set number  " show line number
 set relativenumber  " show relative line number
 
-set ruler  " show line number and column number in bottom right
-
 set encoding=utf-8
 set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
@@ -297,6 +295,7 @@ source ~/.vim/files/cscope_maps.vim
 
 " Powerline ---------------------------------------------------------------{{{2
 "   https://powerline.readthedocs.org/en/master/usage/other.html
+"   Check `vim --version | grep +python` first
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
