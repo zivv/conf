@@ -264,17 +264,38 @@ set softtabstop=2
 set expandtab
 set textwidth=80
 
-set number  " show line number
-set relativenumber  " show relative line number
+" show line number
+set number
+" show relative line number
+set relativenumber
 
 set encoding=utf-8
 set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
-set foldmethod=marker  " autofold by marker {{{ and }}}
+" autofold by marker {{{ and }}}
+set foldmethod=marker
+
+" Set to auto read when a file is changed from the outside
+set autoread
+" Set to auto write file
+set autowriteall
+
+" Display unprintable chars
+set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
+set showbreak=↪
 
 " Highlight column 80 as well as 100 and onward
 " Google java style accepts a column limit of either 80 or 100 characters
 let &colorcolumn = "80,".join(range(100,256),",")
+
+" Writes to the unnamed register also writes to the * and + registers. This
+" makes it easy to interact with the system clipboard
+if has('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
 
 " set different indent setting for certain file type
 aug SpecialIndent
@@ -293,6 +314,7 @@ aug END
 
 source ~/.vim/files/cscope_maps.vim
 
+
 " Powerline ---------------------------------------------------------------{{{2
 "   https://powerline.readthedocs.org/en/master/usage/other.html
 "   Check `vim --version | grep +python` first
@@ -306,6 +328,7 @@ set showtabline=2
 " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set noshowmode
 
+
 " Color settings ----------------------------------------------------------{{{2
 set cursorline
 hi CursorLine cterm=none ctermbg=237
@@ -315,29 +338,25 @@ hi CursorColumn cterm=none ctermbg=237
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
-" new syntax highlight rules
-aug NewSyntaxHighlight
-  au!
-  " show trailing whithspace
-  hi TrailingWhitespace ctermbg=22
-  au Syntax * syn match TrailingWhitespace /\s\+$/
+" show trailing whithspace
+hi TrailingWhitespace ctermbg=22
+call matchadd('TrailingWhitespace', '\s\+$')
 
-  " highlight TODO
-  hi TODOs ctermfg=white ctermbg=33
-  au Syntax * syn match TODOs /TODO:\|TODO(.*):/
+" highlight TODO
+hi TODOs ctermfg=white ctermbg=33
+call matchadd('TODOs', 'TODO:\|TODO(.*):')
 
-  " Google-logo \o/
-  hi googleBlue ctermfg=27 guifg=27
-  hi googleRed ctermfg=160 guifg=160
-  hi googleYellow ctermfg=214 guifg=214
-  hi googleGreen ctermfg=34 guifg=34
-  au Syntax * syn match googleBlue /[Gg]\(oogle\)\@=/
-  au Syntax * syn match googleRed /\([Gg]\)\@<=o\(ogle\)\@=/ 
-  au Syntax * syn match googleYellow /\([Gg]o\)\@<=o\(gle\)\@=/ 
-  au Syntax * syn match googleBlue /\([Gg]oo\)\@<=g\(le\)\@=/ 
-  au Syntax * syn match googleGreen /\([Gg]oog\)\@<=l\(e\)\@=/ 
-  au Syntax * syn match googleRed /\([Gg]oogl\)\@<=e/ 
-aug END
+" Google-logo \o/
+hi googleBlue ctermfg=27 guifg=27
+hi googleRed ctermfg=160 guifg=160
+hi googleYellow ctermfg=214 guifg=214
+hi googleGreen ctermfg=34 guifg=34
+call matchadd('googleBlue', '[Gg]\(oogle\)\@=')
+call matchadd('googleRed', '\([Gg]\)\@<=o\(ogle\)\@=')
+call matchadd('googleYellow', '\([Gg]o\)\@<=o\(gle\)\@=')
+call matchadd('googleBlue', '\([Gg]oo\)\@<=g\(le\)\@=')
+call matchadd('googleGreen', '\([Gg]oog\)\@<=l\(e\)\@=')
+call matchadd('googleRed', '\([Gg]oogl\)\@<=e')
 
 
 " Custom commands ---------------------------------------------------------{{{1
@@ -386,16 +405,14 @@ nn <silent> \ ;
 " convenient use of pair \ and |
 nn <silent> <bar> ,
 
+" quit current file without saving
+nn <silent> Q :q!<CR>
 " quit all files without saving
 nn <silent> ;qa :qa!<CR>
-" quit current file without saving
-nn <silent> ;qq :q!<CR>
 " close all windows but current without saving
 nn <silent> ;qo :only!<CR>
-" saving
-nn ;w :w<CR>
 " forced saving
-nn ;fw :w!<CR>
+nn ;w :w!<CR>
 " edit
 nn ;e :e 
 " tab edit
@@ -415,6 +432,31 @@ nn <silent> ds :%s#\s\+$##g<CR>
 " always use zM instead of zm
 nn zm zM
 nn zr zR
+
+" Redos since 'u' undos
+nn U :redo<CR>
+
+nn H ^
+nn L g_
+
+" Undo
+ino <C-l> <C-o>u
+
+" Delete current character
+ino <C-x> <C-o>x
+
+" Go to end of line
+ino <C-e> <Esc>A
+" Go to begin of line
+ino <C-a> <Esc>I
+" Move cursor
+ino <C-e> <Left>
+ino <C-o> <Down>
+ino <C-p> <Up>
+ino <C-r> <Right>
+" Move a word forward/backward
+ino <C-d> <C-o>b
+ino <C-f> <C-o>w
 
 
 " Local settings ----------------------------------------------------------{{{1

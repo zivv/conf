@@ -1,6 +1,8 @@
 " To setup:
 " echo -e 'if filereadable(expand('\''~/.z.vimrc'\''))\n  source ~/.z.vimrc\nendif' >> .vimrc
 
+syntax enable
+
 set number  " show line number
 set relativenumber  " show relative line number
 
