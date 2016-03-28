@@ -338,25 +338,30 @@ hi CursorColumn cterm=none ctermbg=237
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
-" show trailing whithspace
-hi TrailingWhitespace ctermbg=22
-call matchadd('TrailingWhitespace', '\s\+$')
+" new syntax highlight rules
+aug NewSyntaxHighlight
+  au!
+  " show trailing whithspace
+  hi TrailingWhitespace ctermbg=22
+  au BufWinEnter * call matchadd('TrailingWhitespace', '\s\+$')
 
-" highlight TODO
-hi TODOs ctermfg=white ctermbg=33
-call matchadd('TODOs', 'TODO:\|TODO(.*):')
+  " highlight TODO
+  hi TODOs ctermfg=white ctermbg=33
+  au BufWinEnter * call matchadd('TODOs', 'TODO:\|TODO(.*):')
 
-" Google-logo \o/
-hi googleBlue ctermfg=27 guifg=27
-hi googleRed ctermfg=160 guifg=160
-hi googleYellow ctermfg=214 guifg=214
-hi googleGreen ctermfg=34 guifg=34
-call matchadd('googleBlue', '[Gg]\(oogle\)\@=')
-call matchadd('googleRed', '\([Gg]\)\@<=o\(ogle\)\@=')
-call matchadd('googleYellow', '\([Gg]o\)\@<=o\(gle\)\@=')
-call matchadd('googleBlue', '\([Gg]oo\)\@<=g\(le\)\@=')
-call matchadd('googleGreen', '\([Gg]oog\)\@<=l\(e\)\@=')
-call matchadd('googleRed', '\([Gg]oogl\)\@<=e')
+  " Google-logo \o/
+  hi googleBlue ctermfg=27 guifg=27
+  hi googleRed ctermfg=160 guifg=160
+  hi googleYellow ctermfg=214 guifg=214
+  hi googleGreen ctermfg=34 guifg=34
+  au BufWinEnter * call matchadd('googleBlue', '[Gg]\(oogle\)\@=')
+  au BufWinEnter * call matchadd('googleRed', '\([Gg]\)\@<=o\(ogle\)\@=')
+  au BufWinEnter * call matchadd('googleYellow', '\([Gg]o\)\@<=o\(gle\)\@=')
+  au BufWinEnter * call matchadd('googleBlue', '\([Gg]oo\)\@<=g\(le\)\@=')
+  au BufWinEnter * call matchadd('googleGreen', '\([Gg]oog\)\@<=l\(e\)\@=')
+  au BufWinEnter * call matchadd('googleRed', '\([Gg]oogl\)\@<=e')
+aug END
+
 
 
 " Custom commands ---------------------------------------------------------{{{1
@@ -455,8 +460,8 @@ ino <C-o> <Down>
 ino <C-p> <Up>
 ino <C-r> <Right>
 " Move a word forward/backward
-ino <C-d> <C-o>b
-ino <C-f> <C-o>w
+ino <C-f> <C-o>b
+ino <C-g> <C-o>w
 
 
 " Local settings ----------------------------------------------------------{{{1
