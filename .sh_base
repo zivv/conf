@@ -32,12 +32,9 @@ alias g='git'
 alias q='exit'
 # Please use trash-cli tool
 alias rm='echo "This is not the command you are looking for."; false'
-alias tmt='tmux attach'
-alias tmm='tmux new-session'
 alias tr='tree'
 
 alias t='trash-put'
-alias tl='trash-list'
 
 # Always keep `conf` dir under $HOME :)
 alias ss='(cd ~/conf; ./set.sh)'

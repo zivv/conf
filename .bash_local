@@ -1,5 +1,7 @@
 alias s='source $BASH_FILE'
 
+
+# keep same keymapping with zsh
 alias ~='cd ~'
 alias ..='cd ..'
 alias ...='.. && ..'
@@ -19,6 +21,11 @@ alias gdt='g dt'
 alias gl='g pl'
 alias gp='g ps'
 alias gst='g st'
+
+alias ta='tmux attach -t'
+alias ts='tmux new-session -s'
+alias tl='tmux list-sessions'
+
 
 if pip show powerline-status > /dev/null ; then
   powerline-daemon -q

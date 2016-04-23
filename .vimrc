@@ -262,6 +262,7 @@ set tabstop=8
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set smarttab
 set textwidth=80
 
 " show line number
@@ -272,8 +273,13 @@ set relativenumber
 set encoding=utf-8
 set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
-" autofold by marker {{{ and }}}
-set foldmethod=marker
+" default autofold by indent
+set foldmethod=indent
+" special autofold by marker {{{ and }}}
+aug FoldMarker
+  au!
+  au FileType vim set foldmethod=marker
+aug END
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -289,18 +295,9 @@ set showbreak=↪
 " Google java style accepts a column limit of either 80 or 100 characters
 let &colorcolumn = "80,".join(range(100,256),",")
 
-" Writes to the unnamed register also writes to the * and + registers. This
-" makes it easy to interact with the system clipboard
-if has('unnamedplus')
-  set clipboard=unnamedplus
-else
-  set clipboard=unnamed
-endif
-
 " set different indent setting for certain file type
 aug SpecialIndent
   au!
-  au BufNewFile *.py set softtabstop=4 | set shiftwidth=4
   au FileType python set softtabstop=4 | set shiftwidth=4
 aug END
 
@@ -370,10 +367,6 @@ aug END
 " easy to close highlighting after searching
 nn <silent> ;h :nohl<CR>
 
-" easy to open or close spell check
-nn <silent> ;p :set spell!<CR>
-set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
-
 " easy to copy
 nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 
@@ -403,7 +396,7 @@ nn <silent> [w :cw<CR>
 nn <silent> [n :cn<CR>
 nn <silent> [p :cp<CR>
 
-" just avoid plugins' mapping with default key \
+" just avoid plugins mapping with default key \
 let mapleader = ","
 " keep the default behavior of key ; to other key
 nn <silent> \ ;
@@ -413,9 +406,9 @@ nn <silent> <bar> ,
 " quit current file without saving
 nn <silent> Q :q!<CR>
 " quit all files without saving
-nn <silent> ;qa :qa!<CR>
+nn <silent> ;a :qa!<CR>
 " close all windows but current without saving
-nn <silent> ;qo :only!<CR>
+nn <silent> ;l :only!<CR>
 " forced saving
 nn ;w :w!<CR>
 " edit
@@ -450,18 +443,24 @@ ino <C-l> <C-o>u
 " Delete current character
 ino <C-x> <C-o>x
 
+" Go to begin of line
+ino <C-w> <Esc>I
 " Go to end of line
 ino <C-e> <Esc>A
-" Go to begin of line
-ino <C-a> <Esc>I
 " Move cursor
-ino <C-e> <Left>
 ino <C-o> <Down>
 ino <C-p> <Up>
-ino <C-r> <Right>
+ino <C-r> <Left>
+ino <C-t> <Right>
 " Move a word forward/backward
 ino <C-f> <C-o>b
 ino <C-g> <C-o>w
+
+" Yank to system clipboard
+vn ;y "*y
+" Paste the contents in system clipboard
+nn ;p "*p
+nn ;P "*P
 
 
 " Local settings ----------------------------------------------------------{{{1
