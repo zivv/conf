@@ -200,8 +200,8 @@ let g:startify_custom_footer = [
 Plugin 'altercation/vim-colors-solarized'
 
 " Required settings
-" dark or light background mode
-set background=dark
+" dark or light background mode, comment to use application default
+"set background=dark
 " For mac, must set terminal as 'xterm-256color' in preference
 let g:solarized_termcolors=256
 colorscheme solarized
@@ -214,8 +214,11 @@ Plugin 'tpope/vim-fugitive'
 " `g?` to see help after `Gs`
 nn <silent> Gs :Gstatus<CR>
 nn <silent> Ga :Git add . -A<CR>
+nn <silent> Gc :Gcommit<CR>
 nn <silent> Gl :Gpull<CR>
 nn <silent> Gu :Gpush<CR>
+nn <silent> Gd :Gvdiff<CR>
+nn <silent> Gh :Gvdiff HEAD<CR>
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
@@ -275,16 +278,14 @@ set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
 " default autofold by indent
 set foldmethod=indent
+" no folds closed initially
+set foldlevelstart=99
 " special autofold by marker {{{ and }}}
 aug FoldMarker
   au!
-  au FileType vim set foldmethod=marker
+  au FileType vim,conf set foldmethod=marker
+  au FileType vim,conf set foldlevel=0
 aug END
-
-" Set to auto read when a file is changed from the outside
-set autoread
-" Set to auto write file
-set autowriteall
 
 " Display unprintable chars
 set list

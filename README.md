@@ -22,7 +22,9 @@ TODO(ziv): Powerline with tmux is not working and the doc is not good enough to 
 
 Download [zip](https://github.com/powerline/fonts/archive/master.zip) and run `./install.sh` to install all Powerline Fonts or see the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
 
-In OSX, set terminal(Terminal or iTerm) to use powerline fonts.
+Usually use the font named **Sauce Code Powerline** (formerly known as *Source Code Pro*).
+
+In OSX, set terminal (Terminal or iTerm) to use powerline fonts.
 
 ## Set up
 
