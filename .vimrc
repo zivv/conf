@@ -4,15 +4,13 @@
 "   git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
 " Install YouCompleteMe
-"   Make sure cmake, gcc, g++ and python-dev are installed (if need clang)
-"     cd ~/.vim/bundle/YouCompleteMe
-"     ./install.py --clang-completer --gocode-completer
-" Install different formatprograms for vim-autoformat
-"   See https://github.com/Chiel92/vim-autoformat, or README.md
+"   Normal command
+"     cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+"   Completer options for install.py
+"     --clang-completer (need cmake, gcc, g++ and python-dev)
+"     --gocode-completer
 " Install vim-go
 "     vim -c "GoInstallBinaries" -c q
-" Install Taglist
-"   Make sure exuberant-ctags is installed
 "
 "
 " Notes -------------------------------------------------------------------{{{1
@@ -101,6 +99,9 @@ endif
 " Global conf file, see YCM's own .ycm_extra_conf.py:
 "   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
 let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
+" Add the following line to .vim_local and modify it if necessary, see
+" `:h g:ycm_extra_conf_globlist` for details
+"let g:ycm_extra_conf_globlist = []
 
 " Shortcuts for YCM commands
 " jump to the header/definition/declaration
@@ -116,7 +117,10 @@ nn <silent> <F5> :YcmForceCompileAndDiagnostics<CR>
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
-"   See README.md for the list of default formatprograms
+"   For the list of default formatprograms or how to install different
+"   formatprograms, check the following links:
+"     ~/.vim/bundle/vim-autoformat/README.md
+"     https://github.com/Chiel92/vim-autoformat
 Plugin 'Chiel92/vim-autoformat'
 
 " vim-autoformat settings
@@ -203,7 +207,7 @@ Plugin 'altercation/vim-colors-solarized'
 " dark or light background mode, comment to use application default
 "set background=dark
 " For mac, must set terminal as 'xterm-256color' in preference
-let g:solarized_termcolors=256
+let g:solarized_termcolors = 256
 colorscheme solarized
 
 
@@ -276,6 +280,9 @@ set relativenumber
 set encoding=utf-8
 set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
 
+" command-line completion operates in an enhanced mode
+set wildmenu
+
 " default autofold by indent
 set foldmethod=indent
 " no folds closed initially
@@ -336,16 +343,24 @@ hi CursorColumn cterm=none ctermbg=237
 set hlsearch " highlight when search
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
-" new syntax highlight rules
+" new syntax highlight rules for all files
 aug NewSyntaxHighlight
   au!
   " show trailing whithspace
   hi TrailingWhitespace ctermbg=22
   au BufWinEnter * call matchadd('TrailingWhitespace', '\s\+$')
 
-  " highlight TODO
+  " highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks)
   hi TODOs ctermfg=white ctermbg=33
   au BufWinEnter * call matchadd('TODOs', 'TODO:\|TODO(.*):')
+  hi FIXMEs ctermfg=white ctermbg=196
+  au BufWinEnter * call matchadd('FIXMEs', 'FIXME:\|FIXME(.*):')
+  hi REVIEWs ctermfg=white ctermbg=208
+  au BufWinEnter * call matchadd('REVIEWs', 'REVIEW:\|REVIEW(.*):')
+  hi NOTEs ctermfg=white ctermbg=112
+  au BufWinEnter * call matchadd('NOTEs', 'NOTE:\|NOTE(.*):')
+  hi XXXs ctermfg=white ctermbg=99
+  au BufWinEnter * call matchadd('XXXs', 'XXX:\|XXX(.*):')
 
   " Google-logo \o/
   hi googleBlue ctermfg=27 guifg=27

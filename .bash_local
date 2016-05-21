@@ -7,8 +7,6 @@ alias ..='cd ..'
 alias ...='.. && ..'
 alias ....='... && ..'
 
-alias su='sudo'
-
 alias ga='g a'
 alias ga.='g a .'
 alias gcb='g co -b'

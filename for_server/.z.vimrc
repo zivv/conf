@@ -49,12 +49,12 @@ nn <silent> \ ;
 " convenient use of pair \ and |
 nn <silent> <bar> ,
 
-" quit all files without saving
-nn <silent> ;qa :qa!<CR>
 " quit current file without saving
-nn <silent> ;qq :q!<CR>
+nn <silent> Q :q!<CR>
+" quit all files without saving
+nn <silent> ;a :qa!<CR>
 " close all windows but current without saving
-nn <silent> ;qo :only!<CR>
+nn <silent> ;l :only!<CR>
 " saving
 nn ;w :w<CR>
 " forced saving
@@ -78,6 +78,37 @@ nn <silent> ds :%s#\s\+$##g<CR>
 " always use zM instead of zm
 nn zm zM
 nn zr zR
+
+" Redos since 'u' undos
+nn U :redo<CR>
+
+nn H ^
+nn L g_
+
+" Undo
+ino <C-l> <C-o>u
+
+" Delete current character
+ino <C-x> <C-o>x
+
+" Go to begin of line
+ino <C-w> <Esc>I
+" Go to end of line
+ino <C-e> <Esc>A
+" Move cursor
+ino <C-o> <Down>
+ino <C-p> <Up>
+ino <C-r> <Left>
+ino <C-t> <Right>
+" Move a word forward/backward
+ino <C-f> <C-o>b
+ino <C-g> <C-o>w
+
+" Yank to system clipboard
+vn ;y "*y
+" Paste the contents in system clipboard
+nn ;p "*p
+nn ;P "*P
 
 "" Powerline
 ""   Check `vim --version | grep +python` first
