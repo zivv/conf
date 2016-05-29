@@ -9,7 +9,7 @@
 #       trash-restore       restore a trashed file.
 #       trash-rm            remove individual files from trash can.
 # install trash-cli
-#   easy_install trash-cli
+#   pip install trash-cli
 #
 # if in OSX, read z_mac.sh_local to set up.
 #

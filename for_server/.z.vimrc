@@ -50,7 +50,7 @@ nn <silent> \ ;
 nn <silent> <bar> ,
 
 " quit current file without saving
-nn <silent> Q :q!<CR>
+nn <silent> ;q :q!<CR>
 " quit all files without saving
 nn <silent> ;a :qa!<CR>
 " close all windows but current without saving

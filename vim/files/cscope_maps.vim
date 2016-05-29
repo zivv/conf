@@ -41,8 +41,9 @@ if has("cscope")
     if filereadable("cscope.out")
         cs add cscope.out
     " else add the database pointed to by environment variable
+    " and use the path of $CSCOPE_DB as code path
     elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
+        exe "cs add " . $CSCOPE_DB . " " . fnamemodify($CSCOPE_DB, ":p:h")
     endif
 
     " show msg when any other cscope db added

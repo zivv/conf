@@ -43,7 +43,7 @@ Read [.vimrc](.vimrc) to set up.
 Copied from .vimrc as following:
 
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    :PluginInstall
+    vim -c "PluginInstall" -c q
     git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 
     Install YouCompleteMe
@@ -67,7 +67,7 @@ Read [.sh\_base](.sh\_base) to set up.
 Copied from .sh\_base as following:
 
     install trash-cli
-      easy_install trash-cli
+      pip install trash-cli
 
     if in OSX, read z_mac.sh_local to set up.
 
@@ -96,7 +96,7 @@ Copied from [.zsh\_local](.zsh\_local) as following:
       sed -i _old 's/ZSH_THEME/#ZSH_THEME/g' ~/.zshrc
       sed -i _old 's/plugins=/#plugins/g' ~/.zshrc
       sed -i _old 's/source $ZSH/#source $ZSH/g' ~/.zshrc
-      tp ~/.zshrc_old
+      t ~/.zshrc_old
 
     Install Fish-like autosuggestions for zsh
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions

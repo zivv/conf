@@ -1,6 +1,6 @@
 " Set up steps ------------------------------------------------------------{{{1
 "   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"   :PluginInstall
+"   vim -c "PluginInstall" -c q
 "   git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
 " Install YouCompleteMe
@@ -15,19 +15,21 @@
 "
 " Notes -------------------------------------------------------------------{{{1
 "   for Definition/Reference jump:
-"     exuberant-ctags & cscope & quickfix & YouCompleteMe & winmanager
+"     exuberant-ctags & cscope & quickfix & YouCompleteMe
 "     commands like: C-] C-t <C-\>s [w z;
 "
 "     See 'conf/vim/files/cscope_maps.vim' for commands of cscope.
+"     Normally just build cscope.out by run `cscope -Rbkq`.
+"     Put 'let $CSCOPE_DB = CSCOPE_OUT_FILE' in .vim_env if necessary.
 "
 "     The various YcmCompleter GoTo* subcommands add entries to Vim's jumplist
 "     so you can use CTRL-O to jump back to where you where before invoking
 "     the command (and CTRL-I to jump forward; see :h jumplist for details).
 
 
-" Basic path and setting --------------------------------------------------{{{1
-if filereadable(expand('~/.vim_path'))
-  source ~/.vim_path
+" Basic environment and setting --------------------------------------------------{{{1
+if filereadable(expand('~/.vim_env'))
+  source ~/.vim_env
 endif
 
 syntax enable
@@ -363,10 +365,10 @@ aug NewSyntaxHighlight
   au BufWinEnter * call matchadd('XXXs', 'XXX:\|XXX(.*):')
 
   " Google-logo \o/
-  hi googleBlue ctermfg=27 guifg=27
-  hi googleRed ctermfg=160 guifg=160
-  hi googleYellow ctermfg=214 guifg=214
-  hi googleGreen ctermfg=34 guifg=34
+  hi googleBlue ctermfg=27
+  hi googleRed ctermfg=160
+  hi googleYellow ctermfg=214
+  hi googleGreen ctermfg=34
   au BufWinEnter * call matchadd('googleBlue', '[Gg]\(oogle\)\@=')
   au BufWinEnter * call matchadd('googleRed', '\([Gg]\)\@<=o\(ogle\)\@=')
   au BufWinEnter * call matchadd('googleYellow', '\([Gg]o\)\@<=o\(gle\)\@=')
@@ -420,7 +422,7 @@ nn <silent> \ ;
 nn <silent> <bar> ,
 
 " quit current file without saving
-nn <silent> Q :q!<CR>
+nn <silent> ;q :q!<CR>
 " quit all files without saving
 nn <silent> ;a :qa!<CR>
 " close all windows but current without saving
@@ -477,6 +479,9 @@ vn ;y "*y
 " Paste the contents in system clipboard
 nn ;p "*p
 nn ;P "*P
+
+" Substitute for all lines
+nn ;s :%s
 
 
 " Local settings ----------------------------------------------------------{{{1
