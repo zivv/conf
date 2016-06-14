@@ -185,7 +185,9 @@ let g:startify_session_autoload       = 1
 let g:startify_session_persistence    = 1
 let g:startify_session_delete_buffers = 1
 let g:startify_bookmarks = [
+      \ { 'c': '~/conf/' },
       \ { 'v': '~/conf/.vimrc' },
+      \ { 'u': '~/.vim/UltiSnips' },
       \ ]
 let g:startify_custom_header =
       \ ['', "   Hi Zi! \\o/", '']
@@ -206,8 +208,11 @@ let g:startify_custom_footer = [
 Plugin 'altercation/vim-colors-solarized'
 
 " Required settings
-" dark or light background mode, comment to use application default
-"set background=dark
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
 " For mac, must set terminal as 'xterm-256color' in preference
 let g:solarized_termcolors = 256
 colorscheme solarized
@@ -481,7 +486,9 @@ nn ;p "*p
 nn ;P "*P
 
 " Substitute for all lines
-nn ;s :%s
+nn ;s :%s/
+" Substitute for selected lines
+vn ;s :s/
 
 
 " Local settings ----------------------------------------------------------{{{1
