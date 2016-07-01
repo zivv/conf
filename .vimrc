@@ -98,11 +98,13 @@ endif
 "let g:ycm_key_list_select_completion = ['<Down>']
 " default is ['<S-TAB>', '<Up>']
 "let g:ycm_key_list_previous_completion = ['<Up>']
+" default is 'same-buffer', could also be 'horizontal-split' or 'vertical-split'
+let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 " Global conf file, see YCM's own .ycm_extra_conf.py:
 "   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
 let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
-" Add the following line to .vim_local and modify it if necessary, see
-" `:h g:ycm_extra_conf_globlist` for details
+" Put the following line to '.vim_local' and add rules for project special
+" '.ycm_extra_conf.py' files into this list. See `:h g:ycm_extra_conf_globlist`.
 "let g:ycm_extra_conf_globlist = []
 
 " Shortcuts for YCM commands
@@ -222,14 +224,14 @@ colorscheme solarized
 Plugin 'tpope/vim-fugitive'
 
 " Shortcuts for fugitive commands
-" `g?` to see help after `Gs`
-nn <silent> Gs :Gstatus<CR>
-nn <silent> Ga :Git add . -A<CR>
-nn <silent> Gc :Gcommit<CR>
-nn <silent> Gl :Gpull<CR>
-nn <silent> Gu :Gpush<CR>
-nn <silent> Gd :Gvdiff<CR>
-nn <silent> Gh :Gvdiff HEAD<CR>
+" `g?` to see help after `;gs`
+nn <silent> ;gs :Gstatus<CR>
+nn <silent> ;ga :Git add . -A<CR>
+nn <silent> ;gc :Gcommit<CR>
+nn <silent> ;gl :Gpull<CR>
+nn <silent> ;gu :Gpush<CR>
+nn <silent> ;gd :Gvdiff<CR>
+nn <silent> ;gh :Gvdiff HEAD<CR>
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
@@ -277,7 +279,8 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set smarttab
-set textwidth=80
+" disable auto-insert line breaks
+set textwidth=0
 
 " show line number
 set number
@@ -358,16 +361,17 @@ aug NewSyntaxHighlight
   au BufWinEnter * call matchadd('TrailingWhitespace', '\s\+$')
 
   " highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks)
+  " valid format: TODO, TODO:, TODO(ziv), TODO(ziv):
   hi TODOs ctermfg=white ctermbg=33
-  au BufWinEnter * call matchadd('TODOs', 'TODO:\|TODO(.*):')
+  au BufWinEnter * call matchadd('TODOs', 'TODO(.\{-}):\?\|TODO:\?')
   hi FIXMEs ctermfg=white ctermbg=196
-  au BufWinEnter * call matchadd('FIXMEs', 'FIXME:\|FIXME(.*):')
+  au BufWinEnter * call matchadd('FIXMEs', 'FIXME(.\{-}):\?\|FIXME:\?')
   hi REVIEWs ctermfg=white ctermbg=208
-  au BufWinEnter * call matchadd('REVIEWs', 'REVIEW:\|REVIEW(.*):')
+  au BufWinEnter * call matchadd('REVIEWs', 'REVIEW(.\{-}):\?\|REVIEW:\?')
   hi NOTEs ctermfg=white ctermbg=112
-  au BufWinEnter * call matchadd('NOTEs', 'NOTE:\|NOTE(.*):')
+  au BufWinEnter * call matchadd('NOTEs', 'NOTE(.\{-}):\?\|NOTE:\?')
   hi XXXs ctermfg=white ctermbg=99
-  au BufWinEnter * call matchadd('XXXs', 'XXX:\|XXX(.*):')
+  au BufWinEnter * call matchadd('XXXs', 'XXX(.\{-}):\?\|XXX:\?')
 
   " Google-logo \o/
   hi googleBlue ctermfg=27
@@ -385,7 +389,7 @@ aug END
 
 
 " Custom commands ---------------------------------------------------------{{{1
-"   Note before adding new mappings, try `:verbose map <key>` to check it
+"   Note before adding new mappings, check `:h <key>` and `:verbose map <key>`
 
 " easy to close highlighting after searching
 nn <silent> ;h :nohl<CR>
@@ -439,13 +443,19 @@ nn ;e :e
 " tab edit
 nn ;t :tabe 
 " switch between tabs
-nn ;i :tabp<CR>
-nn ;o :tabn<CR>
+" {count}gT - Go {count} tab pages back
+nn ;i gT
+" {count}gt - Go to tab page {count}
+nn ;o gt
 " switch between windows
+" {count};u - Go to {count}th window (when larger then # of wins, go to last)
 nn ;u <C-W><C-W>
 
 " get out of insert mode
-ino jk <Esc>
+" 'jk' is a good cmd for exiting insert mode but not good for virtual
+ino ;l <Esc>
+" get out of virtual mode
+vn ;l <Esc>
 
 " delete trailing whithspace
 nn <silent> ds :%s#\s\+$##g<CR>
@@ -457,27 +467,9 @@ nn zr zR
 " Redos since 'u' undos
 nn U :redo<CR>
 
+" Go to begin/end of line
 nn H ^
 nn L g_
-
-" Undo
-ino <C-l> <C-o>u
-
-" Delete current character
-ino <C-x> <C-o>x
-
-" Go to begin of line
-ino <C-w> <Esc>I
-" Go to end of line
-ino <C-e> <Esc>A
-" Move cursor
-ino <C-o> <Down>
-ino <C-p> <Up>
-ino <C-r> <Left>
-ino <C-t> <Right>
-" Move a word forward/backward
-ino <C-f> <C-o>b
-ino <C-g> <C-o>w
 
 " Yank to system clipboard
 vn ;y "*y

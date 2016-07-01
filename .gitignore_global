@@ -50,3 +50,7 @@ cscope.*
 # Mac files #
 #############
 .DS_Store
+
+# svn files #
+#############
+.svn
