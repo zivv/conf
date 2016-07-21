@@ -27,7 +27,7 @@
 "     the command (and CTRL-I to jump forward; see :h jumplist for details).
 
 
-" Basic environment and setting --------------------------------------------------{{{1
+" Basic environment and setting -------------------------------------------{{{1
 if filereadable(expand('~/.vim_env'))
   source ~/.vim_env
 endif
@@ -63,7 +63,7 @@ Plugin 'SirVer/ultisnips'
 
 " UltiSnips settings
 " default is <Tab>, better to be different with JumpForward key
-let g:UltiSnipsExpandTrigger = "<C-h>"
+"let g:UltiSnipsExpandTrigger = "<C-h>"
 " default is <C-Tab>, no need to worry about since using 'honza/vim-snippets'
 "let g:UltiSnipsListSnippets = "<C-Tab>"
 " default is <C-j>
@@ -309,6 +309,10 @@ set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
 set showbreak=↪
 
+" Jump to the first open tab that contains the specified buffer
+" Open a new tab page before loading a buffer for a quickfix command
+set switchbuf=usetab,newtab
+
 " Highlight column 80 as well as 100 and onward
 " Google java style accepts a column limit of either 80 or 100 characters
 let &colorcolumn = "80,".join(range(100,256),",")
@@ -397,20 +401,6 @@ nn <silent> ;h :nohl<CR>
 " easy to copy
 nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 
-" switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
-let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
-nn <space>c<space> :fin <C-R>=substitute(expand("%"), pat, ".c", "")<CR><CR>
-nn <space>cc :fin <C-R>=substitute(expand("%"), pat, ".cc", "")<CR><CR>
-nn <space>cp :fin <C-R>=substitute(expand("%"), pat, ".cpp", "")<CR><CR>
-nn <space>h  :fin <C-R>=substitute(expand("%"), pat, ".h", "")<CR><CR>
-nn <space>i  :fin <C-R>=substitute(expand("%"), pat, "-inl.h", "")<CR><CR>
-nn <space>t  :fin <C-R>=substitute(expand("%"), pat, "_test.", "").
-      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>u  :fin <C-R>=substitute(expand("%"), pat, "_unittest.", "").
-      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>p  :e <C-R>=substitute(expand("%"), pat, ".py", "")<CR><CR>
-nn <space>j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
-
 " move to column 80
 nn ;80 079l
 
@@ -438,10 +428,15 @@ nn <silent> ;a :qa!<CR>
 nn <silent> ;l :only!<CR>
 " forced saving
 nn ;w :w!<CR>
-" edit
+" edit, empty for reading current file from disk again
 nn ;e :e 
-" tab edit
+" open a new tab
 nn ;t :tabe 
+" show all buffers and edit buffer [N] or {bufferName}, empty for nothing
+nn ;b :ls<CR>:tab sb 
+" edit the path of current file
+nn ;re :e %:h<CR>
+nn ;rt :tabe %:h<CR>
 " switch between tabs
 " {count}gT - Go {count} tab pages back
 nn ;i gT
@@ -481,6 +476,40 @@ nn ;P "*P
 nn ;s :%s/
 " Substitute for selected lines
 vn ;s :s/
+
+" Similar to :drop, but :drop can only be used in GUI
+function! FindExistingBufOrOpenNew(filename)
+  for tabnr in range(tabpagenr('$'))
+    for bufnr in tabpagebuflist(tabnr + 1)
+      if bufname(bufnr) == a:filename
+        exe "sb " . a:filename
+        return
+      endif
+    endfor
+  endfor
+  exe "tabf " . a:filename
+endfunction
+
+" Switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
+let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
+nn <space>c<space> :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"),
+      \pat, ".c", "")<CR>")<CR>
+nn <space>cc :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \".cc", "")<CR>")<CR>
+nn <space>cp :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \".cpp", "")<CR>")<CR>
+nn <space>h  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \".h", "")<CR>")<CR>
+nn <space>i  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \"-inl.h", "")<CR>")<CR>
+nn <space>t  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \"_test.", "").substitute(expand("%:e"), "h", "cc", "")<CR>")<CR>
+nn <space>u  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \"_unittest.", "").substitute(expand("%:e"), "h", "cc", "")<CR>")<CR>
+nn <space>p  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \".py", "")<CR>")<CR>
+nn <space>j  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
+      \".js", "")<CR>")<CR>
 
 
 " Local settings ----------------------------------------------------------{{{1
