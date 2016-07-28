@@ -62,8 +62,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'SirVer/ultisnips'
 
 " UltiSnips settings
-" default is <Tab>, better to be different with JumpForward key
-"let g:UltiSnipsExpandTrigger = "<C-h>"
+" default is <Tab>
+" original <C-j> is used to 'Begin new line', using <C-m> instead
+let g:UltiSnipsExpandTrigger = "<C-j>"
 " default is <C-Tab>, no need to worry about since using 'honza/vim-snippets'
 "let g:UltiSnipsListSnippets = "<C-Tab>"
 " default is <C-j>
@@ -434,9 +435,6 @@ nn ;e :e
 nn ;t :tabe 
 " show all buffers and edit buffer [N] or {bufferName}, empty for nothing
 nn ;b :ls<CR>:tab sb 
-" edit the path of current file
-nn ;re :e %:h<CR>
-nn ;rt :tabe %:h<CR>
 " switch between tabs
 " {count}gT - Go {count} tab pages back
 nn ;i gT
@@ -477,8 +475,36 @@ nn ;s :%s/
 " Substitute for selected lines
 vn ;s :s/
 
+" Commands for insert mode, see `:h Insert`
+" Go to begin of line
+ino <C-q> <Esc>A
+" Go to end of line
+ino <C-p> <Esc>I
+" Move cursor
+ino <C-a> <Left>
+ino <C-s> <Down>
+ino <C-f> <Up>
+ino <C-g> <Right>
+" Move a word forward/backward
+ino <C-b> <C-o>b
+ino <C-c> <C-o>w
+
+" Open dir in a new window that will appear at right
+command! -n=1 -complete=dir ZOpenDir :call s:ZOpenDir('<args>')
+function! s:ZOpenDir(dir)
+  let l:width = winwidth(0) - 100
+  if l:width <= 0
+    let l:width = winwidth(0) / 2
+  endif
+  exe "bo " . l:width . " vs " . a:dir
+endfunction
+
+" Edit the path of current file
+nn ;r :ZOpenDir %:h<CR>
+
 " Similar to :drop, but :drop can only be used in GUI
-function! FindExistingBufOrOpenNew(filename)
+command! -n=1 -complete=file ZFindBufOrNew :call s:ZFindBufOrNew('<args>')
+function! s:ZFindBufOrNew(filename)
   for tabnr in range(tabpagenr('$'))
     for bufnr in tabpagebuflist(tabnr + 1)
       if bufname(bufnr) == a:filename
@@ -492,24 +518,24 @@ endfunction
 
 " Switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
 let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
-nn <space>c<space> :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"),
-      \pat, ".c", "")<CR>")<CR>
-nn <space>cc :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \".cc", "")<CR>")<CR>
-nn <space>cp :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \".cpp", "")<CR>")<CR>
-nn <space>h  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \".h", "")<CR>")<CR>
-nn <space>i  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \"-inl.h", "")<CR>")<CR>
-nn <space>t  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \"_test.", "").substitute(expand("%:e"), "h", "cc", "")<CR>")<CR>
-nn <space>u  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \"_unittest.", "").substitute(expand("%:e"), "h", "cc", "")<CR>")<CR>
-nn <space>p  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \".py", "")<CR>")<CR>
-nn <space>j  :call FindExistingBufOrOpenNew("<C-R>=substitute(expand("%"), pat,
-      \".js", "")<CR>")<CR>
+nn <space>c<space> :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".c", ""
+      \)<CR><CR>
+nn <space>cc :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".cc", ""
+      \)<CR><CR>
+nn <space>cp :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".cpp", ""
+      \)<CR><CR>
+nn <space>h  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".h", ""
+      \)<CR><CR>
+nn <space>i  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, "-inl.h", ""
+      \)<CR><CR>
+nn <space>t  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, "_test.", ""
+      \).substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nn <space>u  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, "_unittest.", ""
+      \).substitute(expand("%:e"), "h", "cc", "")<CR><CR>
+nn <space>p  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".py", ""
+      \)<CR><CR>
+nn <space>j  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".js", ""
+      \)<CR><CR>
 
 
 " Local settings ----------------------------------------------------------{{{1
