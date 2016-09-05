@@ -26,6 +26,10 @@ LC_CTYPE='en_US.UTF-8'
 
 # Custom commands ---------------------------------------------------------{{{1
 #   Use 'unalias' to cancle
+
+# Always keep `conf` dir under $HOME :)
+alias ss='(cd ~/conf; ./set.sh)'
+
 alias v='vim'
 alias vd='vimdiff'
 alias g='git'
@@ -34,10 +38,9 @@ alias q='exit'
 alias rm='echo "This is not the command you are looking for."; false'
 alias tr='tree'
 
-alias t='trash-put'
+alias rsync='rsync -vcharz --progress'
 
-# Always keep `conf` dir under $HOME :)
-alias ss='(cd ~/conf; ./set.sh)'
+alias t='trash-put'
 
 
 # Software special --------------------------------------------------------{{{1

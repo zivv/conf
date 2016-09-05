@@ -37,3 +37,5 @@ fi
 #   man-preview   open a specified man page in Preview
 #   itunes        iTunes control function, see `itunes -h` for usage
 ZSH_PLUGINS='osx'
+
+PATH="$PATH:/usr/local/sbin"

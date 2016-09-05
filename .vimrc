@@ -9,6 +9,8 @@
 "   Completer options for install.py
 "     --clang-completer (need cmake, gcc, g++ and python-dev)
 "     --gocode-completer
+" Install fugitive
+"     vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
 " Install vim-go
 "     vim -c "GoInstallBinaries" -c q
 "
@@ -477,17 +479,12 @@ vn ;s :s/
 
 " Commands for insert mode, see `:h Insert`
 " Go to begin of line
-ino <C-q> <Esc>A
+ino <C-c> <Esc>I
 " Go to end of line
-ino <C-p> <Esc>I
+ino <C-b> <Esc>A
 " Move cursor
-ino <C-a> <Left>
-ino <C-s> <Down>
 ino <C-f> <Up>
-ino <C-g> <Right>
-" Move a word forward/backward
-ino <C-b> <C-o>b
-ino <C-c> <C-o>w
+ino <C-g> <Down>
 
 " Open dir in a new window that will appear at right
 command! -n=1 -complete=dir ZOpenDir :call s:ZOpenDir('<args>')
