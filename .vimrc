@@ -148,7 +148,7 @@ let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
 
 " Shortcuts for vim-autoformat commands
 " for Normal, Visual, Select, Operator-pending modes
-map <silent> <C-j> :Autoformat<CR>
+map <silent> <C-k> :Autoformat<CR>
 
 
 " Tagbar -- a class outline viewer for Vim --------------------------------{{{2
@@ -479,12 +479,12 @@ vn ;s :s/
 
 " Commands for insert mode, see `:h Insert`
 " Go to begin of line
-ino <C-c> <Esc>I
+ino <C-b> <Esc>I
 " Go to end of line
-ino <C-b> <Esc>A
+ino <C-c> <Esc>A
 " Move cursor
-ino <C-f> <Up>
-ino <C-g> <Down>
+ino <C-f> <Down>
+ino <C-g> <Up>
 
 " Open dir in a new window that will appear at right
 command! -n=1 -complete=dir ZOpenDir :call s:ZOpenDir('<args>')
