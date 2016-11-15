@@ -71,9 +71,9 @@ Copied from .sh\_base as following:
 
     if using zsh, read .zsh_local to set up.
     if using bash in Linux:
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc
+      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
     if using bash in OSX:
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile
+      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
 Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
 
@@ -91,10 +91,10 @@ Copied from [.zsh\_local](.zsh\_local) as following:
       sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
     Comment some lines in `.zshrc` to accept new settings in this file
-      sed -i _old 's/ZSH_THEME/#ZSH_THEME/g' ~/.zshrc
-      sed -i _old 's/plugins=/#plugins/g' ~/.zshrc
-      sed -i _old 's/source $ZSH/#source $ZSH/g' ~/.zshrc
-      t ~/.zshrc_old
+      Linux:
+        sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
+      OSX:
+        sed -i _old 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc && t ~/.zshrc_old
 
     Install Fish-like autosuggestions for zsh
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions

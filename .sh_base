@@ -15,9 +15,9 @@
 #
 # if using zsh, read .zsh_local to set up.
 # if using bash in Linux:
-#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
 # if using bash in OSX:
-#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
 
 # Basic settings ----------------------------------------------------------{{{1
