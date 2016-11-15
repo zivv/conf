@@ -10,6 +10,7 @@ files=(
 ".gitconfig" ".gitignore_global"
 ".mongorc.js"
 "jupyter_notebook_config.py|.jupyter"
+".octaverc"
 )
 
 locas=(

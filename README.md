@@ -16,7 +16,7 @@ The following steps are already done in conf files. :)
 
 Or find documentation [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up shell prompts and [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins(include vim, tmux, ipython, etc).
 
-Note that if can not import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` include the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in .vim_path if necessary.
+Note that if can not import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` include the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
 
 TODO(ziv): Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE\_CONFIG\_COMMAND, $POWERLINE\_COMMAND) in source files. Waiting for updates.
 
@@ -24,9 +24,7 @@ TODO(ziv): Powerline with tmux is not working and the doc is not good enough to 
 
 Download [zip](https://github.com/powerline/fonts/archive/master.zip) and run `./install.sh` to install all Powerline Fonts or see the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
 
-Usually use the font named **Sauce Code Powerline** (formerly known as *Source Code Pro*).
-
-In OSX, set terminal (Terminal or iTerm) to use powerline fonts.
+Then set terminal to use a powerline font. Usually use the font named **Sauce Code Powerline** (formerly known as *Source Code Pro*).
 
 ## Set up
 
@@ -74,10 +72,8 @@ Copied from .sh\_base as following:
     if using zsh, read .zsh_local to set up.
     if using bash in Linux:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc
-      echo "BASH_FILE=${HOME}'/.bashrc'" >> ~/.sh_local
     if using bash in OSX:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile
-      echo "BASH_FILE=${HOME}'/.bash_profile'" >> ~/.sh_local
 
 Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
 

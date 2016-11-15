@@ -37,12 +37,12 @@ if has("cscope")
   " if you want the reverse search order.
   set csto=0
 
-  " add any cscope database in current directory
   if filereadable("cscope.out")
+    " add any cscope database in current directory
     silent cs add cscope.out
-  " else add the database pointed to by environment variable
-  " and use the path of $CSCOPE_DB as code path
   elseif $CSCOPE_DB != ""
+    " else add the database pointed to by environment variable
+    " and use the path of $CSCOPE_DB as code path
     exe "silent cs add " . $CSCOPE_DB . " " . fnamemodify($CSCOPE_DB, ":p:h")
   endif
 
