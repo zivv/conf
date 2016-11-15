@@ -74,8 +74,10 @@ Copied from .sh\_base as following:
     if using zsh, read .zsh_local to set up.
     if using bash in Linux:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc
+      echo "BASH_FILE=${HOME}'/.bashrc'" >> ~/.sh_local
     if using bash in OSX:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile
+      echo "BASH_FILE=${HOME}'/.bash_profile'" >> ~/.sh_local
 
 Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
 
@@ -102,7 +104,7 @@ Copied from [.zsh\_local](.zsh\_local) as following:
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
     Set up shell confs
-      echo '[[ -f ~/.sh_base ]] && . ~/.sh_base' >> ~/.zshrc && source ~/.zshrc
+      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc
 
 
 ## Update
