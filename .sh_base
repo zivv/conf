@@ -41,12 +41,13 @@ alias rsync='rsync -vcharz --progress'
 
 # trash-cli -- Command Line Interface to FreeDesktop.org Trash.
 #     https://github.com/andreafrancia/trash-cli
-#   It provides these commands:
+#   Supported commands:
 #       trash-put           trashes files and directories.
 #       trash-empty         empty the trashcan(s).
 #       trash-list          list trashed file.
 #       trash-restore       restore a trashed file.
 #       trash-rm            remove individual files from trash can.
+#   Note if meet segfault, read issue #52 and try to fetch pull request #53.
 alias t='trash-put'
 
 
