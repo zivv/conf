@@ -18,7 +18,7 @@
 # Basic settings ----------------------------------------------------------{{{1
 LC_CTYPE='en_US.UTF-8'
 
-if [ which dircolors &> /dev/null ] && [[ -f ~/.dircolors.256dark ]]; then
+if `which dircolors &> /dev/null` && [[ -f ~/.dircolors.256dark ]]; then
   eval `dircolors ~/.dircolors.256dark`
 fi
 

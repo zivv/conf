@@ -28,6 +28,10 @@ z_mac=(
 ".sh_local"
 )
 
+z_ubuntu=(
+".sh_local"
+)
+
 for file in ${files[@]}
 do
   if [[ ${file} =~ '|' ]]; then
