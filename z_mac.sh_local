@@ -1,9 +1,6 @@
 # Set up steps in OSX
 #
 #   brew install coreutils
-#
-#   git clone https://github.com/seebi/dircolors-solarized.git
-#   cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
 
 BASH_FILE=${HOME}'/.bash_profile'
 
@@ -21,7 +18,6 @@ if brew list | grep coreutils > /dev/null ; then
 
   # colorful `ls` :D
   alias ls='ls -F --show-control-chars --color=auto'
-  # get `dircolors.256dark` from https://github.com/seebi/dircolors-solarized.git
   if [[ -f ~/.dircolors.256dark ]]; then
     eval `dircolors ~/.dircolors.256dark`
   fi

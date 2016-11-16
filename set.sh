@@ -16,6 +16,7 @@ files=(
 locas=(
 "z_lenovo"
 "z_mac"
+"z_ubuntu"
 )
 
 z_lenovo=(

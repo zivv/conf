@@ -24,6 +24,7 @@
   rh = reset --hard
   lf = ls-files
   a = add
+  sh = stash
 
   ps = push
   pso = push origin

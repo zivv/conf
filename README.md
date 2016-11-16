@@ -6,25 +6,29 @@ Use the existence of file `~/.at_YOUR_PLACE`, checked by `set.sh`, to distinguis
 
 ## Basic configuration
 
-### [Powerline](https://github.com/powerline/powerline)
+### Color Theme - [Solarized](http://ethanschoonover.com/solarized)
 
-Pip installation
+Set terminal to use **Solarized** theme.
+
+### Statusline & Prompt - [Powerline](https://github.com/powerline/powerline)
+
+#### Installation
 
     pip install powerline-status
 
 The following steps are already done in conf files. :)
 
-Or find documentation [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up shell prompts and [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins(include vim, tmux, ipython, etc).
+Or find doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up shell prompts and doc [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins (like vim, tmux, ipython, etc).
 
-Note that if can not import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` include the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
+Note that if failed to import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` includes the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
 
-TODO(ziv): Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE\_CONFIG\_COMMAND, $POWERLINE\_COMMAND) in source files. Waiting for updates.
+*TODO(ziv):* Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE\_CONFIG\_COMMAND, $POWERLINE\_COMMAND) in source files. Waiting for updates.
 
 #### [Powerline fonts](https://github.com/powerline/fonts)
 
 Download [zip](https://github.com/powerline/fonts/archive/master.zip) and run `./install.sh` to install all Powerline Fonts or see the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
 
-Then set terminal to use a powerline font. Usually use the font named **Sauce Code Powerline** (formerly known as *Source Code Pro*).
+Then set terminal to use a powerline font. Personally prefer the font named **Sauce Code Powerline** (formerly known as *Source Code Pro*) with **Semibold, 15pt**.
 
 ## Set up
 
@@ -64,6 +68,9 @@ Read [.sh\_base](.sh\_base) to set up.
 
 Copied from .sh\_base as following:
 
+    install dircolors
+      git clone https://github.com/seebi/dircolors-solarized.git
+      cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
     install trash-cli
       pip install trash-cli
 
@@ -78,9 +85,6 @@ Copied from .sh\_base as following:
 Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
 
     brew install coreutils
-
-    git clone https://github.com/seebi/dircolors-solarized.git
-    cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
 
 Copied from [.zsh\_local](.zsh\_local) as following:
 

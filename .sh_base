@@ -1,13 +1,8 @@
 # Set up steps ------------------------------------------------------------{{{1
 #
-# trash-cli -- Command Line Interface to FreeDesktop.org Trash.
-#     https://github.com/andreafrancia/trash-cli
-#   It provides these commands:
-#       trash-put           trashes files and directories.
-#       trash-empty         empty the trashcan(s).
-#       trash-list          list trashed file.
-#       trash-restore       restore a trashed file.
-#       trash-rm            remove individual files from trash can.
+# install dircolors
+#   git clone https://github.com/seebi/dircolors-solarized.git
+#   cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
 # install trash-cli
 #   pip install trash-cli
 #
@@ -22,6 +17,10 @@
 
 # Basic settings ----------------------------------------------------------{{{1
 LC_CTYPE='en_US.UTF-8'
+
+if [ which dircolors &> /dev/null ] && [[ -f ~/.dircolors.256dark ]]; then
+  eval `dircolors ~/.dircolors.256dark`
+fi
 
 
 # Custom commands ---------------------------------------------------------{{{1
@@ -40,6 +39,14 @@ alias tr='tree'
 
 alias rsync='rsync -vcharz --progress'
 
+# trash-cli -- Command Line Interface to FreeDesktop.org Trash.
+#     https://github.com/andreafrancia/trash-cli
+#   It provides these commands:
+#       trash-put           trashes files and directories.
+#       trash-empty         empty the trashcan(s).
+#       trash-list          list trashed file.
+#       trash-restore       restore a trashed file.
+#       trash-rm            remove individual files from trash can.
 alias t='trash-put'
 
 
