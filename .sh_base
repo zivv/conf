@@ -4,7 +4,7 @@
 #   git clone https://github.com/seebi/dircolors-solarized.git
 #   cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
 # install trash-cli
-#   pip install trash-cli
+#   pip3 install trash-cli
 #
 # if in OSX, read z_mac.sh_local to set up.
 #
@@ -58,7 +58,7 @@ alias mr='mysql -u root -p'
 alias nb='(cd ~/ziv/notebook && jupyter notebook > /dev/null 2>&1 &)'
 alias knb='pkill -f notebook'
 
-POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')
+POWERLINE_ROOT=$(pip3 show powerline-status | awk '/Location:/{print $2}')
 
 GOPATH=${HOME}'/ziv/goz'
 

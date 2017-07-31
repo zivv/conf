@@ -340,10 +340,10 @@ source ~/.vim/files/cscope_maps.vim
 
 " Powerline ---------------------------------------------------------------{{{2
 "   https://powerline.readthedocs.org/en/master/usage/other.html
-"   Check `vim --version | grep +python` first
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+"   Check `vim --version | grep +python3` first
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
 " Always display the statusline in all windows
 set laststatus=2
 " Always display the tabline, even if there is only one tab
@@ -371,15 +371,15 @@ aug NewSyntaxHighlight
   " highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks)
   " valid format: TODO, TODO:, TODO(ziv), TODO(ziv):
   hi TODOs ctermfg=white ctermbg=33
-  au BufWinEnter * call matchadd('TODOs', 'TODO(.\{-}):\?\|TODO:\?')
+  au BufWinEnter * call matchadd('TODOs', '\<TODO(.\{-}):\?\|\<TODO:\?')
   hi FIXMEs ctermfg=white ctermbg=196
-  au BufWinEnter * call matchadd('FIXMEs', 'FIXME(.\{-}):\?\|FIXME:\?')
+  au BufWinEnter * call matchadd('FIXMEs', '\<FIXME(.\{-}):\?\|\<FIXME:\?')
   hi REVIEWs ctermfg=white ctermbg=208
-  au BufWinEnter * call matchadd('REVIEWs', 'REVIEW(.\{-}):\?\|REVIEW:\?')
+  au BufWinEnter * call matchadd('REVIEWs', '\<REVIEW(.\{-}):\?\|\<REVIEW:\?')
   hi NOTEs ctermfg=white ctermbg=112
-  au BufWinEnter * call matchadd('NOTEs', 'NOTE(.\{-}):\?\|NOTE:\?')
+  au BufWinEnter * call matchadd('NOTEs', '\<NOTE(.\{-}):\?\|\<NOTE:\?')
   hi XXXs ctermfg=white ctermbg=99
-  au BufWinEnter * call matchadd('XXXs', 'XXX(.\{-}):\?\|XXX:\?')
+  au BufWinEnter * call matchadd('XXXs', '\<XXX(.\{-}):\?\|\<XXX:\?')
 
   " Google-logo \o/
   hi googleBlue ctermfg=27

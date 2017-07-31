@@ -1,5 +1,4 @@
 .PHONY: 
 
-P := 
-DIST_SRC := $(shell git ls-files)
-RLSE_SRC := $(DIST_SRC)
+ALL_SRC := $(shell git ls-files)
+DIST := $(ALL_SRC)

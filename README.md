@@ -14,7 +14,7 @@ Set terminal to use **Solarized** theme.
 
 #### Installation
 
-    pip install powerline-status
+    pip3 install powerline-status
 
 The following steps are already done in conf files. :)
 
@@ -72,7 +72,7 @@ Copied from .sh\_base as following:
       git clone https://github.com/seebi/dircolors-solarized.git
       cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
     install trash-cli
-      pip install trash-cli
+      pip3 install trash-cli
 
     if in OSX, read z_mac.sh_local to set up.
 
