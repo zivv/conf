@@ -9,6 +9,10 @@
 "   Completer options for install.py
 "     --clang-completer (need cmake, gcc, g++ and python-dev)
 "     --gocode-completer
+" Install vim-autoformat
+"   Depend clang-format or astyle
+" Install tagbar
+"   Depend exuberant-ctags
 " Install fugitive
 "     vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
 " Install vim-go
