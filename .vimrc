@@ -137,11 +137,13 @@ Plugin 'Chiel92/vim-autoformat'
 
 " vim-autoformat settings
 " only change the style option to Google
-" default style is a complex dict, see vim-autoformat/plugin/defaults.vim
+" see vim-autoformat/plugin/defaults.vim
 let g:formatdef_clangformat = "'clang-format ".
       \"-lines='.a:firstline.':'.a:lastline.' ".
-      \"--assume-filename='.bufname('%').' -style=google'"
+      \"--assume-filename=\"'.expand('%:p').'\" ".
+      \"-style=\"{BasedOnStyle: Google}\"'"
 " default style is 'ansi'
+" TODO(ziv): consider if change to use .astylerc
 let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
       \'--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
@@ -150,6 +152,10 @@ let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
       \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
       \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+" add formatter for bazel BUILD files
+" see https://github.com/bazelbuild/buildtools/tree/master/buildifier
+let g:formatters_bzl = ['buildifier']
+let g:formatdef_buildifier = '"buildifier"'
 
 " Shortcuts for vim-autoformat commands
 " for Normal, Visual, Select, Operator-pending modes
@@ -240,6 +246,7 @@ nn <silent> ;gl :Gpull<CR>
 nn <silent> ;gu :Gpush<CR>
 nn <silent> ;gd :Gvdiff<CR>
 nn <silent> ;gh :Gvdiff HEAD<CR>
+nn <silent> ;gb :Gblame<CR>
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2

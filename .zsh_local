@@ -30,6 +30,9 @@ ZSH_TMUX_AUTOQUIT=false
 # color of autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue'
 
+# Uncomment it if usnig Powerline instead of oh-my-zsh
+# . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh
+
 alias gdh='g dh'
 alias gdc='g dc'
 alias gdt='g dt'
@@ -41,6 +44,3 @@ alias gci-='g ci -m'
 alias ls='ls -F --show-control-chars --color=auto'
 alias l='ls'
 alias la='ls -a'
-
-# Uncomment it if usnig Powerline instead of oh-my-zsh
-# . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh
