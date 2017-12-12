@@ -13,19 +13,18 @@
 [difftool]
   prompt = false
 [alias]
-  c = config
   co = checkout
   br = branch
   ci = commit
   st = status
   l = log
-  l1 = log -1 HEAD
   ro = remote
   mg = merge
   rh = reset --hard
   lf = ls-files
   a = add
   sh = stash
+  sp = stash pop
   rb = rebase
 
   ps = push
