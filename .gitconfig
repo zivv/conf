@@ -20,7 +20,6 @@
   l = log
   ro = remote
   mg = merge
-  rh = reset --hard
   lf = ls-files
   a = add
   sh = stash

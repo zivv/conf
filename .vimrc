@@ -22,7 +22,7 @@
 " Notes -------------------------------------------------------------------{{{1
 "   for Definition/Reference jump:
 "     exuberant-ctags & cscope & quickfix & YouCompleteMe
-"     commands like: C-] C-t <C-\>s [w z;
+"     commands like: C-] C-t <C-\>s [w ;j
 "
 "     See 'conf/vim/files/cscope_maps.vim' for commands of cscope.
 "     Normally just build cscope.out by run `cscope -Rbkq`.
@@ -31,6 +31,9 @@
 "     The various YcmCompleter GoTo* subcommands add entries to Vim's jumplist
 "     so you can use CTRL-O to jump back to where you where before invoking
 "     the command (and CTRL-I to jump forward; see :h jumplist for details).
+"
+"   Could find unused key like:
+"     for i in {a..z};do;if ! grep \;$i ~/.vimrc>/dev/null;then;echo $i;fi;done
 
 
 " Basic environment and setting -------------------------------------------{{{1
@@ -117,15 +120,15 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 
 " Shortcuts for YCM commands
 " jump to the header/definition/declaration
-nn <silent> z; :YcmCompleter GoTo<CR>
+nn <silent> ;j :YcmCompleter GoTo<CR>
 " Echos the semantic parent of the point under the cursor.
-nn <silent> ze :YcmCompleter GetType<CR>
+nn <silent> ;v :YcmCompleter GetType<CR>
 " View documentation comments for identifiers
-nn <silent> zh :YcmCompleter GetDoc<CR>
+nn <silent> ;d :YcmCompleter GetDoc<CR>
 " Attempts to correct the diagnostic closest to the cursor position.
-nn <silent> zl :YcmCompleter FixIt<CR>
+nn <silent> ;x :YcmCompleter FixIt<CR>
 " refresh the diagnostics
-nn <silent> <F5> :YcmForceCompileAndDiagnostics<CR>
+nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -141,7 +144,9 @@ Plugin 'Chiel92/vim-autoformat'
 let g:formatdef_clangformat = "'clang-format ".
       \"-lines='.a:firstline.':'.a:lastline.' ".
       \"--assume-filename=\"'.expand('%:p').'\" ".
-      \"-style=\"{BasedOnStyle: Google}\"'"
+      \"-style=\"{BasedOnStyle: Google, ".
+      \"          BinPackArguments: false, BinPackParameters: false, ".
+      \"          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
 " default style is 'ansi'
 " TODO(ziv): consider if change to use .astylerc
 let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
@@ -166,7 +171,7 @@ map <silent> <C-k> :Autoformat<CR>
 Plugin 'majutsushi/tagbar'
 
 " Shortcuts for Tagbar commands
-nn <silent> <F8> :TagbarToggle<CR>
+nn <silent> ;k :TagbarToggle<CR>
 
 
 " nerdcommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
@@ -273,7 +278,7 @@ aug GoShortcuts
   " Open the target identifier in current buffer
   " By default the mapping gd is enabled
   " For consistency of the same shortcut with YCM
-  au FileType go nn z; <Plug>(go-def)
+  au FileType go nn ;j <Plug>(go-def)
   " go run/build/test for the current package
   au FileType go nn gr <Plug>(go-run)
   au FileType go nn gb <Plug>(go-build)

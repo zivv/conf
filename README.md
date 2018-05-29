@@ -102,7 +102,7 @@ Copied from [.zsh\_local](.zsh\_local) as following:
 
     Comment some lines in `.zshrc` to accept new settings in this file
       Linux:
-        sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
+        sed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && sed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
       OSX:
         sed -i _old 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc && t ~/.zshrc_old
 

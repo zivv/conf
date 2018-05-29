@@ -67,8 +67,8 @@ alias spc='supervisorctl'
 
 
 # Local settings ----------------------------------------------------------{{{1
-# enviroment special
-[[ -f ~/.sh_local ]] && . ~/.sh_local
 # shell special
 [[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
 [[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
+# enviroment special
+[[ -f ~/.sh_local ]] && . ~/.sh_local
