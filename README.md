@@ -8,7 +8,7 @@ Use the existence of file `~/.at_YOUR_PLACE`, checked by `set.sh`, to distinguis
 
 ### Color Theme - [Solarized](http://ethanschoonover.com/solarized)
 
-Set terminal to use **Solarized** theme.
+Set terminal to use **Solarized** theme. For **iTerm2**, set `Preference`->`Profiles`->`Colors`->`Color Presets` as `Solarized Dark`.
 
 ### Statusline & Prompt - [Powerline](https://github.com/powerline/powerline)
 
@@ -32,11 +32,58 @@ Then set terminal to use a powerline font. Personally prefer the font named **Sa
 
 ## Set up
 
-First of all, run following commands to put all configure files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)).
+### shell
+
+Read [.sh\_base](.sh\_base) to set up.
+
+Copied from .sh\_base as following:
+
+    install dircolors
+      git clone https://github.com/seebi/dircolors-solarized.git
+      cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
+    install trash-cli
+      pip3 install trash-cli
+
+    if in OSX, read z_mac.sh_local to set up.
+
+    if using zsh, read .zsh_local to set up.
+    if using bash in Linux:
+      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
+    if using bash in OSX:
+      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
+
+Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
+
+    touch ~/.at_z_mac
+    brew install coreutils
+    source ~/conf/z_mac.sh_local
+
+Copied from [.zsh\_local](.zsh\_local) as following:
+
+    Change default shell to zsh
+      chsh -s /bin/zsh
+
+    Install [Oh My ZSH](http://ohmyz.sh/) via curl
+      sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+    Comment some lines in `.zshrc` to accept new settings in this file
+      Linux:
+        sed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && sed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
+      OSX:
+        brew install gnu-sed
+        gsed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && gsed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
+
+    Install Fish-like autosuggestions for zsh
+      git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+    Set up shell confs
+      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc
+
+### config files
+
+Put all config files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)).
 
     git clone https://github.com/zivv/conf ~/conf && (cd ~/conf && ./set.sh)
-
-Then check following steps for different tools.
 
 ### vim
 
@@ -67,51 +114,6 @@ Copied from .vimrc as following:
 ### tmux
 
 If not work, try `<C-b>:source ~/.tmux.conf<Enter>` when running tmux.
-
-### shell
-
-Read [.sh\_base](.sh\_base) to set up.
-
-Copied from .sh\_base as following:
-
-    install dircolors
-      git clone https://github.com/seebi/dircolors-solarized.git
-      cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
-    install trash-cli
-      pip3 install trash-cli
-
-    if in OSX, read z_mac.sh_local to set up.
-
-    if using zsh, read .zsh_local to set up.
-    if using bash in Linux:
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
-    if using bash in OSX:
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
-
-Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
-
-    brew install coreutils
-
-Copied from [.zsh\_local](.zsh\_local) as following:
-
-    Change default shell to zsh
-      chsh -s /bin/zsh
-
-    Install [Oh My ZSH](http://ohmyz.sh/) via curl
-      sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    Comment some lines in `.zshrc` to accept new settings in this file
-      Linux:
-        sed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && sed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
-      OSX:
-        sed -i _old 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc && t ~/.zshrc_old
-
-    Install Fish-like autosuggestions for zsh
-      git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-
-    Set up shell confs
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc
-
 
 ## Update
 

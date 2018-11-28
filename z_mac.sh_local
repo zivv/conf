@@ -1,6 +1,7 @@
 # Set up steps in OSX
-#
+#   touch ~/.at_z_mac
 #   brew install coreutils
+#   source ~/conf/z_mac.sh_local
 
 BASH_FILE=${HOME}'/.bash_profile'
 
