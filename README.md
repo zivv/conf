@@ -1,6 +1,6 @@
-# Configure Files
+# Configuration Files
 
-Include configure files for shell, vim, git, tmux, etc.
+Include configuration files for shell, vim, git, tmux, etc.
 
 Use the existence of file `~/.at_YOUR_PLACE`, checked by `set.sh`, to distinguish and configure different environment.
 
@@ -22,7 +22,7 @@ Or find doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/sh
 
 Note that if failed to import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` includes the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
 
-*TODO(ziv):* Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE\_CONFIG\_COMMAND, $POWERLINE\_COMMAND) in source files. Waiting for updates.
+*TODO(ziv): Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE\_CONFIG\_COMMAND, $POWERLINE\_COMMAND) in source files. Waiting for updates.*
 
 #### [Powerline fonts](https://github.com/powerline/fonts)
 
@@ -44,7 +44,7 @@ Copied from .sh\_base as following:
     install trash-cli
       pip3 install trash-cli
 
-    if in OSX, read z_mac.sh_local to set up.
+    if in OSX, read Mac.sh_platform to set up.
 
     if using zsh, read .zsh_local to set up.
     if using bash in Linux:
@@ -52,11 +52,9 @@ Copied from .sh\_base as following:
     if using bash in OSX:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
-Copied from [z\_mac.sh\_local](z\_mac.sh\_local) as following:
+Copied from [Mac.sh\_platform](Mac.sh\_platform) as following:
 
-    touch ~/.at_z_mac
-    brew install coreutils
-    source ~/conf/z_mac.sh_local
+    brew install coreutils && source ~/conf/Mac.sh_platform
 
 Copied from [.zsh\_local](.zsh\_local) as following:
 
