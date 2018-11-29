@@ -1,16 +1,7 @@
 # Set up steps in OSX
-#   touch ~/.at_z_mac
-#   brew install coreutils
-#   source ~/conf/z_mac.sh_local
+#   brew install coreutils && source ~/conf/Mac.sh_platform
 
 BASH_FILE=${HOME}'/.bash_profile'
-
-alias l='ls'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-
-alias cdnginx='cd /usr/local/etc/nginx/servers'
 
 # coreutils
 if brew list | grep coreutils > /dev/null ; then
@@ -24,6 +15,8 @@ if brew list | grep coreutils > /dev/null ; then
   fi
 fi
 
+PATH="$PATH:/usr/local/sbin"
+
 # Usage of osx
 #   tab           open the current directory in a new tab
 #   pfd           return the path of the frontmost Finder window
@@ -35,4 +28,7 @@ fi
 #   itunes        iTunes control function, see `itunes -h` for usage
 ZSH_PLUGINS='osx'
 
-PATH="$PATH:/usr/local/sbin"
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'

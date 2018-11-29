@@ -13,6 +13,10 @@ files=(
 ".octaverc"
 )
 
+platforms=(
+"Mac"
+)
+
 locas=(
 "z_lenovo"
 "z_mac"
@@ -34,8 +38,8 @@ z_ubuntu=(
 
 for file in ${files[@]}
 do
-  if [[ ${file} =~ '|' ]]; then
-    new_dir=${HOME}'/'${file#*|}
+  if [[ ${file} =~ "|" ]]; then
+    new_dir=${HOME}/${file#*|}
     if [[ ! -d ${new_dir} ]]; then
       mkdir -p ${new_dir}
     fi
@@ -47,11 +51,19 @@ done
 
 for file in $(find vim -type f)
 do
-  new_file=${HOME}'/.vim/'${file#vim/}
+  new_file=${HOME}/.vim/${file#vim/}
   if [[ ! -d ${new_file%/*} ]]; then
     mkdir -p ${new_file%/*}
   fi
   cp -uv ${file} ${new_file}
+done
+
+for platform in ${platforms[@]}
+do
+  if [[ $(uname -i) =~ ${platform} ]]; then
+    cp -uv ${platform}.sh_platform ~/.sh_platform
+    break
+  fi
 done
 
 for loca in ${locas[@]}

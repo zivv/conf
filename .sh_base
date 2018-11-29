@@ -6,7 +6,7 @@
 # install trash-cli
 #   pip3 install trash-cli
 #
-# if in OSX, read z_mac.sh_local to set up.
+# if in OSX, read Mac.sh_platform to set up.
 #
 # if using zsh, read .zsh_local to set up.
 # if using bash in Linux:
@@ -67,6 +67,8 @@ alias spc='supervisorctl'
 
 
 # Local settings ----------------------------------------------------------{{{1
+# platform special
+[[ -f ~/.sh_platform ]] && . ~/.sh_platform
 # shell special
 [[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
 [[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
