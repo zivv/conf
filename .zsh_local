@@ -16,7 +16,7 @@
 # Install Fish-like autosuggestions for zsh
 #   git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 #
-# Set up steps for OSX
+# Set up steps for OSX (optional: brew install tree cmake go htop)
 #   brew install coreutils
 #
 # Set up shell confs
@@ -26,7 +26,14 @@ alias s='source ~/.zshrc'
 
 ZSH_PLUGINS=""
 
-if [[ $(uname -i) =~ Mac* ]]; then
+if [[ $(uname) =~ "Darwin" ]]; then
+  if brew list | grep coreutils > /dev/null ; then
+    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+  fi
+
+  PATH="$PATH:/usr/local/sbin"
+
   # Usage of osx
   #   tab           open the current directory in a new tab
   #   pfd           return the path of the frontmost Finder window
@@ -52,7 +59,12 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=blue'
 # Uncomment it if usnig Powerline instead of oh-my-zsh
 # . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh
 
-alias ls='ls -F --show-control-chars --color=auto'
+# looks like on-my-zsh alias l='ls -la'
+if [[ $(uname) =~ "Darwin" ]]; then
+  if brew list | grep coreutils > /dev/null ; then
+    alias ls='ls -F --show-control-chars --color=auto'
+  fi
+fi
 alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'

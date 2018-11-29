@@ -1,4 +1,4 @@
-if [[ $(uname -i) =~ Mac* ]]; then
+if [[ $(uname) =~ "Darwin" ]]; then
   BASH_FILE='$HOME/.bash_profile'
 else
   BASH_FILE='$HOME/.bashrc'

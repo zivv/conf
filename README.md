@@ -44,17 +44,11 @@ Copied from .sh\_base as following:
     install trash-cli
       pip3 install trash-cli
 
-    if in OSX, read Mac.sh_platform to set up.
-
     if using zsh, read .zsh_local to set up.
     if using bash in Linux:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
     if using bash in OSX:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
-
-Copied from [Mac.sh\_platform](Mac.sh\_platform) as following:
-
-    brew install coreutils && source ~/conf/Mac.sh_platform
 
 Copied from [.zsh\_local](.zsh\_local) as following:
 
@@ -73,6 +67,9 @@ Copied from [.zsh\_local](.zsh\_local) as following:
 
     Install Fish-like autosuggestions for zsh
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+    Set up steps for OSX (optional: brew install tree cmake go htop)
+      brew install coreutils
 
     Set up shell confs
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc
