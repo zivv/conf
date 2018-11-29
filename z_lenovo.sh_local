@@ -1,5 +1,3 @@
-BASH_FILE='$HOME/.bashrc'
-
 # for srt
 alias sshA='ssh Administrator:speech@166.111.139.215'
 

@@ -261,7 +261,7 @@ Plugin 'fatih/vim-go'
 " vim-go settings
 " By default when :GoInstallBinaries is called,
 " the binaries are installed to $GOBIN or $GOPATH/bin. To change it:
-let g:go_bin_path = expand("~/.gotools")
+"let g:go_bin_path = expand("~/.gotools")
 " By default syntax-highlighting for Functions, Methods and Structs is
 " disabled. To change it:
 let g:go_highlight_functions = 1

@@ -13,14 +13,11 @@ files=(
 ".octaverc"
 )
 
-platforms=(
-"Mac"
-)
-
 locas=(
 "z_lenovo"
 "z_mac"
 "z_ubuntu"
+"iost"
 )
 
 z_lenovo=(
@@ -32,6 +29,10 @@ z_mac=(
 )
 
 z_ubuntu=(
+".sh_local"
+)
+
+iost=(
 ".sh_local"
 )
 
@@ -55,14 +56,6 @@ do
     mkdir -p ${new_file%/*}
   fi
   cp -uv ${file} ${new_file}
-done
-
-for platform in ${platforms[@]}
-do
-  if [[ $(uname -i) =~ ${platform} ]]; then
-    cp -uv ${platform}.sh_platform ~/.sh_platform
-    break
-  fi
 done
 
 for loca in ${locas[@]}
