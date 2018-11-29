@@ -1,6 +1,3 @@
-[user]
-  name = ziv
-  email = zivvv0@gmail.com
 [push]
   default = simple
 [core]
@@ -25,15 +22,14 @@
   sh = stash
   sp = stash pop
   rb = rebase
+  rh = reset HEAD
 
   ps = push
   pso = push origin
   psm = push origin master
-  psz = push origin ziv
   pl = pull
   plo = pull origin
   plm = pull origin master
-  plz = pull origin ziv
 
   d = diff
   dc = diff --cached

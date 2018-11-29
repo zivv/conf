@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# update files by last modification time
+# Update files by last modification time.
 
 # file_name|dest_dir
 files=(
@@ -29,7 +29,6 @@ z_lenovo=(
 )
 
 z_mac=(
-".sh_local"
 )
 
 z_ubuntu=(
@@ -69,6 +68,15 @@ done
 for loca in ${locas[@]}
 do
   if [[ -f ~/.at_${loca} ]]; then
+    # Your place! \o/
+    if [[ ${loca} =~ ^z_ ]]; then
+      if [[ ! $(diff .gitconfig ~/.gitconfig) ]]; then
+        echo "z info -> '$HOME/.gitconfig'"
+        echo -e "[user]\n  name = ziv\n  email = zivvv0@gmail.com" > ~/.gitconfig
+        cat .gitconfig >> ~/.gitconfig
+      fi
+    fi
+
     eval "loca_files=\$\{${loca}\[\@\]\}"
     eval "loca_files=$loca_files"
     for file in ${loca_files[@]}
