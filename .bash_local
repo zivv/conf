@@ -1,6 +1,8 @@
-if [[ $(uname) =~ "Darwin" ]]; then
+if [[ $(uname) == "Darwin" ]]; then
+  # MacOS
   BASH_FILE='$HOME/.bash_profile'
 else
+  # Linux
   BASH_FILE='$HOME/.bashrc'
 fi
 alias s='source $BASH_FILE'

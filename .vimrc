@@ -1,21 +1,22 @@
 " Set up steps ------------------------------------------------------------{{{1
-"   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"   vim -c "PluginInstall" -c q
-"   git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
-" Install YouCompleteMe
+" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" vim -c "PluginInstall" -c q
+" git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
+"
+" Install github.com/Valloric/YouCompleteMe
 "   Normal command
 "     cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
 "   Completer options for install.py
 "     --clang-completer (need cmake, gcc, g++ and python-dev)
 "     --gocode-completer
-" Install vim-autoformat
+" Install github.com/Chiel92/vim-autoformat
 "   Depend clang-format or astyle
-" Install tagbar
+" Install github.com/majutsushi/tagbar
 "   Depend exuberant-ctags
-" Install fugitive
+" Install github.com/tpope/vim-fugitive
 "     vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
-" Install vim-go
+" Install github.com/fatih/vim-go
 "     vim -c "GoInstallBinaries" -c q
 "
 "

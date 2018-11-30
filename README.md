@@ -22,35 +22,39 @@ Or find doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/sh
 
 Note that if failed to import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` includes the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
 
-*TODO(ziv): Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE\_CONFIG\_COMMAND, $POWERLINE\_COMMAND) in source files. Waiting for updates.*
+_TODO(ziv): Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE_CONFIG_COMMAND, $POWERLINE_COMMAND) in source files. Waiting for updates._
 
 #### [Powerline fonts](https://github.com/powerline/fonts)
 
-Download [zip](https://github.com/powerline/fonts/archive/master.zip) and run `./install.sh` to install all Powerline Fonts or see the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
+Install all Powerline Fonts. See the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
 
-Then set terminal to use a powerline font. Personally prefer the font named **Sauce Code Powerline** (formerly known as *Source Code Pro*) with **Semibold, 15pt**.
+    # cd ~/Downloads
+    git clone https://github.com/powerline/fonts.git --depth=1 && (cd fonts && ./install.sh)
+
+Then set terminal to use a powerline font. Personally prefer the font named **Sauce Code Powerline** (formerly known as _Source Code Pro_) with **Semibold, 15pt**.
 
 ## Set up
 
 ### shell
 
-Read [.sh\_base](.sh\_base) to set up.
+Read [.sh_base](.sh_base) to set up.
 
-Copied from .sh\_base as following:
+Copied from .sh_base as following:
 
-    install dircolors
+    Install github.com/seebi/dircolors-solarized
+      # cd ~/Downloads
       git clone https://github.com/seebi/dircolors-solarized.git
       cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
-    install trash-cli
+    Install github.com/andreafrancia/trash-cli
       pip3 install trash-cli
 
-    if using zsh, read .zsh_local to set up.
-    if using bash in Linux:
+    If using zsh, read .zsh_local to set up.
+    If using bash in Linux:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
-    if using bash in OSX:
+    If using bash in MacOS:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
-Copied from [.zsh\_local](.zsh\_local) as following:
+Copied from [.zsh_local](.zsh_local) as following:
 
     Change default shell to zsh
       chsh -s /bin/zsh
@@ -61,14 +65,14 @@ Copied from [.zsh\_local](.zsh\_local) as following:
     Comment some lines in `.zshrc` to accept new settings in this file
       Linux:
         sed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && sed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
-      OSX:
+      MacOS:
         brew install gnu-sed
         gsed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && gsed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
 
     Install Fish-like autosuggestions for zsh
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
-    Set up steps for OSX (optional: brew install tree cmake go htop)
+    Set up steps for MacOS (optional: brew install tree cmake go htop npm)
       brew install coreutils
 
     Set up shell confs
@@ -104,7 +108,6 @@ Copied from .vimrc as following:
         vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
     Install vim-go
         vim -c "GoInstallBinaries" -c q
-
 
 ### tmux
 

@@ -1,15 +1,16 @@
 # Set up steps ------------------------------------------------------------{{{1
 #
-# install dircolors
+# Install github.com/seebi/dircolors-solarized
+#   # cd ~/Downloads
 #   git clone https://github.com/seebi/dircolors-solarized.git
 #   cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
-# install trash-cli
+# Install github.com/andreafrancia/trash-cli
 #   pip3 install trash-cli
 #
-# if using zsh, read .zsh_local to set up.
-# if using bash in Linux:
+# If using zsh, read .zsh_local to set up.
+# If using bash in Linux:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
-# if using bash in OSX:
+# If using bash in MacOS:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
 
