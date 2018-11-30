@@ -14,29 +14,33 @@
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
 
-# Basic settings ----------------------------------------------------------{{{1
-LC_CTYPE='en_US.UTF-8'
+# Basic environment and setting -------------------------------------------{{{1
+WORK="$HOME/work"
+
+LC_CTYPE="en_US.UTF-8"
 
 if `which dircolors &> /dev/null` && [[ -f ~/.dircolors.256dark ]]; then
   eval `dircolors ~/.dircolors.256dark`
 fi
 
+[[ -f ~/.sh_env ]] && . ~/.sh_env
+
 
 # Custom commands ---------------------------------------------------------{{{1
-#   Use 'unalias' to cancle
+#   Use "unalias" to cancle
 
 # Always keep `conf` dir under $HOME :)
-alias ss='(cd ~/conf; ./set.sh)'
+alias ss="(cd ~/conf; ./set.sh)"
 
-alias v='vim'
-alias vd='vimdiff'
-alias g='git'
-alias q='exit'
+alias v="vim"
+alias vd="vimdiff"
+alias g="git"
+alias q="exit"
 # Please use trash-cli tool
-alias rm='echo "This is not the command you are looking for."; false'
-alias tr='tree'
+alias rm="echo "This is not the command you are looking for."; false"
+alias tr="tree"
 
-alias rsync='rsync -vcharz --progress'
+alias rsync="rsync -vcharz --progress"
 
 # trash-cli -- Command Line Interface to FreeDesktop.org Trash.
 #     https://github.com/andreafrancia/trash-cli
@@ -47,27 +51,29 @@ alias rsync='rsync -vcharz --progress'
 #       trash-restore       restore a trashed file.
 #       trash-rm            remove individual files from trash can.
 #   Note if meet segfault, read issue #52 and try to fetch pull request #53.
-alias t='trash-put'
+alias t="trash-put"
 
 
 # Software special --------------------------------------------------------{{{1
-alias ms='mysql.server start'
-alias mr='mysql -u root -p'
+alias ms="mysql.server start"
+alias mr="mysql -u root -p"
 
-alias nb='(cd ~/ziv/notebook && jupyter notebook > /dev/null 2>&1 &)'
-alias knb='pkill -f notebook'
+alias nb="(cd $WORK/notebook && jupyter notebook > /dev/null 2>&1 &)"
+alias knb="pkill -f notebook"
 
-POWERLINE_ROOT=$(pip3 show powerline-status | awk '/Location:/{print $2}')
+POWERLINE_ROOT=$(pip3 show powerline-status | awk "/Location:/{print $2}")
 
-GOPATH=${HOME}'/ziv/goz'
+# Export GOPATH for vim
+export GOPATH="$WORK/goz"
+PATH="$PATH:$GOPATH/bin"
 
-alias spd='supervisord'
-alias spc='supervisorctl'
+alias spd="supervisord"
+alias spc="supervisorctl"
 
 
 # Local settings ----------------------------------------------------------{{{1
-# enviroment special
-[[ -f ~/.sh_local ]] && . ~/.sh_local
-# shell special
+# Shell special
 [[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
 [[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
+# Work enviroment special
+[[ -f ~/.sh_local ]] && . ~/.sh_local

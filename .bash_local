@@ -1,35 +1,35 @@
 if [[ $(uname) == "Darwin" ]]; then
   # MacOS
-  BASH_FILE='$HOME/.bash_profile'
+  BASH_FILE="$HOME/.bash_profile"
 else
   # Linux
-  BASH_FILE='$HOME/.bashrc'
+  BASH_FILE="$HOME/.bashrc"
 fi
-alias s='source $BASH_FILE'
+alias s="source $BASH_FILE"
 
 
 # keep same keymapping with zsh
-alias ~='cd ~'
-alias ..='cd ..'
-alias ...='.. && ..'
-alias ....='... && ..'
+alias ~="cd ~"
+alias ..="cd .."
+alias ...=".. && .."
+alias ....="... && .."
 
-alias ga='g a'
-alias ga.='g a .'
-alias gcb='g co -b'
-alias gco-='g co --'
-alias gc-m='g ci -m'
-alias gd='g d'
-alias gdc='g dc'
-alias gdh='g dh'
-alias gdt='g dt'
-alias gl='g pl'
-alias gp='g ps'
-alias gst='g st'
+alias ga="g a"
+alias ga.="g a ."
+alias gcb="g co -b"
+alias gco-="g co --"
+alias gc-m="g ci -m"
+alias gd="g d"
+alias gdc="g dc"
+alias gdh="g dh"
+alias gdt="g dt"
+alias gl="g pl"
+alias gp="g ps"
+alias gst="g st"
 
-alias ta='tmux attach -t'
-alias ts='tmux new-session -s'
-alias tl='tmux list-sessions'
+alias ta="tmux attach -t"
+alias ts="tmux new-session -s"
+alias tl="tmux list-sessions"
 
 
 if pip3 show powerline-status > /dev/null ; then

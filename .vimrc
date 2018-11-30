@@ -354,6 +354,11 @@ aug END
 
 source ~/.vim/files/cscope_maps.vim
 
+aug FileTypeDetect
+  au!
+  au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
+aug END
+
 
 " Powerline ---------------------------------------------------------------{{{2
 "   https://powerline.readthedocs.org/en/master/usage/other.html
