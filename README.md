@@ -94,20 +94,32 @@ Copied from .vimrc as following:
     vim -c "PluginInstall" -c q
     git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 
-    Install YouCompleteMe
-      Normal command
-        cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
-      Completer options for install.py
-        --clang-completer (need cmake, gcc, g++ and python-dev)
-        --gocode-completer
-    Install vim-autoformat
-      Depend clang-format or astyle
-    Install tagbar
+    Install https://github.com/Valloric/YouCompleteMe
+      # Completer options for install.py
+      #   --clang-completer (need cmake, gcc, g++ and python-dev)
+      #   --gocode-completer
+      cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+    Install https://github.com/Chiel92/vim-autoformat
+      brew install clang-format autopep8
+      # js-beautify for Javascript and JSON or
+      # html-beautify for HTML or css-beautify for CSS.
+      # See https://github.com/einars/js-beautify.
+      npm install -g js-beautify
+      # remark for Markdown. A Javascript based markdown processor.
+      # See https://github.com/wooorm/remark.
+      npm install -g remark-cli
+      # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
+      # See https://github.com/mvdan/sh.
+      go get -u mvdan.cc/sh/cmd/shfmt
+      # buildifier for bazel BUILD files.
+      # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
+      go get github.com/bazelbuild/buildtools/buildifier
+    Install https://github.com/majutsushi/tagbar
       Depend exuberant-ctags
-    Install fugitive
-        vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
-    Install vim-go
-        vim -c "GoInstallBinaries" -c q
+    Install https://github.com/tpope/vim-fugitive
+      vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
+    Install https://github.com/fatih/vim-go
+      vim -c "GoInstallBinaries" -c q
 
 ### tmux
 

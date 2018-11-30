@@ -34,6 +34,7 @@ alias ss="(cd ~/conf; ./set.sh)"
 
 alias v="vim"
 alias vd="vimdiff"
+alias vv="vim ~/.vimrc"
 alias g="git"
 alias q="exit"
 # Please use trash-cli tool

@@ -4,28 +4,40 @@
 " vim -c "PluginInstall" -c q
 " git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
-" Install github.com/Valloric/YouCompleteMe
-"   Normal command
-"     cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
-"   Completer options for install.py
-"     --clang-completer (need cmake, gcc, g++ and python-dev)
-"     --gocode-completer
-" Install github.com/Chiel92/vim-autoformat
-"   Depend clang-format or astyle
-" Install github.com/majutsushi/tagbar
+" Install https://github.com/Valloric/YouCompleteMe
+"   # Completer options for install.py
+"   #   --clang-completer (need cmake, gcc, g++ and python-dev)
+"   #   --gocode-completer
+"   cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+" Install https://github.com/Chiel92/vim-autoformat
+"   brew install clang-format autopep8
+"   # js-beautify for Javascript and JSON or
+"   # html-beautify for HTML or css-beautify for CSS.
+"   # See https://github.com/einars/js-beautify.
+"   npm install -g js-beautify
+"   # remark for Markdown. A Javascript based markdown processor.
+"   # See https://github.com/wooorm/remark.
+"   npm install -g remark-cli
+"   # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
+"   # See https://github.com/mvdan/sh.
+"   go get -u mvdan.cc/sh/cmd/shfmt
+"   # buildifier for bazel BUILD files.
+"   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
+"   go get github.com/bazelbuild/buildtools/buildifier
+" Install https://github.com/majutsushi/tagbar
 "   Depend exuberant-ctags
-" Install github.com/tpope/vim-fugitive
-"     vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
-" Install github.com/fatih/vim-go
-"     vim -c "GoInstallBinaries" -c q
+" Install https://github.com/tpope/vim-fugitive
+"   vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
+" Install https://github.com/fatih/vim-go
+"   vim -c "GoInstallBinaries" -c q
 "
 "
 " Notes -------------------------------------------------------------------{{{1
-"   for Definition/Reference jump:
+"   For Definition/Reference jump:
 "     exuberant-ctags & cscope & quickfix & YouCompleteMe
 "     commands like: C-] C-t <C-\>s [w ;j
 "
-"     See 'conf/vim/files/cscope_maps.vim' for commands of cscope.
+"     See '~/conf/vim/files/cscope_maps.vim' for commands of cscope.
 "     Normally just build cscope.out by run `cscope -Rbkq`.
 "     Put 'let $CSCOPE_DB = CSCOPE_OUT_FILE' in .vim_env if necessary.
 "
@@ -46,7 +58,7 @@ syntax enable
 
 
 " Vundle -- manage Vim plugins --------------------------------------------{{{1
-"        -- https://github.com/gmarik/vundle#readme
+"        -- https://github.com/gmarik/Vundle.vim
 
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -69,34 +81,34 @@ Plugin 'gmarik/Vundle.vim'
 
 
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
+"           -- https://github.com/SirVer/ultisnips
 Plugin 'SirVer/ultisnips'
 
 " UltiSnips settings
-" default is <Tab>
-" original <C-j> is used to 'Begin new line', using <C-m> instead
+" Default value is <Tab>.
 let g:UltiSnipsExpandTrigger = "<C-j>"
-" default is <C-Tab>, no need to worry about since using 'honza/vim-snippets'
+" Default value is <C-Tab>.
 "let g:UltiSnipsListSnippets = "<C-Tab>"
-" default is <C-j>
+" Default value is <C-j>.
 "let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-" default is <C-k>
+" Default value is <C-k>.
 "let g:UltiSnipsJumpBackwardTrigger = "<C-Tab>"
 
 " Snipmate & UltiSnip Snippets -- for UltiSnips
-"   seems support <C-p>(or <Tab>) & <C-n> to choose trigger
+"   https://github.com/honza/vim-snippets
+"   Seems support <C-p>(or <Tab>) & <C-n> to choose trigger.
 Plugin 'honza/vim-snippets'
 
 
 " vim-multiple-cursors -- True Sublime Text style multiple selections -----{{{2
+"                      -- https://github.com/terryma/vim-multiple-cursors
 " TODO(ziv): g:multi_cursor_quit_key & g:multi_cursor_normal_maps not working
 Plugin 'terryma/vim-multiple-cursors'
 
 
 " YCM -- code completion engine -------------------------------------------{{{2
 "     -- require vim 7.3.584+
-"   Install:
-"     cd ~/.vim/bundle/YouCompleteMe
-"     ./install.sh --clang-completer --gocode-completer
+"     -- https://github.com/Valloric/YouCompleteMe
 if filereadable(expand('~/.at_google'))
   " Google-only
 else
@@ -105,11 +117,11 @@ else
 endif
 
 " YCM settings
-" default is ['<TAB>', '<Down>']
+" Default value is ['<TAB>', '<Down>'].
 "let g:ycm_key_list_select_completion = ['<Down>']
-" default is ['<S-TAB>', '<Up>']
+" Default value is ['<S-TAB>', '<Up>'].
 "let g:ycm_key_list_previous_completion = ['<Up>']
-" default is 'same-buffer', could also be 'horizontal-split' or 'vertical-split'
+" Default value is 'same-buffer', could also be 'horizontal-split' or 'vertical-split'.
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 " Global conf file, see YCM's own .ycm_extra_conf.py:
 "   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
@@ -120,36 +132,33 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 "let g:ycm_extra_conf_globlist = []
 
 " Shortcuts for YCM commands
-" jump to the header/definition/declaration
+" Jump to the header/definition/declaration.
 nn <silent> ;j :YcmCompleter GoTo<CR>
 " Echos the semantic parent of the point under the cursor.
 nn <silent> ;v :YcmCompleter GetType<CR>
-" View documentation comments for identifiers
+" View documentation comments for identifiers.
 nn <silent> ;d :YcmCompleter GetDoc<CR>
 " Attempts to correct the diagnostic closest to the cursor position.
 nn <silent> ;x :YcmCompleter FixIt<CR>
-" refresh the diagnostics
+" Refresh the diagnostics.
 nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
-"   For the list of default formatprograms or how to install different
-"   formatprograms, check the following links:
-"     ~/.vim/bundle/vim-autoformat/README.md
-"     https://github.com/Chiel92/vim-autoformat
+"                -- https://github.com/Chiel92/vim-autoformat
 Plugin 'Chiel92/vim-autoformat'
 
 " vim-autoformat settings
-" only change the style option to Google
-" see vim-autoformat/plugin/defaults.vim
+" See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
+" Only change the style option to Google.
 let g:formatdef_clangformat = "'clang-format ".
       \"-lines='.a:firstline.':'.a:lastline.' ".
       \"--assume-filename=\"'.expand('%:p').'\" ".
       \"-style=\"{BasedOnStyle: Google, ".
       \"          BinPackArguments: false, BinPackParameters: false, ".
       \"          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
-" default style is 'ansi'
-" TODO(ziv): consider if change to use .astylerc
+" Default style is 'ansi'.
+" TODO(ziv): Consider if change to use .astylerc conf file.
 let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
       \'--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
@@ -158,17 +167,20 @@ let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
       \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
       \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
-" add formatter for bazel BUILD files
-" see https://github.com/bazelbuild/buildtools/tree/master/buildifier
+" Add formatter for bazel BUILD files.
+" See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
 let g:formatters_bzl = ['buildifier']
 let g:formatdef_buildifier = '"buildifier"'
+" Change the order of formatters for json to use fixjson at first.
+let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
 
 " Shortcuts for vim-autoformat commands
-" for Normal, Visual, Select, Operator-pending modes
+" For Normal, Visual, Select, Operator-pending modes.
 map <silent> <C-k> :Autoformat<CR>
 
 
 " Tagbar -- a class outline viewer for Vim --------------------------------{{{2
+"        -- https://github.com/majutsushi/tagbar
 Plugin 'majutsushi/tagbar'
 
 " Shortcuts for Tagbar commands
@@ -176,7 +188,8 @@ nn <silent> ;k :TagbarToggle<CR>
 
 
 " nerdcommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
-"   most frequent keys to me are: `,cl` `,cu`
+"               -- https://github.com/scrooloose/nerdcommenter
+"   Useful keys like: `,cl` `,cu`
 Plugin 'scrooloose/nerdcommenter'
 
 " nerdcommenter settings
@@ -190,11 +203,13 @@ let g:NERDCustomDelimiters = {
 
 
 " startify -- The fancy start screen for Vim ------------------------------{{{2
-"   For sessions, these commands are used for convenience:
-"      :SLoad       load a session
-"      :SSave       save a session
-"      :SDelete[!]  delete a session(If ! is given, you won't get prompted.)
-"      :SClose      close a session
+"          -- https://github.com/mhinz/vim-startify
+"   Useful commands:
+"     :Startify    reopen the start screen
+"     :SLoad       load a session
+"     :SSave       save a session
+"     :SDelete[!]  delete a session(If ! is given, you won't get prompted.)
+"     :SClose      close a session
 Plugin 'mhinz/vim-startify'
 
 " startify settings
@@ -222,11 +237,12 @@ let g:startify_custom_footer = [
       \ "                           -- ziv @ Feb 2016",
       \ '']
 
+" Shortcuts for startify
+nn <silent> gs :tabe<CR>:Startify<CR>
+
 
 " Solarized -- Precision colors for machines and people -------------------{{{2
-"   Note that if need to add Solarized osx terminal profiles, see
-"     folder 'osx-terminal.app-colors-solarized'
-"     under 'https://github.com/altercation/solarized/'
+"           -- https://github.com/altercation/vim-colors-solarized
 Plugin 'altercation/vim-colors-solarized'
 
 " Required settings
@@ -235,16 +251,16 @@ if has('gui_running')
 else
   set background=dark
 endif
-" For mac, must set terminal as 'xterm-256color' in preference
 let g:solarized_termcolors = 256
 colorscheme solarized
 
 
 " fugitive -- a Git wrapper -----------------------------------------------{{{2
+"          -- https://github.com/tpope/vim-fugitive
 Plugin 'tpope/vim-fugitive'
 
 " Shortcuts for fugitive commands
-" `g?` to see help after `;gs`
+" Use `g?` to show help after `;gs`.
 nn <silent> ;gs :Gstatus<CR>
 nn <silent> ;ga :Git add . -A<CR>
 nn <silent> ;gc :Gcommit<CR>
@@ -256,7 +272,7 @@ nn <silent> ;gb :Gblame<CR>
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
-"   Install: `vim -c "GoInstallBinaries" -c q`
+"        -- https://github.com/fatih/vim-go
 Plugin 'fatih/vim-go'
 
 " vim-go settings
@@ -270,26 +286,26 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-" Enable goimports to automatically insert import paths instead of gofmt:
+" Enable goimports to automatically insert import paths instead of gofmt.
 let g:go_fmt_command = "goimports"
 
 " Shortcuts for vim-go commands
 aug GoShortcuts
   au!
-  " Open the target identifier in current buffer
-  " By default the mapping gd is enabled
-  " For consistency of the same shortcut with YCM
+  " Open the target identifier in current buffer.
+  " By default the mapping `gd` is enabled.
+  " For consistency of the same shortcut with YCM.
   au FileType go nn ;j <Plug>(go-def)
-  " go run/build/test for the current package
+  " go run/build/test for the current package.
   au FileType go nn gr <Plug>(go-run)
   au FileType go nn gb <Plug>(go-build)
   au FileType go nn gt <Plug>(go-test)
-  " beautifully annotated source code to see which functions are covered
+  " Beautifully annotated source code to see which functions are covered.
   au FileType go nn gc <Plug>(go-coverage)
-  " Open the relevant Godoc for the word under the cursor
-  " For consistency of the same shortcut with YCM
+  " Open the relevant Godoc for the word under the cursor.
+  " For consistency of the same shortcut with YCM.
   au FileType go nn zh <Plug>(go-doc)
-  " Rename the identifier under the cursor to a new name
+  " Rename the identifier under the cursor to a new name.
   au FileType go nn ge <Plug>(go-rename)
 aug END
 
@@ -300,51 +316,49 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set smarttab
-" disable auto-insert line breaks
+" Disable auto-insert line breaks.
 set textwidth=0
 
-" show line number
+" Show line number.
 set number
-" show relative line number
+" Show relative line number.
 set relativenumber
 
 set encoding=utf-8
-set fileencodings=utf-8,gb2312  " gb2312 is windows' default encoding
+" gb2312 is windows' default encoding.
+set fileencodings=utf-8,gb2312
 
-" command-line completion operates in an enhanced mode
+" Command-line completion operates in an enhanced mode.
 set wildmenu
 
-" default autofold by indent
+" Default fold method.
 set foldmethod=indent
-" no folds closed initially
+" Initially, no closed fold.
 set foldlevelstart=99
-" special autofold by marker {{{ and }}}
+" Special fold method, by marker {{{ and }}}
 aug FoldMarker
   au!
-  au FileType vim,conf set foldmethod=marker
-  au FileType vim,conf set foldlevel=0
+  au FileType vim,conf set foldmethod=marker | set foldlevel=0
 aug END
 
-" Display unprintable chars
+" Display unprintable chars.
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
 set showbreak=↪
 
-" Jump to the first open tab that contains the specified buffer
-" Open a new tab page before loading a buffer for a quickfix command
+" Jump to the first open tab that contains the specified buffer.
+" Open a new tab page before loading a buffer for a quickfix command.
 set switchbuf=usetab,newtab
 
-" Highlight column 80 as well as 100 and onward
-" Google java style accepts a column limit of either 80 or 100 characters
+" Highlight column 80 as well as 100 and onward.
+" Google java style accepts a column limit of either 80 or 100 characters.
 let &colorcolumn = "80,".join(range(100,256),",")
 
-" set different indent setting for certain file type
 aug SpecialIndent
   au!
   au FileType python set softtabstop=4 | set shiftwidth=4
 aug END
 
-" skeleton files
 aug SkeletonFiles
   au!
   au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
@@ -361,16 +375,16 @@ aug END
 
 
 " Powerline ---------------------------------------------------------------{{{2
-"   https://powerline.readthedocs.org/en/master/usage/other.html
-"   Check `vim --version | grep +python3` first
+"           -- https://powerline.readthedocs.org/en/master/usage/other.html
+"   Check `vim --version | grep +python3` first.
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
-" Always display the statusline in all windows
+" Always display the statusline in all windows.
 set laststatus=2
-" Always display the tabline, even if there is only one tab
+" Always display the tabline, even if there is only one tab.
 set showtabline=2
-" Hide the default mode text (e.g. -- INSERT -- below the statusline)
+" Hide the default mode text (e.g. -- INSERT -- below the statusline).
 set noshowmode
 
 
@@ -380,18 +394,19 @@ hi CursorLine cterm=none ctermbg=237
 set cursorcolumn
 hi CursorColumn cterm=none ctermbg=237
 
-set hlsearch " highlight when search
+" Highlight during search.
+set hlsearch
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
-" new syntax highlight rules for all files
+" New syntax highlight rules for all files.
 aug NewSyntaxHighlight
   au!
-  " show trailing whithspace
+  " Show trailing whithspace.
   hi TrailingWhitespace ctermbg=22
   au BufWinEnter * call matchadd('TrailingWhitespace', '\s\+$')
 
-  " highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks)
-  " valid format: TODO, TODO:, TODO(ziv), TODO(ziv):
+  " Highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks).
+  " Valid format: TODO, TODO:, TODO(ziv), TODO(ziv):
   hi TODOs ctermfg=white ctermbg=33
   au BufWinEnter * call matchadd('TODOs', '\<TODO(.\{-}):\?\|\<TODO:\?')
   hi FIXMEs ctermfg=white ctermbg=196
@@ -419,97 +434,100 @@ aug END
 
 
 " Custom commands ---------------------------------------------------------{{{1
-"   Note before adding new mappings, check `:h <key>` and `:verbose map <key>`
+"   Check `:h <key>` and `:verb map <key>` before adding new mappings.
 
-" easy to close highlighting after searching
+" Easy to close highlighting after searching.
 nn <silent> ;h :nohl<CR>
 
-" easy to copy
+" Easy to copy.
 nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 
-" move to column 80
+" Move to column 80.
 nn ;80 079l
 
-" for window size
+" For window size.
 nn <silent> [r :resize +5<CR>
 nn <silent> [v :vert resize +5<CR>
 
-" specific for quickfix window
+" Specific for quickfix window.
 nn <silent> [w :cw<CR>
 nn <silent> [n :cn<CR>
 nn <silent> [p :cp<CR>
 
-" just avoid plugins mapping with default key \
+" Just avoid plugins mapping with default key `\`.
 let mapleader = ","
-" keep the default behavior of key ; to other key
+" Keep the default behavior of key `;` to other key.
 nn <silent> \ ;
-" convenient use of pair \ and |
+" Convenient use of pair `\` and `|`.
 nn <silent> <bar> ,
 
-" quit current file without saving
+" Quit current file without saving.
 nn <silent> ;q :q!<CR>
-" quit all files without saving
+" Quit all files without saving.
 nn <silent> ;a :qa!<CR>
-" close all windows but current without saving
+" Make the current window the only one on the screen, without saving.
 nn <silent> ;l :only!<CR>
-" forced saving
+" Forced saving.
 nn ;w :w!<CR>
-" edit, empty for reading current file from disk again
+" Edit file, empty for reading current file from disk again.
 nn ;e :e 
-" open a new tab
+" Edit file in a new tab.
 nn ;t :tabe 
-" show all buffers and edit buffer [N] or {bufferName}, empty for nothing
+" Show all buffers and edit buffer [N] or {bufferName}, empty for nothing.
 nn ;b :ls<CR>:tab sb 
-" switch between tabs
-" {count}gT - Go {count} tab pages back
+" Switch between tabs.
+" {count}gT - Go {count} tab pages back.
 nn ;i gT
-" {count}gt - Go to tab page {count}
+" {count}gt - Go to tab page {count}.
 nn ;o gt
-" switch between windows
-" {count};u - Go to {count}th window (when larger then # of wins, go to last)
+" Switch between windows.
+" {count};u - Go to {count}th window (when larger then # of wins, go to last).
 nn ;u <C-W><C-W>
 
-" get out of insert mode
-" 'jk' is a good cmd for exiting insert mode but not good for virtual
+" Get out of insert mode.
+" 'jk' is a good cmd for exiting insert mode but not good for virtual.
 ino ;l <Esc>
-" get out of virtual mode
+" Get out of virtual mode.
 vn ;l <Esc>
 
-" delete trailing whithspace
+" Delete trailing whithspace.
 nn <silent> ds :%s#\s\+$##g<CR>
 
-" always use zM instead of zm
+" Always use zM instead of zm.
 nn zm zM
 nn zr zR
 
-" Redos since 'u' undos
+" Redo since key `u` for undos.
 nn U :redo<CR>
 
-" Go to begin/end of line
+" Go to the start/end of the current line.
 nn H ^
 nn L g_
 
-" Yank to system clipboard
+" Yank to system clipboard.
 vn ;y "*y
-" Paste the contents in system clipboard
+" Paste the contents in system clipboard.
 nn ;p "*p
 nn ;P "*P
 
-" Substitute for all lines
+" Substitute for all lines.
 nn ;s :%s/
-" Substitute for selected lines
+" Substitute for selected lines.
 vn ;s :s/
 
-" Commands for insert mode, see `:h Insert`
-" Go to begin of line
+" Commands for insert mode, see `:h Insert`.
+" Go to the beginning of the current line.
 ino <C-b> <Esc>I
-" Go to end of line
+" Go to the end of the current line.
 ino <C-c> <Esc>A
-" Move cursor
+" Move cursor.
 ino <C-f> <Down>
 ino <C-g> <Up>
 
-" Open dir in a new window that will appear at right
+" Open file under cursor in a new tab.
+nn gf <C-w>gf
+
+" Open dir in a new window that will appear in the right.
 command! -n=1 -complete=dir ZOpenDir :call s:ZOpenDir('<args>')
 function! s:ZOpenDir(dir)
   let l:width = winwidth(0) - 100
@@ -519,10 +537,10 @@ function! s:ZOpenDir(dir)
   exe "bo " . l:width . " vs " . a:dir
 endfunction
 
-" Edit the path of current file
+" Edit the path of the current file.
 nn ;r :ZOpenDir %:h<CR>
 
-" Similar to :drop, but :drop can only be used in GUI
+" Similar to :drop, but :drop can only be used in GUI.
 command! -n=1 -complete=file ZFindBufOrNew :call s:ZFindBufOrNew('<args>')
 function! s:ZFindBufOrNew(filename)
   for tabnr in range(tabpagenr('$'))
@@ -563,6 +581,5 @@ if filereadable(expand('~/.vim_local'))
   source ~/.vim_local
 endif
 
-
-" Enable all the plugins
+" Enable all the plugins.
 filetype plugin indent on
