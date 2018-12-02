@@ -1,9 +1,0 @@
-zset	~/conf/.vimrc	/Settings --
-zcmd	~/conf/.vimrc	/Custom commands --
-zsnip	~/conf/.vimrc	/UltiSnips --
-zycm	~/conf/.vimrc	/YCM --
-zfmt	~/conf/.vimrc	/vim-autoformat --
-ztag	~/conf/.vimrc	/Tagbar --
-zcmt	~/conf/.vimrc	/nerdcommenter --
-zgit	~/conf/.vimrc	/fugitive --
-zgo	~/conf/.vimrc	/vim-go --

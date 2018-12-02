@@ -25,37 +25,45 @@ fi
 
 [[ -f ~/.sh_env ]] && . ~/.sh_env
 
+# MacOS
+if [[ $(uname) == "Darwin" ]]; then
+  if brew list | grep coreutils >/dev/null; then
+    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+  fi
+  PATH="$PATH:/usr/local/sbin"
+  HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+fi
+
 
 # Custom commands ---------------------------------------------------------{{{1
-#   Use "unalias" to cancle
+#   Use "unalias" to cancle.
 
 # Always keep `conf` dir under $HOME :)
 alias ss="(cd ~/conf; ./set.sh)"
 
 alias v="vim"
 alias vd="vimdiff"
-alias vv="vim ~/.vimrc"
+alias vv="vim ~/conf/.vimrc; ss"
+
 alias g="git"
-alias q="exit"
-# Please use trash-cli tool
-alias rm="echo "This is not the command you are looking for."; false"
 alias tr="tree"
 
 alias rsync="rsync -vcharz --progress"
 
+# To avoid misops, please use trash-cli or other similar tools instead.
+alias rm="echo "This is not the command you are looking for."; false"
 # trash-cli -- Command Line Interface to FreeDesktop.org Trash.
-#     https://github.com/andreafrancia/trash-cli
+#           -- https://github.com/andreafrancia/trash-cli
 #   Supported commands:
 #       trash-put           trashes files and directories.
 #       trash-empty         empty the trashcan(s).
 #       trash-list          list trashed file.
 #       trash-restore       restore a trashed file.
 #       trash-rm            remove individual files from trash can.
-#   Note if meet segfault, read issue #52 and try to fetch pull request #53.
+#   Note if found segfault, check issue #52 and try to fetch pull request #53.
 alias t="trash-put"
 
-
-# Software special --------------------------------------------------------{{{1
 alias ms="mysql.server start"
 alias mr="mysql -u root -p"
 
@@ -64,7 +72,7 @@ alias knb="pkill -f notebook"
 
 POWERLINE_ROOT=$(pip3 show powerline-status | awk "/Location:/{print $2}")
 
-# Export GOPATH for vim
+# Export GOPATH for vim.
 export GOPATH="$WORK/goz"
 PATH="$PATH:$GOPATH/bin"
 
@@ -73,8 +81,8 @@ alias spc="supervisorctl"
 
 
 # Local settings ----------------------------------------------------------{{{1
-# Shell special
+# Shell special.
 [[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
 [[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
-# Work enviroment special
-[[ -f ~/.sh_local ]] && . ~/.sh_local
+# Work enviroment special.
+[[ -f ~/.sh_local ]] && . ~/.sh_local || true

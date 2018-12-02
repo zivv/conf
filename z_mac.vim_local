@@ -1,0 +1,7 @@
+let g:startify_bookmarks = [
+      \ { 'c': '~/conf/' },
+      \ { 'v': '~/conf/.vimrc' },
+      \ { 'u': '~/.vim/UltiSnips' },
+      \ { 'z': '~/Study/D' },
+      \ { 'w': '~/Study/CST/website.txt' },
+      \ ]

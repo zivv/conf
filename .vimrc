@@ -304,7 +304,7 @@ aug GoShortcuts
   au FileType go nn gc <Plug>(go-coverage)
   " Open the relevant Godoc for the word under the cursor.
   " For consistency of the same shortcut with YCM.
-  au FileType go nn zh <Plug>(go-doc)
+  au FileType go nn ;d <Plug>(go-doc)
   " Rename the identifier under the cursor to a new name.
   au FileType go nn ge <Plug>(go-rename)
 aug END
@@ -371,12 +371,13 @@ source ~/.vim/files/cscope_maps.vim
 aug FileTypeDetect
   au!
   au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
+  au BufRead,BufNewFile *.vim_* set filetype=vim
 aug END
 
 
 " Powerline ---------------------------------------------------------------{{{2
 "           -- https://powerline.readthedocs.org/en/master/usage/other.html
-"   Check `vim --version | grep +python3` first.
+"   Check `vim --version | grep python3` first.
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
@@ -486,7 +487,7 @@ nn ;u <C-W><C-W>
 
 " Get out of insert mode.
 " 'jk' is a good cmd for exiting insert mode but not good for virtual.
-ino ;l <Esc>
+no! ;l <Esc>
 " Get out of virtual mode.
 vn ;l <Esc>
 
@@ -501,14 +502,15 @@ nn zr zR
 nn U :redo<CR>
 
 " Go to the start/end of the current line.
-nn H ^
-nn L g_
+no H ^
+no L g_
 
+" Check `vim --version | grep clipboard` or `:echo has("clipboard")`.
 " Yank to system clipboard.
-vn ;y "*y
+vn ;y "+y
 " Paste the contents in system clipboard.
-nn ;p "*p
-nn ;P "*P
+nn ;p "+p
+nn ;P "+P
 
 " Substitute for all lines.
 nn ;s :%s/
@@ -528,11 +530,11 @@ ino <C-g> <Up>
 nn gf <C-w>gf
 
 " Open dir in a new window that will appear in the right.
-command! -n=1 -complete=dir ZOpenDir :call s:ZOpenDir('<args>')
-function! s:ZOpenDir(dir)
+command -n=1 -complete=dir ZOpenDir call s:ZOpenDir(<args>)
+function s:ZOpenDir(dir)
   let l:width = winwidth(0) - 100
-  if l:width <= 0
-    let l:width = winwidth(0) / 2
+  if l:width < 30
+    let l:width = 30
   endif
   exe "bo " . l:width . " vs " . a:dir
 endfunction
@@ -541,9 +543,9 @@ endfunction
 nn ;r :ZOpenDir %:h<CR>
 
 " Similar to :drop, but :drop can only be used in GUI.
-command! -n=1 -complete=file ZFindBufOrNew :call s:ZFindBufOrNew('<args>')
-function! s:ZFindBufOrNew(filename)
-  for tabnr in range(tabpagenr('$'))
+command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
+function s:ZFindBufOrNew(filename)
+  for tabnr in range(tabpagenr("$"))
     for bufnr in tabpagebuflist(tabnr + 1)
       if bufname(bufnr) == a:filename
         exe "sb " . a:filename
@@ -554,26 +556,22 @@ function! s:ZFindBufOrNew(filename)
   exe "tabf " . a:filename
 endfunction
 
-" Switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
-let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
-nn <space>c<space> :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".c", ""
-      \)<CR><CR>
-nn <space>cc :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".cc", ""
-      \)<CR><CR>
-nn <space>cp :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".cpp", ""
-      \)<CR><CR>
-nn <space>h  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".h", ""
-      \)<CR><CR>
-nn <space>i  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, "-inl.h", ""
-      \)<CR><CR>
-nn <space>t  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, "_test.", ""
-      \).substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>u  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, "_unittest.", ""
-      \).substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>p  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".py", ""
-      \)<CR><CR>
-nn <space>j  :ZFindBufOrNew <C-R>=substitute(expand("%"), pat, ".js", ""
-      \)<CR><CR>
+" Switch between .cc / .h / -inl.h / _test.cc
+command -n=+ ZSwitch call s:ZSwitch(<f-args>)
+function s:ZSwitch(expr, pat, ...)
+  for sub in a:000
+    let l:file = substitute(a:expr, a:pat, sub, "")
+    if filereadable(l:file)
+      ZFindBufOrNew l:file
+      break
+    endif
+  endfor
+endfunction
+let pat = "\\(\\(_test\\)\\?.\\(c\\|cc\\|cpp\\)\\|\\(-inl\\)\\?.h\\)$"
+nn <space>c :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> .cc .c .cpp<CR>
+nn <space>h :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> .h<CR>
+nn <space>i :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> -inl.h<CR>
+nn <space>t :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> _test.cc _test\\0<CR>
 
 
 " Local settings ----------------------------------------------------------{{{1

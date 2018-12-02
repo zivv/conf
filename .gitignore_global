@@ -51,6 +51,11 @@ cscope.*
 #############
 .DS_Store
 
-# svn files #
+# SVN files #
 #############
 .svn
+
+# Dirs #
+########
+bin/
+tmp/
