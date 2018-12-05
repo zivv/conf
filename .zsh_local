@@ -16,7 +16,7 @@
 # Install Fish-like autosuggestions for zsh
 #   git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 #
-# Set up steps for MacOS (optional: brew install sl tree htop iftop dstat cmake go npm)
+# Set up steps for MacOS
 #   brew install coreutils
 #
 # Set up shell confs
@@ -39,13 +39,24 @@ fi
 
 # Settings for oh-my-zsh.
 ZSH_THEME="agnoster"
-plugins=(git z sudo tmux zsh-autosuggestions $ZSH_PLUGINS)
+plugins=(
+  z sudo zsh-autosuggestions colored-man-pages history-substring-search
+  tmux git golang
+  $ZSH_PLUGINS
+)
 ZSH_TMUX_AUTOSTART=true
 # Set false to use multiple tmux sessions.
 ZSH_TMUX_AUTOQUIT=false
 . $ZSH/oh-my-zsh.sh
-# Color of autosuggestions.
+# Highlighting for zsh-autosuggestions.
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
+# Settings for zsh-history-substring-search.
+# See https://github.com/zsh-users/zsh-history-substring-search.
+setopt HIST_IGNORE_ALL_DUPS
+bindkey '^R' history-substring-search-up
+bindkey '^S' history-substring-search-down
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=blue,fg=white"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 
 # Uncomment it if usnig Powerline instead of oh-my-zsh.
 # . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh

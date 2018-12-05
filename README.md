@@ -8,7 +8,13 @@ Use the existence of file `~/.at_YOUR_PLACE`, checked by `set.sh`, to distinguis
 
 ### Color Theme - [Solarized](http://ethanschoonover.com/solarized)
 
-Set terminal to use **Solarized** theme. For **iTerm2**, set `Preference`->`Profiles`->`Colors`->`Color Presets` as `Solarized Dark`.
+Set terminal to use **Solarized** theme.
+
+#### iTerm2 installation
+
+1. Download [solarized.zip](http://ethanschoonover.com/solarized/files/solarized.zip).
+1. Unzip it, change to path `solarized/iterm2-colors-solarized/` and open `Solarized Dark.itermcolors`/`Solarized Light.itermcolors`.
+1. Open iTerm2 and set `Preference`->`Profiles`->`Colors`->`Color Presets` as `Solarized Dark`.
 
 ### Statusline & Prompt - [Powerline](https://github.com/powerline/powerline)
 
@@ -18,7 +24,7 @@ Set terminal to use **Solarized** theme. For **iTerm2**, set `Preference`->`Prof
 
 The following steps are already done in conf files. :)
 
-Or find doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up shell prompts and doc [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins (like vim, tmux, ipython, etc).
+Or check doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up **shell** prompts and doc [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins (like **vim**, **tmux**, **ipython**, etc).
 
 Note that if failed to import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` includes the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
 
@@ -34,6 +40,15 @@ Install all Powerline Fonts. See the [documentation](https://powerline.readthedo
 Then set terminal to use a powerline font. Personally prefer the font named **Sauce Code Powerline** (formerly known as _Source Code Pro_) with **Semibold, 15pt**.
 
 ## Set up
+
+### tmux
+
+    # To use powerline for statusline.
+    pip3 install psutil
+
+A wrapper program [reattach-to-user-namespace](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) for integration with the system clipboard on MacOS.
+
+    brew install reattach-to-user-namespace
 
 ### shell
 
@@ -72,7 +87,7 @@ Copied from [.zsh_local](.zsh_local) as following:
     Install Fish-like autosuggestions for zsh
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
-    Set up steps for MacOS (optional: brew install tree cmake go htop npm)
+    Set up steps for MacOS
       brew install coreutils
 
     Set up shell confs
@@ -120,10 +135,6 @@ Copied from .vimrc as following:
       vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
     Install https://github.com/fatih/vim-go
       vim -c "GoInstallBinaries" -c q
-
-### tmux
-
-If not work, try `<C-b>:source ~/.tmux.conf<Enter>` when running tmux.
 
 ## Update
 

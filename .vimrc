@@ -290,23 +290,23 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 
 " Shortcuts for vim-go commands
+" Use same shortcuts with YCM for consistency.
+" TODO(ziv): Can not bind the mapping with <Plug>(go-def) or others?
 aug GoShortcuts
   au!
   " Open the target identifier in current buffer.
   " By default the mapping `gd` is enabled.
-  " For consistency of the same shortcut with YCM.
   au FileType go nn ;j <Plug>(go-def)
   " go run/build/test for the current package.
-  au FileType go nn gr <Plug>(go-run)
-  au FileType go nn gb <Plug>(go-build)
-  au FileType go nn gt <Plug>(go-test)
+  au FileType go nn gr :GoRun<CR>
+  au FileType go nn ;c :GoBuild<CR>
+  au FileType go nn gt :GoTest<CR>
   " Beautifully annotated source code to see which functions are covered.
-  au FileType go nn gc <Plug>(go-coverage)
+  au FileType go nn gc :GoCoverage<CR>
   " Open the relevant Godoc for the word under the cursor.
-  " For consistency of the same shortcut with YCM.
-  au FileType go nn ;d <Plug>(go-doc)
+  au FileType go nn ;d :GoDoc<CR>
   " Rename the identifier under the cursor to a new name.
-  au FileType go nn ge <Plug>(go-rename)
+  au FileType go nn ge :GoRename
 aug END
 
 
@@ -344,7 +344,7 @@ aug END
 " Display unprintable chars.
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
-set showbreak=↪
+"set showbreak=↪
 
 " Jump to the first open tab that contains the specified buffer.
 " Open a new tab page before loading a buffer for a quickfix command.
@@ -354,24 +354,24 @@ set switchbuf=usetab,newtab
 " Google java style accepts a column limit of either 80 or 100 characters.
 let &colorcolumn = "80,".join(range(100,256),",")
 
-aug SpecialIndent
-  au!
-  au FileType python set softtabstop=4 | set shiftwidth=4
-aug END
+source ~/.vim/files/cscope_maps.vim
 
-aug SkeletonFiles
+aug ZAug
   au!
+  " Special indent.
+  au FileType python set softtabstop=4 | set shiftwidth=4
+
+  " Skeleton files.
   au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
   au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
   au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
-aug END
 
-source ~/.vim/files/cscope_maps.vim
-
-aug FileTypeDetect
-  au!
+  " Filetype detection.
   au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
   au BufRead,BufNewFile *.vim_* set filetype=vim
+
+  " Autosave config files.
+  autocmd BufWritePost ~/conf/* !(cd ~/conf; ./set.sh)
 aug END
 
 
@@ -530,7 +530,7 @@ ino <C-g> <Up>
 nn gf <C-w>gf
 
 " Open dir in a new window that will appear in the right.
-command -n=1 -complete=dir ZOpenDir call s:ZOpenDir(<args>)
+command -n=1 -complete=dir ZOpenDir call s:ZOpenDir('<args>')
 function s:ZOpenDir(dir)
   let l:width = winwidth(0) - 100
   if l:width < 30
@@ -543,7 +543,7 @@ endfunction
 nn ;r :ZOpenDir %:h<CR>
 
 " Similar to :drop, but :drop can only be used in GUI.
-command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
+command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew('<args>')
 function s:ZFindBufOrNew(filename)
   for tabnr in range(tabpagenr("$"))
     for bufnr in tabpagebuflist(tabnr + 1)
