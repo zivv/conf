@@ -46,10 +46,6 @@ Then set terminal to use a powerline font. Personally prefer the font named **Sa
     # To use powerline for statusline.
     pip3 install psutil
 
-A wrapper program [reattach-to-user-namespace](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) for integration with the system clipboard on MacOS.
-
-    brew install reattach-to-user-namespace
-
 ### shell
 
 Read [.sh_base](.sh_base) to set up.
