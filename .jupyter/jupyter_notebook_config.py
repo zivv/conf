@@ -201,7 +201,6 @@ c.NotebookApp.open_browser = False
 # c.NotebookApp.password = ''
 
 # The port the notebook server will listen on.
-# Ziv: 93+88 :)
 c.NotebookApp.port = 9883
 
 # The number of additional ports to try if the specified port is not available.

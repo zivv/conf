@@ -2,14 +2,16 @@
 
 # Update files by last modification time.
 
-# file_name|dest_dir
 files=(
   ".sh_base" ".bash_local" ".zsh_local"
   ".tmux.conf"
-  ".vimrc"
+  ".vimrc" ".vim"
   ".gitconfig" ".gitignore_global"
+)
+
+z=(
+  ".jupyter/jupyter_notebook_config.py"
   ".mongorc.js"
-  "jupyter_notebook_config.py|.jupyter"
   ".octaverc"
 )
 
@@ -28,57 +30,69 @@ z_mac=(
 )
 
 function cp_file() {
+  if [[ $2 =~ "/" ]]; then
+    dir=${2%/*}
+    if [[ ! -d $dir ]]; then
+      mkdir -p $dir
+    fi
+  fi
+
   f=$1
   if [[ -f tmp/$f ]]; then
     f=tmp/$f
   fi
-  if [[ $(diff $f $2) ]]; then
+  if [[ ! -f $2 || $(diff $f $2) ]]; then
     cp -uv $f $2
   fi
   if [[ $(diff $f $2) ]]; then
     tput setaf 1
     echo "$2 is newer"
-    diff $f $2
+    diff -u $f $2
     tput sgr0
   fi
 }
 
-for loca in ${locas[@]}; do
-  if [[ -f ~/.at_${loca} ]]; then
+# cp_files "prefix" "path1 path2 ..."
+function cp_files() {
+  for path in $2; do
+    if [[ -d $path ]]; then
+      for file in $(find $path -type f); do
+        cp_file $file $HOME/$file
+      done
+    else
+      file=$path
+      if [[ $file =~ "/" ]]; then
+        file=${file%/*}/$1${file##*/}
+      else
+        file=$1$file
+      fi
+      if [[ -f $file ]]; then
+        cp_file $file $HOME/$path
+      else
+        tput setaf 1
+        echo "Can not copy $file"
+        tput sgr0
+      fi
+    fi
+  done
+}
+
+for loca in ${locas[*]}; do
+  if [[ -f ~/.at_$loca ]]; then
     # Your place! \o/
-    if [[ ${loca} =~ ^z_ ]]; then
+    if [[ $loca =~ ^z_ ]]; then
       # Add author info to global gitconfig
       mkdir -p tmp/
       echo -e "[user]\n  name = ziv\n  email = zivvv0@gmail.com" >tmp/.gitconfig
       cat .gitconfig >>tmp/.gitconfig
 
-      cp_file z.sh_env ~/.sh_env
+      cp_files "" "${z[*]}"
     fi
 
-    eval "loca_files=\$\{${loca}\[\@\]\}"
+    eval "loca_files=\$\{$loca\[\*\]\}"
     eval "loca_files=$loca_files"
-    for file in ${loca_files[@]}; do
-      cp_file ${loca}${file} ~/${file}
-    done
+    cp_files $loca "${loca_files[*]}"
   fi
 done
 
-for file in ${files[@]}; do
-  if [[ ${file} =~ "|" ]]; then
-    new_dir=${HOME}/${file#*|}
-    if [[ ! -d ${new_dir} ]]; then
-      mkdir -p ${new_dir}
-    fi
-    cp_file ${file%|*} ${new_dir}/${file%|*}
-  else
-    cp_file ${file} ~/${file}
-  fi
-done
-
-for file in $(find vim -type f); do
-  new_file=${HOME}/.vim/${file#vim/}
-  if [[ ! -d ${new_file%/*} ]]; then
-    mkdir -p ${new_file%/*}
-  fi
-  cp_file ${file} ${new_file}
-done
+cp_files "" "${files[*]}"
