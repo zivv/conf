@@ -42,7 +42,7 @@ alias ss="(cd ~/conf; ./set.sh)"
 
 alias v="vim"
 alias vd="vimdiff"
-alias vv="vim ~/conf/.vimrc; ss"
+alias vv="vim ~/conf/.vimrc"
 
 alias g="git"
 alias tr="tree"

@@ -36,7 +36,10 @@ function cp_file() {
     cp -uv $f $2
   fi
   if [[ $(diff $f $2) ]]; then
-    echo -e "\033[31m$2 is newer\033[0m"
+    tput setaf 1
+    echo "$2 is newer"
+    diff $f $2
+    tput sgr0
   fi
 }
 
