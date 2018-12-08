@@ -279,34 +279,41 @@ Plugin 'fatih/vim-go'
 " By default when :GoInstallBinaries is called,
 " the binaries are installed to $GOBIN or $GOPATH/bin. To change it:
 "let g:go_bin_path = expand("~/.gotools")
-" By default syntax-highlighting for Functions, Methods and Structs is
-" disabled. To change it:
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
+" Customed syntax highlighting. They are disabled by default. (:h go-syntax)
+let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_variable_declarations = 1
+"let g:go_highlight_variable_assignments = 1
 " Enable goimports to automatically insert import paths instead of gofmt.
 let g:go_fmt_command = "goimports"
+" Use this option to jump to an existing buffer for the split, vsplit and tab
+" mappings of |:GoDef|. By default it's disabled.
+let g:go_def_reuse_buffer = 1
 
 " Shortcuts for vim-go commands
 " Use same shortcuts with YCM for consistency.
-" TODO(ziv): Can not bind the mapping with <Plug>(go-def) or others?
 aug GoShortcuts
   au!
   " Open the target identifier in current buffer.
   " By default the mapping `gd` is enabled.
-  au FileType go nn ;j <Plug>(go-def)
+  au FileType go nm ;j <Plug>(go-def-tab)
   " go run/build/test for the current package.
-  au FileType go nn gr :GoRun<CR>
-  au FileType go nn ;c :GoBuild<CR>
-  au FileType go nn gt :GoTest<CR>
-  " Beautifully annotated source code to see which functions are covered.
-  au FileType go nn gc :GoCoverage<CR>
+  au FileType go nm gr <Plug>(go-run)
+  au FileType go nm ;c <Plug>(go-build)
+  au FileType go nm gt <Plug>(go-test)
+  " Beautifully anmotated source code to see which functions are covered.
+  au FileType go nm gc <Plug>(go-coverage)
   " Open the relevant Godoc for the word under the cursor.
-  au FileType go nn ;d :GoDoc<CR>
+  au FileType go nm ;d <Plug>(go-doc)
   " Rename the identifier under the cursor to a new name.
-  au FileType go nn ge :GoRename
+  au FileType go nm ge <Plug>(go-rename)
 aug END
 
 
