@@ -80,6 +80,94 @@ Plugin 'gmarik/Vundle.vim'
 "     eg. Plugin 'file:///home/gmarik/path/to/plugin'
 
 
+" Solarized -- Precision colors for machines and people -------------------{{{2
+"           -- https://github.com/altercation/vim-colors-solarized
+Plugin 'altercation/vim-colors-solarized'
+
+" Required settings
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
+let g:solarized_termcolors = 256
+colorscheme solarized
+
+
+" startify -- The fancy start screen for Vim ------------------------------{{{2
+"          -- https://github.com/mhinz/vim-startify
+"   Useful commands:
+"     :Startify    reopen the start screen
+"     :SLoad       load a session
+"     :SSave       save a session
+"     :SDelete[!]  delete a session(If ! is given, you won't get prompted.)
+"     :SClose      close a session
+Plugin 'mhinz/vim-startify'
+
+" startify settings
+let g:startify_enable_special         = 0
+let g:startify_relative_path          = 1
+let g:startify_change_to_dir          = 1
+" The default for Windows systems is '$HOME\vimfiles\session'.
+let g:startify_session_dir = '~/.vim/session'
+let g:startify_session_autoload       = 1
+let g:startify_session_persistence    = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_bookmarks = [
+      \ { 'c': '~/conf/' },
+      \ { 'v': '~/conf/.vimrc' },
+      \ { 'u': '~/.vim/UltiSnips' },
+      \ ]
+let g:startify_custom_header =
+      \ ['', "   Hi Zi! \\o/", '']
+let g:startify_custom_footer = [
+      \ '',
+      \ "   Press 'e' for <empty buffer> and 'q' for <quit>.",
+      \ '',
+      \ "   Vim is charityware. Please read ':help uganda'.",
+      \ '',
+      \ "                           -- ziv @ Feb 2016",
+      \ '']
+
+" Shortcuts for startify
+nn <silent> gs :tabe<CR>:Startify<CR>
+
+
+" vim-autoformat -- format code with one button press ---------------------{{{2
+"                -- https://github.com/Chiel92/vim-autoformat
+Plugin 'Chiel92/vim-autoformat'
+
+" vim-autoformat settings
+" See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
+" Only change the style option to Google.
+let g:formatdef_clangformat = "'clang-format ".
+      \"-lines='.a:firstline.':'.a:lastline.' ".
+      \"--assume-filename=\"'.expand('%:p').'\" ".
+      \"-style=\"{BasedOnStyle: Google, ".
+      \"          BinPackArguments: false, BinPackParameters: false, ".
+      \"          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
+" Default style is 'ansi'.
+" TODO(ziv): Consider if change to use .astylerc conf file.
+let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
+      \'--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
+      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
+      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
+      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+" Add formatter for bazel BUILD files.
+" See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
+let g:formatters_bzl = ['buildifier']
+let g:formatdef_buildifier = '"buildifier"'
+" Change the order of formatters for json to use fixjson at first.
+let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
+
+" Shortcuts for vim-autoformat commands
+" For Normal, Visual, Select, Operator-pending modes.
+map <silent> <C-k> :Autoformat<CR>
+
+
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
 "           -- https://github.com/SirVer/ultisnips
 Plugin 'SirVer/ultisnips'
@@ -144,41 +232,6 @@ nn <silent> ;x :YcmCompleter FixIt<CR>
 nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
 
 
-" vim-autoformat -- format code with one button press ---------------------{{{2
-"                -- https://github.com/Chiel92/vim-autoformat
-Plugin 'Chiel92/vim-autoformat'
-
-" vim-autoformat settings
-" See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
-" Only change the style option to Google.
-let g:formatdef_clangformat = "'clang-format ".
-      \"-lines='.a:firstline.':'.a:lastline.' ".
-      \"--assume-filename=\"'.expand('%:p').'\" ".
-      \"-style=\"{BasedOnStyle: Google, ".
-      \"          BinPackArguments: false, BinPackParameters: false, ".
-      \"          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
-" Default style is 'ansi'.
-" TODO(ziv): Consider if change to use .astylerc conf file.
-let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
-      \'--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
-      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
-      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
-      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
-" Add formatter for bazel BUILD files.
-" See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
-let g:formatters_bzl = ['buildifier']
-let g:formatdef_buildifier = '"buildifier"'
-" Change the order of formatters for json to use fixjson at first.
-let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
-
-" Shortcuts for vim-autoformat commands
-" For Normal, Visual, Select, Operator-pending modes.
-map <silent> <C-k> :Autoformat<CR>
-
-
 " Tagbar -- a class outline viewer for Vim --------------------------------{{{2
 "        -- https://github.com/majutsushi/tagbar
 Plugin 'majutsushi/tagbar'
@@ -200,59 +253,6 @@ let g:NERDSpaceDelims = 1
 let g:NERDCustomDelimiters = {
       \ 'python': { 'left': '#' },
       \ }
-
-
-" startify -- The fancy start screen for Vim ------------------------------{{{2
-"          -- https://github.com/mhinz/vim-startify
-"   Useful commands:
-"     :Startify    reopen the start screen
-"     :SLoad       load a session
-"     :SSave       save a session
-"     :SDelete[!]  delete a session(If ! is given, you won't get prompted.)
-"     :SClose      close a session
-Plugin 'mhinz/vim-startify'
-
-" startify settings
-let g:startify_enable_special         = 0
-let g:startify_relative_path          = 1
-let g:startify_change_to_dir          = 1
-" The default for Windows systems is '$HOME\vimfiles\session'.
-let g:startify_session_dir = '~/.vim/session'
-let g:startify_session_autoload       = 1
-let g:startify_session_persistence    = 1
-let g:startify_session_delete_buffers = 1
-let g:startify_bookmarks = [
-      \ { 'c': '~/conf/' },
-      \ { 'v': '~/conf/.vimrc' },
-      \ { 'u': '~/.vim/UltiSnips' },
-      \ ]
-let g:startify_custom_header =
-      \ ['', "   Hi Zi! \\o/", '']
-let g:startify_custom_footer = [
-      \ '',
-      \ "   Press 'e' for <empty buffer> and 'q' for <quit>.",
-      \ '',
-      \ "   Vim is charityware. Please read ':help uganda'.",
-      \ '',
-      \ "                           -- ziv @ Feb 2016",
-      \ '']
-
-" Shortcuts for startify
-nn <silent> gs :tabe<CR>:Startify<CR>
-
-
-" Solarized -- Precision colors for machines and people -------------------{{{2
-"           -- https://github.com/altercation/vim-colors-solarized
-Plugin 'altercation/vim-colors-solarized'
-
-" Required settings
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-endif
-let g:solarized_termcolors = 256
-colorscheme solarized
 
 
 " fugitive -- a Git wrapper -----------------------------------------------{{{2
