@@ -525,13 +525,14 @@ nn ;s :%s/
 vn ;s :s/
 
 " Commands for insert mode, see `:h Insert`.
+" No need to map arrow keys since use Karabiner to map R_CMD+hjkl as arrows.
 " Go to the beginning of the current line.
-ino <C-b> <Esc>I
+"ino <C-b> <Esc>I
 " Go to the end of the current line.
-ino <C-c> <Esc>A
+"ino <C-c> <Esc>A
 " Move cursor.
-ino <C-f> <Down>
-ino <C-g> <Up>
+"ino <C-f> <Down>
+"ino <C-g> <Up>
 
 " Open file under cursor in a new tab.
 nn gf <C-w>gf

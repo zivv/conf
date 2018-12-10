@@ -50,7 +50,7 @@ alias tr="tree"
 alias rsync="rsync -vcharz --progress"
 
 # To avoid misops, please use trash-cli or other similar tools instead.
-alias rm="echo "This is not the command you are looking for."; false"
+alias rm="echo 'This is not the command you are looking for.'; false"
 # trash-cli -- Command Line Interface to FreeDesktop.org Trash.
 #           -- https://github.com/andreafrancia/trash-cli
 #   Supported commands:
