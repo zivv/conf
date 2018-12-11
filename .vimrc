@@ -25,7 +25,8 @@
 "   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
 "   go get github.com/bazelbuild/buildtools/buildifier
 " Install https://github.com/majutsushi/tagbar
-"   Depend exuberant-ctags
+"   # See https://ctags.io/.
+"   brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 " Install https://github.com/tpope/vim-fugitive
 "   vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
 " Install https://github.com/fatih/vim-go
@@ -131,6 +132,28 @@ let g:startify_custom_footer = [
 
 " Shortcuts for startify
 nn <silent> gs :tabe<CR>:Startify<CR>
+
+
+" NERDTree -- A file system explorer for Vim ------------------------------{{{2
+"         -- https://github.com/scrooloose/nerdtree
+Plugin 'scrooloose/nerdtree'
+
+" NERDTree plugins
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" NERDTree settings
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1
+let g:NERDTreeHighlightFoldersFullName = 1
+
+" Shortcuts for NERDTree commands
+nm ;r <plug>NERDTreeMirrorToggle<CR>
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -363,7 +386,7 @@ let &colorcolumn = "80,".join(range(100,256),",")
 
 source ~/.vim/files/cscope_maps.vim
 
-aug ZAug
+aug ZSetting
   au!
   " Special indent.
   au FileType python set softtabstop=4 | set shiftwidth=4
@@ -406,8 +429,8 @@ hi CursorColumn cterm=none ctermbg=237
 set hlsearch
 hi Search cterm=none ctermfg=grey ctermbg=darkyellow
 
-" New syntax highlight rules for all files.
-aug NewSyntaxHighlight
+" Syntax highlight rules for all files.
+aug ZSyntaxHighlight
   au!
   " Show trailing whithspace.
   hi TrailingWhitespace ctermbg=22
@@ -537,21 +560,8 @@ vn ;s :s/
 " Open file under cursor in a new tab.
 nn gf <C-w>gf
 
-" Open dir in a new window that will appear in the right.
-command -n=1 -complete=dir ZOpenDir call s:ZOpenDir('<args>')
-function s:ZOpenDir(dir)
-  let l:width = winwidth(0) - 100
-  if l:width < 30
-    let l:width = 30
-  endif
-  exe "bo " . l:width . " vs " . a:dir
-endfunction
-
-" Edit the path of the current file.
-nn ;r :ZOpenDir %:h<CR>
-
 " Similar to :drop, but :drop can only be used in GUI.
-command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew('<args>')
+command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
 function s:ZFindBufOrNew(filename)
   for tabnr in range(tabpagenr("$"))
     for bufnr in tabpagebuflist(tabnr + 1)
@@ -563,23 +573,25 @@ function s:ZFindBufOrNew(filename)
   endfor
   exe "tabf " . a:filename
 endfunction
-
-" Switch between .cc / .h / -inl.h / _test.cc
+" Open the related file found first.
 command -n=+ ZSwitch call s:ZSwitch(<f-args>)
-function s:ZSwitch(expr, pat, ...)
+function s:ZSwitch(name, pat, ...)
   for sub in a:000
-    let l:file = substitute(a:expr, a:pat, sub, "")
-    if filereadable(l:file)
+    let l:file = substitute(a:name, a:pat, sub, "")
+    if l:file != a:name && filereadable(l:file)
       ZFindBufOrNew l:file
       break
     endif
   endfor
 endfunction
-let pat = "\\(\\(_test\\)\\?.\\(c\\|cc\\|cpp\\)\\|\\(-inl\\)\\?.h\\)$"
-nn <space>c :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> .cc .c .cpp<CR>
-nn <space>h :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> .h<CR>
-nn <space>i :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> -inl.h<CR>
-nn <space>t :ZSwitch <C-R>=expand("%")<CR> <C-R>=pat<CR> _test.cc _test\\0<CR>
+" Switch between .cc / .h / -inl.h / _test.cc
+let cpat = "\\(\\(_test\\)\\?.\\(c\\|cc\\|cpp\\)\\|\\(-inl\\)\\?.h\\)$"
+nn <space>c :ZSwitch <C-R>=expand("%")<CR> <C-R>=cpat<CR> .cc .c .cpp<CR>
+nn <space>h :ZSwitch <C-R>=expand("%")<CR> <C-R>=cpat<CR> .h<CR>
+nn <space>i :ZSwitch <C-R>=expand("%")<CR> <C-R>=cpat<CR> -inl.h<CR>
+nn <space>t :ZSwitch <C-R>=expand("%")<CR> <C-R>=cpat<CR> _test.cc _test\\0<CR>
+" Switch between .go / _test.go
+nn <space>g :ZSwitch <C-R>=expand("%")<CR> \\(_test\\)\\?.go$ .go _test.go<CR>
 
 
 " Local settings ----------------------------------------------------------{{{1
