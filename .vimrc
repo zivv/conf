@@ -44,7 +44,7 @@
 "
 "     The various YcmCompleter GoTo* subcommands add entries to Vim's jumplist
 "     so you can use CTRL-O to jump back to where you where before invoking
-"     the command (and CTRL-I to jump forward; see :h jumplist for details).
+"     the command (and CTRL-I to jump forward; see `:h jumplist` for details).
 "
 "   Could find unused key like:
 "     for i in {a..z};do;if ! grep \;$i ~/.vimrc>/dev/null;then;echo $i;fi;done
@@ -153,7 +153,14 @@ let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1
 
 " Shortcuts for NERDTree commands
-nm ;r <plug>NERDTreeMirrorToggle<CR>
+nm ;r <plug>NERDTreeTabsToggle<CR>
+
+
+" Command-T ---{{{2
+" Note to use the same version of Ruby which Vim links against. Like:
+" > /usr/local/Cellar/ruby/2.5.3_1/bin/ruby extconf.rb && make
+" cd ~/.vim/bundle/command-t/ruby/command-t/ext/command-t && ruby extconf.rb && make
+Plugin 'wincent/command-t'
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -196,8 +203,8 @@ map <silent> <C-k> :Autoformat<CR>
 Plugin 'SirVer/ultisnips'
 
 " UltiSnips settings
-" Default value is <Tab>.
-let g:UltiSnipsExpandTrigger = "<C-j>"
+" Default value is <Tab>. Do not use <Tab> if use YouCompleteMe.
+let g:UltiSnipsExpandTrigger = "<C-h>"
 " Default value is <C-Tab>.
 "let g:UltiSnipsListSnippets = "<C-Tab>"
 " Default value is <C-j>.
@@ -316,8 +323,7 @@ let g:go_highlight_variable_declarations = 1
 "let g:go_highlight_variable_assignments = 1
 " Enable goimports to automatically insert import paths instead of gofmt.
 let g:go_fmt_command = "goimports"
-" Use this option to jump to an existing buffer for the split, vsplit and tab
-" mappings of |:GoDef|. By default it's disabled.
+" Jump to an existing buffer for the split, vsplit and tab mappings of :GoDef.
 let g:go_def_reuse_buffer = 1
 
 " Shortcuts for vim-go commands
@@ -336,7 +342,12 @@ aug GoShortcuts
   " Open the relevant Godoc for the word under the cursor.
   au FileType go nm ;d <Plug>(go-doc)
   " Rename the identifier under the cursor to a new name.
-  au FileType go nm ge <Plug>(go-rename)
+  au FileType go nm ;;s <Plug>(go-rename)
+  " Call `go-metalinter` for the current directory. By default the following
+  " linters are enabled: `vet`, `golint`, and `errcheck`.
+  au FileType go nm ;;l <Plug>(go-metalinter)
+  " Show all refs to entity denoted by selected identifier.
+  au FileType go nm ;;f <Plug>(go-referrers)
 aug END
 
 
@@ -380,9 +391,9 @@ set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
 " Open a new tab page before loading a buffer for a quickfix command.
 set switchbuf=usetab,newtab
 
-" Highlight column 80 as well as 100 and onward.
-" Google java style accepts a column limit of either 80 or 100 characters.
-let &colorcolumn = "80,".join(range(100,256),",")
+" In Insert mode, allow backspacing over autoindent/line breaks/the start of
+" insert. See `:h 'bs'`.
+set backspace=indent,eol,start
 
 source ~/.vim/files/cscope_maps.vim
 
@@ -424,6 +435,10 @@ set cursorline
 hi CursorLine cterm=none ctermbg=237
 set cursorcolumn
 hi CursorColumn cterm=none ctermbg=237
+
+" Highlight column 80 as well as 100 and onward.
+" Google java style accepts a column limit of either 80 or 100 characters.
+let &colorcolumn = "80,".join(range(100,256),",")
 
 " Highlight during search.
 set hlsearch
