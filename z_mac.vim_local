@@ -4,4 +4,5 @@ let g:startify_bookmarks = [
       \ { 'u': '~/.vim/UltiSnips' },
       \ { 'd': '~/Study/D' },
       \ { 'w': '~/Study/CST/website.txt' },
+      \ { 'z': '~/ziv' },
       \ ]
