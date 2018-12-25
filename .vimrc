@@ -492,13 +492,13 @@ nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 nn ;80 079l
 
 " For window size.
-nn <silent> [r :resize +5<CR>
-nn <silent> [v :vert resize +5<CR>
+nn <silent> [h :resize +5<CR>
+nn <silent> [w :vert resize +5<CR>
 
 " Specific for quickfix window.
-nn <silent> [w :cw<CR>
-nn <silent> [n :cn<CR>
-nn <silent> [p :cp<CR>
+nn <silent> [q :cw<CR>
+nn <silent> [i :cp<CR>
+nn <silent> [o :cn<CR>
 
 " Just avoid plugins mapping with default key `\`.
 let mapleader = ","
@@ -574,6 +574,18 @@ vn ;s :s/
 
 " Open file under cursor in a new tab.
 nn gf <C-w>gf
+
+" Open dir in a new window that will appear in the right.
+command -n=1 -complete=dir ZOpenDir call s:ZOpenDir('<args>')
+function s:ZOpenDir(dir)
+  let l:width = winwidth(0) - 100
+  if l:width < 30
+    let l:width = 30
+  endif
+  exe "bo " . l:width . " vs " . a:dir
+endfunction
+" Edit the path of the current file.
+nn [p :ZOpenDir %:h<CR>
 
 " Similar to :drop, but :drop can only be used in GUI.
 command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
