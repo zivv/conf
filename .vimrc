@@ -4,6 +4,10 @@
 " vim -c "PluginInstall" -c q
 " git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
+" Install https://github.com/ryanoasis/nerd-fonts
+"   brew tap caskroom/fonts && brew cask install font-hack-nerd-font
+"   # Then open iTerm2 and set `Preference`->`Profiles`->`Text`->
+"   # `Non-ASCII Font` as `Hack Nerd Font`.
 " Install https://github.com/Valloric/YouCompleteMe
 "   # Completer options for install.py
 "   #   --clang-completer (need cmake, gcc, g++ and python-dev)
@@ -95,6 +99,11 @@ let g:solarized_termcolors = 256
 colorscheme solarized
 
 
+" VimDevIcons -- Adds file type glyphs/icons to popular Vim plugins -------{{{2
+"             -- https://github.com/ryanoasis/vim-devicons
+Plugin 'ryanoasis/vim-devicons'
+
+
 " startify -- The fancy start screen for Vim ------------------------------{{{2
 "          -- https://github.com/mhinz/vim-startify
 "   Useful commands:
@@ -135,11 +144,10 @@ nn <silent> gs :tabe<CR>:Startify<CR>
 
 
 " NERDTree -- A file system explorer for Vim ------------------------------{{{2
-"         -- https://github.com/scrooloose/nerdtree
+"          -- https://github.com/scrooloose/nerdtree
 Plugin 'scrooloose/nerdtree'
 
 " NERDTree plugins
-Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -156,11 +164,9 @@ let g:NERDTreeHighlightFoldersFullName = 1
 nm ;r <plug>NERDTreeTabsToggle<CR>
 
 
-" Command-T ---{{{2
-" Note to use the same version of Ruby which Vim links against. Like:
-" > /usr/local/Cellar/ruby/2.5.3_1/bin/ruby extconf.rb && make
-" cd ~/.vim/bundle/command-t/ruby/command-t/ext/command-t && ruby extconf.rb && make
-Plugin 'wincent/command-t'
+" CtrlP -- Fuzzy file, buffer, mru, tag, etc finder -----------------------{{{2
+"       -- https://github.com/ctrlpvim/ctrlp.vim
+Plugin 'ctrlpvim/ctrlp.vim'
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -515,12 +521,6 @@ nn <silent> ;a :qa!<CR>
 nn <silent> ;l :only!<CR>
 " Forced saving.
 nn ;w :w!<CR>
-" Edit file, empty for reading current file from disk again.
-nn ;e :e 
-" Edit file in a new tab.
-nn ;t :tabe 
-" Show all buffers and edit buffer [N] or {bufferName}, empty for nothing.
-nn ;b :ls<CR>:tab sb 
 " Switch between tabs.
 " {count}gT - Go {count} tab pages back.
 nn ;i gT
