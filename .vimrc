@@ -101,6 +101,10 @@ colorscheme solarized
 
 " VimDevIcons -- Adds file type glyphs/icons to popular Vim plugins -------{{{2
 "             -- https://github.com/ryanoasis/vim-devicons
+"   Need to install a Nerd Font compatible font or patch your own and then set
+"   the terminal font. See
+"   https://github.com/ryanoasis/nerd-fonts#font-installation or
+"   https://github.com/ryanoasis/nerd-fonts#font-patcher.
 Plugin 'ryanoasis/vim-devicons'
 
 
@@ -161,12 +165,23 @@ let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1
 
 " Shortcuts for NERDTree commands
+" Switches NERDTree on/off for all tabs.
 nm ;r <plug>NERDTreeTabsToggle<CR>
+" Find and reveal the file for the active buffer in the NERDTree window.
+nn [p :NERDTreeFind<CR>:NERDTreeTabsOpen<CR>
+" Open a fresh NERD tree with root as the dir which current file is under.
+nn [c :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
 
 
 " CtrlP -- Fuzzy file, buffer, mru, tag, etc finder -----------------------{{{2
 "       -- https://github.com/ctrlpvim/ctrlp.vim
 Plugin 'ctrlpvim/ctrlp.vim'
+
+" CtrlP settings
+" Create file in a new tab when pressing <c-y>.
+let g:ctrlp_open_new_file = 't'
+" Enable cross-session caching by not deleting the cache files upon exiting.
+let g:ctrlp_clear_cache_on_exit = 0
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -259,7 +274,7 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 " Jump to the header/definition/declaration.
 nn <silent> ;j :YcmCompleter GoTo<CR>
 " Echos the semantic parent of the point under the cursor.
-nn <silent> ;v :YcmCompleter GetType<CR>
+nn <silent> ;t :YcmCompleter GetType<CR>
 " View documentation comments for identifiers.
 nn <silent> ;d :YcmCompleter GetDoc<CR>
 " Attempts to correct the diagnostic closest to the cursor position.
@@ -497,8 +512,9 @@ nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 " Move to column 80.
 nn ;80 079l
 
-" For window size.
+" Increase current window height by 5.
 nn <silent> [h :resize +5<CR>
+" Increase current window width by 5.
 nn <silent> [w :vert resize +5<CR>
 
 " Specific for quickfix window.
@@ -518,7 +534,7 @@ nn <silent> ;q :q!<CR>
 " Quit all files without saving.
 nn <silent> ;a :qa!<CR>
 " Make the current window the only one on the screen, without saving.
-nn <silent> ;l :only!<CR>
+nn <silent> ;l :only!<CR>:NERDTreeTabsClose<CR>
 " Forced saving.
 nn ;w :w!<CR>
 " Switch between tabs.
@@ -574,18 +590,6 @@ vn ;s :s/
 
 " Open file under cursor in a new tab.
 nn gf <C-w>gf
-
-" Open dir in a new window that will appear in the right.
-command -n=1 -complete=dir ZOpenDir call s:ZOpenDir('<args>')
-function s:ZOpenDir(dir)
-  let l:width = winwidth(0) - 100
-  if l:width < 30
-    let l:width = 30
-  endif
-  exe "bo " . l:width . " vs " . a:dir
-endfunction
-" Edit the path of the current file.
-nn [p :ZOpenDir %:h<CR>
 
 " Similar to :drop, but :drop can only be used in GUI.
 command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
