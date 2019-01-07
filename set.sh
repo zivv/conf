@@ -5,7 +5,7 @@
 files=(
   ".sh_base" ".bash_local" ".zsh_local"
   ".tmux.conf"
-  ".vimrc" ".vim"
+  ".vimrc" ".vim" ".gvimrc"
   ".gitconfig" ".gitignore_global"
 )
 
