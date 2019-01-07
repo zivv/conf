@@ -10,9 +10,10 @@ files=(
 )
 
 z=(
-  ".jupyter/jupyter_notebook_config.py"
-  ".mongorc.js"
-  ".octaverc"
+  ".sh_env"
+  # TODO(ziv): Too old. Need to check update.
+  #".mongorc.js"
+  #".octaverc"
 )
 
 locas=(

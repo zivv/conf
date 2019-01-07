@@ -65,7 +65,7 @@ alias t="trash-put"
 alias ms="mysql.server start"
 alias mr="mysql -u root -p"
 
-alias nb="(cd $WORK/notebook && jupyter notebook > /dev/null 2>&1 &)"
+alias nb="(cd $WORK/notebook && jupyter notebook --port 9883 > /dev/null 2>&1 &)"
 alias knb="pkill -f notebook"
 
 # Export for tmux.
