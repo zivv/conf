@@ -13,7 +13,7 @@
 # If using bash in MacOS:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
-# Basic environment settings -------------------------------------------{{{1
+# Basic environment settings ----------------------------------------------{{{1
 WORK="$HOME/work"
 
 LC_CTYPE="en_US.UTF-8"
@@ -31,7 +31,7 @@ if [[ $(uname) == "Darwin" ]]; then
     MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
   fi
   PATH="$PATH:/usr/local/sbin"
-  HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+  [[ -f ~/.at_china ]] && HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 fi
 
 # Custom commands ---------------------------------------------------------{{{1
@@ -77,6 +77,9 @@ PATH="$PATH:$GOPATH/bin"
 
 alias spd="supervisord"
 alias spc="supervisorctl"
+
+# Update current branch
+alias gu="(br=\$(git symbolic-ref --short HEAD);g co master;gl;g co \$br;g rb master)"
 
 # Local settings ----------------------------------------------------------{{{1
 # Shell special.
