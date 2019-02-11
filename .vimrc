@@ -157,12 +157,13 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " NERDTree settings
-let g:NERDTreeShowBookmarks = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1
 let g:NERDTreeHighlightFoldersFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeShowLineNumbers = 1
 
 " Shortcuts for NERDTree commands
 " Switches NERDTree on/off for all tabs.
@@ -505,6 +506,9 @@ aug END
 
 " Easy to close highlighting after searching.
 nn <silent> ;h :nohl<CR>
+
+" Keep the same direction of keys n/N after searching.
+nn # *NN
 
 " Easy to copy.
 nn <silent> ;n :set rnu!<CR>:set nu!<CR>

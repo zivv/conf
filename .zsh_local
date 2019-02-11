@@ -42,6 +42,7 @@ ZSH_THEME="agnoster"
 plugins=(
   z sudo zsh-autosuggestions colored-man-pages history-substring-search
   tmux git golang docker
+  # emoji emotty
   $ZSH_PLUGINS
 )
 ZSH_TMUX_AUTOSTART=true
