@@ -176,13 +176,25 @@ nn [c :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
 
 " CtrlP -- Fuzzy file, buffer, mru, tag, etc finder -----------------------{{{2
 "       -- https://github.com/ctrlpvim/ctrlp.vim
+"   Basic usage:
+"     <ESC>/<C-c>/<C-g> cancel and go back to the prompt
+"     <C-j>/<C-k>       arrow keys to navigate the result list
+"     <CR>/<C-t>/<C-v>  open selected file in current window/new tab/vert split
+"     <TAB>             auto-complete directory names
+"     <C-f>/<C-b>       cycle between modes
+"     <C-d>/<C-r>       switch to search by filename/regexp mode
+"     <F5>              purge the cache for the current directory
+"     <C-z> to mark/unmark multiple files and <C-o> to open them
+"     Submit .. (or more dots) to up 1 (or more) level of directory tree
 Plugin 'ctrlpvim/ctrlp.vim'
 
 " CtrlP settings
-" Create file in a new tab when pressing <c-y>.
+" Create file in a new tab when pressing <C-y>.
 let g:ctrlp_open_new_file = 't'
 " Enable cross-session caching by not deleting the cache files upon exiting.
 let g:ctrlp_clear_cache_on_exit = 0
+" Scan dotfiles and dotdirs.
+let g:ctrlp_show_hidden = 1
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -423,6 +435,7 @@ aug ZSetting
   au!
   " Special indent.
   au FileType python set softtabstop=4 | set shiftwidth=4
+  au FileType go     set softtabstop=8 | set shiftwidth=8 | set noexpandtab
 
   " Skeleton files.
   au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile

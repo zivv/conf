@@ -38,7 +38,7 @@
   dt = difftool
   dtc = difftool --cached
   dth = difftool HEAD
-  dtl = difftool HEAD~1 HEAD
+  dtl = difftool HEAD~1
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
