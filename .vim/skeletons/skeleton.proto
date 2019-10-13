@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package skeleton;
+
+message skeleton {
+}

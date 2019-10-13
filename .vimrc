@@ -230,6 +230,8 @@ let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
 " Shortcuts for vim-autoformat commands
 " For Normal, Visual, Select, Operator-pending modes.
 map <silent> <C-k> :Autoformat<CR>
+" Add formatter for Protobuf.
+let g:formatters_proto = ['clangformat']
 
 
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
@@ -371,7 +373,7 @@ aug GoShortcuts
   au FileType go nm gr <Plug>(go-run)
   au FileType go nm ;c <Plug>(go-build)
   au FileType go nm gt <Plug>(go-test)
-  " Beautifully anmotated source code to see which functions are covered.
+  " Beautifully annotated source code to see which functions are covered.
   au FileType go nm gc <Plug>(go-coverage)
   " Open the relevant Godoc for the word under the cursor.
   au FileType go nm ;d <Plug>(go-doc)
@@ -402,6 +404,10 @@ set relativenumber
 set encoding=utf-8
 " gb2312 is windows' default encoding.
 set fileencodings=utf-8,gb2312
+
+" Turn on spell checking.
+set spell
+set spelllang=en_gb,cjk
 
 " Command-line completion operates in an enhanced mode.
 set wildmenu
@@ -441,6 +447,7 @@ aug ZSetting
   au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
   au BufNewFile *.tex 0r ~/.vim/skeletons/skeleton.tex
   au BufNewFile py_wrapper.cc 0r ~/.vim/skeletons/py_wrapper.cc
+  au BufNewFile *.proto 0r ~/.vim/skeletons/skeleton.proto
 
   " Filetype detection.
   au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
