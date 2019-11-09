@@ -9,27 +9,12 @@
   tool = vimdiff
 [difftool]
   prompt = false
+
 [alias]
-  co = checkout
+  a = add
   br = branch
   ci = commit
-  st = status
-  l = log
-  ro = remote
-  mg = merge
-  lf = ls-files
-  a = add
-  sh = stash
-  sp = stash pop
-  rb = rebase
-  rh = reset HEAD
-
-  ps = push
-  pso = push origin
-  psm = push origin master
-  pl = pull
-  plo = pull origin
-  plm = pull origin master
+  co = checkout
 
   d = diff
   dc = diff --cached
@@ -39,6 +24,28 @@
   dtc = difftool --cached
   dth = difftool HEAD
   dtl = difftool HEAD~1
+
+  l = log
+  lf = ls-files
+  mg = merge
+  rb = rebase
+  rh = reset HEAD
+  ro = remote
+
+  sh = stash
+  shl = stash list
+  shs = stash show -p
+  sp = stash pop
+
+  st = status
+
+  pl = pull
+  plm = pull origin master
+  plo = pull origin
+  ps = push
+  psm = push origin master
+  pso = push origin
+
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f

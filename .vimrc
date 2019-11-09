@@ -40,7 +40,7 @@
 " Notes -------------------------------------------------------------------{{{1
 "   For Definition/Reference jump:
 "     exuberant-ctags & cscope & quickfix & YouCompleteMe
-"     commands like: C-] C-t <C-\>s [w ;j
+"     Commands like: C-] C-t <C-\>s [w ;j
 "
 "     See '~/conf/vim/files/cscope_maps.vim' for commands of cscope.
 "     Normally just build cscope.out by run `cscope -Rbkq`.
@@ -50,7 +50,7 @@
 "     so you can use CTRL-O to jump back to where you where before invoking
 "     the command (and CTRL-I to jump forward; see `:h jumplist` for details).
 "
-"   Could find unused key like:
+"   To find unused keys:
 "     for i in {a..z};do;if ! grep \;$i ~/.vimrc>/dev/null;then;echo $i;fi;done
 
 
@@ -186,6 +186,7 @@ nn [c :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
 "     <F5>              purge the cache for the current directory
 "     <C-z> to mark/unmark multiple files and <C-o> to open them
 "     Submit .. (or more dots) to up 1 (or more) level of directory tree
+"     @cd path          change CtrlP's local working directory
 Plugin 'ctrlpvim/ctrlp.vim'
 
 " CtrlP settings
@@ -195,6 +196,11 @@ let g:ctrlp_open_new_file = 't'
 let g:ctrlp_clear_cache_on_exit = 0
 " Scan dotfiles and dotdirs.
 let g:ctrlp_show_hidden = 1
+" Follow symbolic links but ignore looped internal symlinks to avoid duplicates.
+let g:ctrlp_follow_symlinks = 1
+
+" Shortcuts for CtrlP commands
+nn ;<C-P> :CtrlP 
 
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
@@ -442,6 +448,7 @@ aug ZSetting
   " Special indent.
   au FileType python set softtabstop=4 | set shiftwidth=4
   au FileType go     set softtabstop=8 | set shiftwidth=8 | set noexpandtab
+  au FileType bzl    set softtabstop=4 | set shiftwidth=4
 
   " Skeleton files.
   au BufNewFile Makefile 0r ~/.vim/skeletons/Makefile
@@ -612,7 +619,7 @@ vn ;s :s/
 "ino <C-f> <Down>
 "ino <C-g> <Up>
 
-" Open file under cursor in a new tab.
+" Open file under cursor in a new tab, see `:h CTRL-W_gf`.
 nn gf <C-w>gf
 
 " Similar to :drop, but :drop can only be used in GUI.

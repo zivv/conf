@@ -75,10 +75,12 @@ Copied from [.zsh_local](.zsh_local) as following:
 
     Comment some lines in `.zshrc` to accept new settings in this file
       Linux:
-        sed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && sed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
+        #sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
+        sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
       MacOS:
         brew install gnu-sed
-        gsed -i 's/^ZSH_THEME\|^source/#&/g' ~/.zshrc && gsed -zi 's/plugins=(\n  git\n)/#plugins=(git)/g' ~/.zshrc
+        #gsed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && gsed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
+        gsed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
 
     Install Fish-like autosuggestions for zsh
       git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions

@@ -81,9 +81,15 @@ alias spc="supervisorctl"
 # Update current branch
 alias gu="(br=\$(git symbolic-ref --short HEAD);g co master;gl;g co \$br;g rb master)"
 
+alias dk="docker"
+
+if [[ $(uname) == "Linux" ]]; then
+  alias o="xdg-open >/dev/null"
+fi
+
 # Local settings ----------------------------------------------------------{{{1
 # Shell special.
 [[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
 [[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
-# Work enviroment special.
+# Work environment special.
 [[ -f ~/.sh_local ]] && . ~/.sh_local || true
