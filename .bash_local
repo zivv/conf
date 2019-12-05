@@ -1,31 +1,35 @@
 if [[ $(uname) == "Darwin" ]]; then
-  # MacOS
+  # MacOS.
   BASH_FILE="$HOME/.bash_profile"
 else
-  # Linux
+  # Linux.
   BASH_FILE="$HOME/.bashrc"
 fi
 alias s="source $BASH_FILE"
 
 
-# keep same keymapping with zsh
+# Use same aliases with zsh.
 alias ~="cd ~"
 alias ..="cd .."
 alias ...=".. && .."
 alias ....="... && .."
 
-alias ga="g a"
-alias ga.="g a ."
-alias gcb="g co -b"
-alias gco-="g co --"
-alias gc-m="g ci -m"
-alias gd="g d"
-alias gdc="g dc"
-alias gdh="g dh"
-alias gdt="g dt"
 alias gl="g pl"
 alias gp="g ps"
 alias gst="g st"
+alias ga="g a"
+alias gd="g d"
+
+alias gdh="g dh"
+alias gdc="g dc"
+alias gdt="g dt"
+alias ga.="g a ."
+alias gcx="g co --"
+alias gcx.="g co -- ."
+alias gcm="g ci -m"
+alias gca="g ci --amend"
+alias grh="g rh"
+alias glf="g lfs"
 
 alias ta="tmux attach -t"
 alias ts="tmux new-session -s"

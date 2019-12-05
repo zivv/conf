@@ -26,6 +26,7 @@
 
 alias s="source ~/.zshrc"
 
+# Settings for oh-my-zsh.
 if [[ $(uname) == "Darwin" ]]; then
   # Usage of plugin 'osx'
   #   tab           open the current directory in a new tab
@@ -38,15 +39,13 @@ if [[ $(uname) == "Darwin" ]]; then
   #   itunes        iTunes control function, see `itunes -h` for usage
   ZSH_PLUGINS="$ZSH_PLUGINS osx"
 fi
-
-# Settings for oh-my-zsh.
-ZSH_THEME="agnoster"
 plugins=(
   z sudo zsh-autosuggestions colored-man-pages history-substring-search
-  tmux git golang docker
+  tmux git golang docker kubectl
   # emoji emotty
   $ZSH_PLUGINS
 )
+ZSH_THEME="agnoster"
 ZSH_TMUX_AUTOSTART=true
 # Set false to use multiple tmux sessions.
 ZSH_TMUX_AUTOQUIT=false
@@ -64,16 +63,16 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 # Uncomment it if usnig Powerline instead of oh-my-zsh.
 # . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh
 
-# Looks like on-my-zsh would do `alias l="ls -la"`.
+# Check directory related aliases in $HOME/.oh-my-zsh/lib/directories.zsh.
 if [[ $(uname) == "Darwin" ]]; then
   if brew list | grep coreutils >/dev/null; then
     alias ls="ls -F --show-control-chars --color=auto"
   fi
 fi
 alias l="ls"
-alias ll="ls -l"
-alias la="ls -a"
-alias lla="ls -la"
+alias ll="ls -lh"
+alias la="ls -A"
+alias lla="ls -lhA"
 
 alias gdh="g dh"
 alias gdc="g dc"

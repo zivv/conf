@@ -24,7 +24,7 @@ fi
 
 [[ -f ~/.sh_env ]] && . ~/.sh_env
 
-# MacOS
+# For MacOS.
 if [[ $(uname) == "Darwin" ]]; then
   if brew list | grep coreutils >/dev/null; then
     PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
@@ -33,6 +33,13 @@ if [[ $(uname) == "Darwin" ]]; then
   PATH="$PATH:/usr/local/sbin"
   [[ -f ~/.at_china ]] && HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 fi
+
+# Export for tmux.
+export POWERLINE_ROOT=$(pip3 show powerline-status | grep "Location" | sed "s/Location: //")
+
+# Export for vim.
+export GOPATH="$WORK/goz"
+PATH="$PATH:$GOPATH/bin"
 
 # Custom commands ---------------------------------------------------------{{{1
 #   Use "unalias" to cancle.
@@ -68,18 +75,13 @@ alias mr="mysql -u root -p"
 alias nb="(cd $WORK/notebook && jupyter notebook --port 9883 > /dev/null 2>&1 &)"
 alias knb="pkill -f notebook"
 
-# Export for tmux.
-export POWERLINE_ROOT=$(pip3 show powerline-status | grep "Location" | sed "s/Location: //")
-
-# Export for vim.
-export GOPATH="$WORK/goz"
-PATH="$PATH:$GOPATH/bin"
-
 alias spd="supervisord"
 alias spc="supervisorctl"
 
-# Update current branch
+# Update current branch.
 alias gu="(br=\$(git symbolic-ref --short HEAD);g co master;gl;g co \$br;g rb master)"
+# Always asked when pushing a new branch.
+alias gps="gp --set-upstream origin $(git symbolic-ref --short HEAD)"
 
 alias dk="docker"
 
