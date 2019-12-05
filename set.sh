@@ -31,6 +31,18 @@ z_mac=(
 )
 
 function cp_file() {
+  tput sgr0
+
+  f=$1
+  if [[ -f tmp/$f ]]; then
+    f=tmp/$f
+  fi
+  if [[ ! -f $f ]]; then
+    tput setaf 1
+    echo "File does not exist: $(pwd)/$file"
+    return
+  fi
+
   if [[ $2 =~ "/" ]]; then
     dir=${2%/*}
     if [[ ! -d $dir ]]; then
@@ -38,19 +50,18 @@ function cp_file() {
     fi
   fi
 
-  f=$1
-  if [[ -f tmp/$f ]]; then
-    f=tmp/$f
-  fi
   if [[ ! -f $2 || $(diff $f $2) ]]; then
+    tput setaf 4
     cp -uv $f $2
   fi
   if [[ $(diff $f $2) ]]; then
-    tput setaf 1
+    tput setaf 3
     echo "$2 is newer"
+    tput setaf 2
     diff -u $f $2
-    tput sgr0
   fi
+
+  tput sgr0
 }
 
 # cp_files "prefix" "path1 path2 ..."
@@ -67,13 +78,7 @@ function cp_files() {
       else
         file=$1$file
       fi
-      if [[ -f $file ]]; then
-        cp_file $file $HOME/$path
-      else
-        tput setaf 1
-        echo "Can not copy $file"
-        tput sgr0
-      fi
+      cp_file $file $HOME/$path
     fi
   done
 }
