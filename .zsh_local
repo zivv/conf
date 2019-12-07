@@ -65,7 +65,7 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 
 # Check directory related aliases in $HOME/.oh-my-zsh/lib/directories.zsh.
 if [[ $(uname) == "Darwin" ]]; then
-  if brew list | grep coreutils >/dev/null; then
+  if [[ $_z_has_coreutils -eq 0 ]]; then
     alias ls="ls -F --show-control-chars --color=auto"
   fi
 fi

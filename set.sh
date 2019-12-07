@@ -1,8 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Update files by last modification time.
+# Set up configuration files.
+
+# Internal Field Separator.
+# Use newline instead of default setting which includes space.
+IFS=$(echo -en "\n\b")
 
 files=(
+  ".sh_auto"
   ".sh_base" ".bash_local" ".zsh_local"
   ".tmux.conf"
   ".vimrc" ".vim" ".gvimrc"
@@ -30,6 +35,39 @@ z_mac=(
   ".vim_local"
 )
 
+# Auto generated variables to speed up shell initialization.
+function auto() {
+  tput sgr0
+
+  tput setaf 2
+  mkdir -p tmp/
+  >tmp/.sh_auto
+  for line in $(cat .sh_auto); do
+    if [[ $line =~ ^#.* ]]; then
+      # Copy comments.
+      echo $line >>tmp/.sh_auto
+    else
+      key=${line%%=*}
+      value=${line#*=}
+      # Add comments.
+      echo "# $value" >>tmp/.sh_auto
+
+      echo "Processing: $line"
+      eval "value=${line#*=}"
+      echo "Get value : $value"
+      # Add the variable.
+      echo "${line%%=*}=$value" >>tmp/.sh_auto
+    fi
+  done
+  tput setaf 4
+  echo "File tmp/.sh_auto has been generated"
+
+  tput sgr0
+}
+if [[ .sh_auto -nt tmp/.sh_auto ]]; then
+  auto
+fi
+
 function cp_file() {
   tput sgr0
 
@@ -52,6 +90,7 @@ function cp_file() {
 
   if [[ ! -f $2 || $(diff $f $2) ]]; then
     tput setaf 4
+    # Verbose and copy only when $f is newer or $2 is missing.
     cp -uv $f $2
   fi
   if [[ $(diff $f $2) ]]; then
@@ -87,10 +126,12 @@ for loca in ${locas[*]}; do
   if [[ -f ~/.at_$loca ]]; then
     # Your place! \o/
     if [[ $loca =~ ^z_ ]]; then
-      # Add author info to global gitconfig
-      mkdir -p tmp/
-      echo -e "[user]\n  name = ziv\n  email = zivvv0@gmail.com" >tmp/.gitconfig
-      cat .gitconfig >>tmp/.gitconfig
+      if [[ .gitconfig -nt tmp/.gitconfig ]]; then
+        # Add author info to global gitconfig
+        mkdir -p tmp/
+        echo -e "[user]\n  name = ziv\n  email = zivvv0@gmail.com" >tmp/.gitconfig
+        cat .gitconfig >>tmp/.gitconfig
+      fi
 
       cp_files "" "${z[*]}"
     fi
