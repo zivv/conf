@@ -236,8 +236,6 @@ let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
 " Shortcuts for vim-autoformat commands
 " For Normal, Visual, Select, Operator-pending modes.
 map <silent> <C-k> :Autoformat<CR>
-" Add formatter for Protobuf.
-let g:formatters_proto = ['clangformat']
 
 
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
