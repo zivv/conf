@@ -36,10 +36,8 @@ fi
 
 # Export for tmux.
 export POWERLINE_ROOT=$_z_powerline_root
-
 # Export for vim.
 export GOPATH="$WORK/goz"
-PATH="$PATH:$GOPATH/bin"
 
 if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
   eval $(dircolors ~/.dircolors.256dark)

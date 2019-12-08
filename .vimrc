@@ -208,6 +208,8 @@ nn ;<C-P> :CtrlP
 Plugin 'Chiel92/vim-autoformat'
 
 " vim-autoformat settings
+" Uncomment to DEBUG.
+" let g:autoformat_verbosemode=1
 " See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
 " Only change the style option to Google.
 let g:formatdef_clangformat = "'clang-format ".
