@@ -15,19 +15,19 @@
 "   cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
 " Install https://github.com/Chiel92/vim-autoformat
 "   brew install clang-format autopep8
+"   # buildifier for bazel BUILD files.
+"   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
+"   go get github.com/bazelbuild/buildtools/buildifier
+"   # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
+"   # See https://github.com/mvdan/sh.
+"   go get -u mvdan.cc/sh/cmd/shfmt
+"   # remark for Markdown. A Javascript based markdown processor.
+"   # See https://github.com/wooorm/remark.
+"   npm install -g remark-cli
 "   # js-beautify for Javascript and JSON or
 "   # html-beautify for HTML or css-beautify for CSS.
 "   # See https://github.com/einars/js-beautify.
 "   npm install -g js-beautify
-"   # remark for Markdown. A Javascript based markdown processor.
-"   # See https://github.com/wooorm/remark.
-"   npm install -g remark-cli
-"   # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
-"   # See https://github.com/mvdan/sh.
-"   go get -u mvdan.cc/sh/cmd/shfmt
-"   # buildifier for bazel BUILD files.
-"   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
-"   go get github.com/bazelbuild/buildtools/buildifier
 " Install https://github.com/majutsushi/tagbar
 "   # See https://ctags.io/.
 "   brew install --HEAD universal-ctags/universal-ctags/universal-ctags
@@ -128,20 +128,20 @@ let g:startify_session_autoload       = 1
 let g:startify_session_persistence    = 1
 let g:startify_session_delete_buffers = 1
 let g:startify_bookmarks = [
-      \ { 'c': '~/conf/' },
-      \ { 'v': '~/conf/.vimrc' },
-      \ { 'u': '~/.vim/UltiSnips' },
-      \ ]
+  \ { 'c': '~/conf/' },
+  \ { 'v': '~/conf/.vimrc' },
+  \ { 'u': '~/.vim/UltiSnips' },
+  \ ]
 let g:startify_custom_header =
-      \ ['', "   Hi Zi! \\o/", '']
+  \ ['', "   Hi Zi! \\o/", '']
 let g:startify_custom_footer = [
-      \ '',
-      \ "   Press 'e' for <empty buffer> and 'q' for <quit>.",
-      \ '',
-      \ "   Vim is charityware. Please read ':help uganda'.",
-      \ '',
-      \ "                           -- ziv @ Feb 2016",
-      \ '']
+  \ '',
+  \ "   Press 'e' for <empty buffer> and 'q' for <quit>.",
+  \ '',
+  \ "   Vim is charityware. Please read ':help uganda'.",
+  \ '',
+  \ "                           -- ziv @ Feb 2016",
+  \ '']
 
 " Shortcuts for startify
 nn <silent> gs :tabe<CR>:Startify<CR>
@@ -198,6 +198,11 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_show_hidden = 1
 " Follow symbolic links but ignore looped internal symlinks to avoid duplicates.
 let g:ctrlp_follow_symlinks = 1
+" Exclude files and directories from the results.
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(third_party|node_modules))$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 
 " Shortcuts for CtrlP commands
 nn ;<C-P> :CtrlP 
@@ -213,21 +218,21 @@ Plugin 'Chiel92/vim-autoformat'
 " See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
 " Only change the style option to Google.
 let g:formatdef_clangformat = "'clang-format ".
-      \"-lines='.a:firstline.':'.a:lastline.' ".
-      \"--assume-filename=\"'.expand('%:p').'\" ".
-      \"-style=\"{BasedOnStyle: Google, ".
-      \"          BinPackArguments: false, BinPackParameters: false, ".
-      \"          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
+  \ "-lines='.a:firstline.':'.a:lastline.' ".
+  \ "--assume-filename=\"'.expand('%:p').'\" ".
+  \ "-style=\"{BasedOnStyle: Google, ".
+  \ "          BinPackArguments: false, BinPackParameters: false, ".
+  \ "          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
 " Default style is 'ansi'.
 " TODO(ziv): Consider if change to use .astylerc conf file.
 let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
-      \'--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
+  \ '--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
-      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+  \ '-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
-      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+  \ '-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
-      \'-pcH".(&expandtab ? "s".shiftwidth() : "t")'
+  \ '-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 " Add formatter for bazel BUILD files.
 " See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
 let g:formatters_bzl = ['buildifier']
@@ -323,8 +328,8 @@ let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDSpaceDelims = 1
 " default python-left is '# '
 let g:NERDCustomDelimiters = {
-      \ 'python': { 'left': '#' },
-      \ }
+  \ 'python': { 'left': '#' },
+  \ }
 
 
 " fugitive -- a Git wrapper -----------------------------------------------{{{2
@@ -391,6 +396,23 @@ aug GoShortcuts
   " Show all refs to entity denoted by selected identifier.
   au FileType go nm ;;f <Plug>(go-referrers)
 aug END
+
+
+" vim-javascript -- Vastly improved JS indentation and syntax support -----{{{2
+"                -- https://github.com/pangloss/vim-javascript
+Plugin 'pangloss/vim-javascript'
+
+" vim-javascript settings
+" Enables syntax highlighting for Flow (https://flowtype.org/).
+let g:javascript_plugin_flow = 1
+
+
+" ALE -- Asynchronous Lint Engine -----------------------------------------{{{2
+"     -- https://github.com/dense-analysis/ale
+Plugin 'dense-analysis/ale'
+let g:ale_linters = {
+  \ 'javascript': ['flow-language-server'],
+  \ }
 
 
 " Settings ----------------------------------------------------------------{{{1
