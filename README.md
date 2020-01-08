@@ -107,28 +107,40 @@ Copied from .vimrc as following:
     vim -c "PluginInstall" -c q
     git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 
+    Install https://github.com/ryanoasis/nerd-fonts
+      MacOS - https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
+        brew tap caskroom/fonts && brew cask install font-hack-nerd-font
+        # Then open iTerm2 and set `Preference`->`Profiles`->`Text`->
+        # `Non-ASCII Font` as `Hack Nerd Font`.
+      Linux - https://github.com/ryanoasis/nerd-fonts#linux
     Install https://github.com/Valloric/YouCompleteMe
       # Completer options for install.py
       #   --clang-completer (need cmake, gcc, g++ and python-dev)
       #   --gocode-completer
+      #   --ts-completer (JavaScript and TypeScript support)
+      #   --all (with everything enabled except --clangd-completer)
       cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
     Install https://github.com/Chiel92/vim-autoformat
       brew install clang-format autopep8
-      # js-beautify for Javascript and JSON or
-      # html-beautify for HTML or css-beautify for CSS.
-      # See https://github.com/einars/js-beautify.
-      npm install -g js-beautify
-      # remark for Markdown. A Javascript based markdown processor.
-      # See https://github.com/wooorm/remark.
-      npm install -g remark-cli
-      # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
-      # See https://github.com/mvdan/sh.
-      go get -u mvdan.cc/sh/cmd/shfmt
+      sudo apt-get install clang-format python3-pip && pip3 install autopep8
       # buildifier for bazel BUILD files.
       # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
       go get github.com/bazelbuild/buildtools/buildifier
+      # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
+      # See https://github.com/mvdan/sh.
+      go get -u mvdan.cc/sh/cmd/shfmt
+      # remark for Markdown. A Javascript based markdown processor.
+      # See https://github.com/wooorm/remark.
+      npm install -g remark-cli
+      # fixjson for JSON. A JSON fixer for humans using (relaxed) JSON5.
+      # See https://github.com/rhysd/fixjson.
+      npm install -g fixjson
     Install https://github.com/majutsushi/tagbar
-      Depend exuberant-ctags
+      Depend on Exuberant Ctags or Universal Ctags (See https://ctags.io/).
+      MacOS:
+        brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+      Linux:
+        snap install universal-ctags
     Install https://github.com/tpope/vim-fugitive
       vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
     Install https://github.com/fatih/vim-go

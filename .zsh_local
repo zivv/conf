@@ -41,7 +41,7 @@ if [[ $(uname) == "Darwin" ]]; then
 fi
 plugins=(
   z sudo zsh-autosuggestions colored-man-pages history-substring-search
-  tmux git golang docker kubectl
+  tmux git golang docker kubectl yarn
   # emoji emotty
   $ZSH_PLUGINS
 )
