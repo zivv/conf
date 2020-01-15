@@ -96,7 +96,7 @@ Plugin 'gmarik/Vundle.vim'
 "           -- https://github.com/altercation/vim-colors-solarized
 Plugin 'altercation/vim-colors-solarized'
 
-" Required settings
+" Required settings.
 if has('gui_running')
   set background=light
 else
@@ -115,7 +115,7 @@ colorscheme solarized
 Plugin 'ryanoasis/vim-devicons'
 
 
-" startify -- The fancy start screen for Vim ------------------------------{{{2
+" Startify -- The fancy start screen for Vim ------------------------------{{{2
 "          -- https://github.com/mhinz/vim-startify
 "   Useful commands:
 "     :Startify    reopen the start screen
@@ -125,7 +125,7 @@ Plugin 'ryanoasis/vim-devicons'
 "     :SClose      close a session
 Plugin 'mhinz/vim-startify'
 
-" startify settings
+" Startify settings.
 let g:startify_enable_special         = 0
 let g:startify_relative_path          = 1
 let g:startify_change_to_dir          = 1
@@ -150,7 +150,7 @@ let g:startify_custom_footer = [
   \ "                           -- ziv @ Feb 2016",
   \ '']
 
-" Shortcuts for startify
+" Shortcuts for Startify commands.
 nn <silent> gs :tabe<CR>:Startify<CR>
 
 
@@ -158,12 +158,12 @@ nn <silent> gs :tabe<CR>:Startify<CR>
 "          -- https://github.com/scrooloose/nerdtree
 Plugin 'scrooloose/nerdtree'
 
-" NERDTree plugins
+" NERDTree plugins.
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-" NERDTree settings
+" NERDTree settings.
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1
@@ -172,7 +172,7 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeShowLineNumbers = 1
 
-" Shortcuts for NERDTree commands
+" Shortcuts for NERDTree commands.
 " Switches NERDTree on/off for all tabs.
 nm ;r <plug>NERDTreeTabsToggle<CR>
 " Find and reveal the file for the active buffer in the NERDTree window.
@@ -196,7 +196,7 @@ nn [c :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
 "     @cd path          change CtrlP's local working directory
 Plugin 'ctrlpvim/ctrlp.vim'
 
-" CtrlP settings
+" CtrlP settings.
 " Create file in a new tab when pressing <C-y>.
 let g:ctrlp_open_new_file = 't'
 " Enable cross-session caching by not deleting the cache files upon exiting.
@@ -211,7 +211,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
-" Shortcuts for CtrlP commands
+" Shortcuts for CtrlP commands.
 nn ;<C-P> :CtrlP 
 
 
@@ -219,7 +219,7 @@ nn ;<C-P> :CtrlP
 "                -- https://github.com/Chiel92/vim-autoformat
 Plugin 'Chiel92/vim-autoformat'
 
-" vim-autoformat settings
+" Vim-autoformat settings.
 " Uncomment to DEBUG.
 " let g:autoformat_verbosemode=1
 " See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
@@ -256,7 +256,7 @@ let g:formatters_javascript = [
   \ 'xo_javascript',
   \ ]
 
-" Shortcuts for vim-autoformat commands
+" Shortcuts for vim-autoformat commands.
 " For Normal, Visual, Select, Operator-pending modes.
 map <silent> <C-k> :Autoformat<CR>
 
@@ -265,7 +265,7 @@ map <silent> <C-k> :Autoformat<CR>
 "           -- https://github.com/SirVer/ultisnips
 Plugin 'SirVer/ultisnips'
 
-" UltiSnips settings
+" UltiSnips settings.
 " Default value is <Tab>. Do not use <Tab> if use YouCompleteMe.
 let g:UltiSnipsExpandTrigger = "<C-h>"
 " Default value is <C-Tab>.
@@ -297,7 +297,7 @@ else
   Plugin 'Valloric/YouCompleteMe'
 endif
 
-" YCM settings
+" YCM settings.
 " Default value is ['<TAB>', '<Down>'].
 "let g:ycm_key_list_select_completion = ['<Down>']
 " Default value is ['<S-TAB>', '<Up>'].
@@ -312,7 +312,7 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 " files, put the following line to '.vim_local' and add rules to it.
 "let g:ycm_extra_conf_globlist = []
 
-" Shortcuts for YCM commands
+" Shortcuts for YCM commands.
 " Jump to the header/definition/declaration.
 nn <silent> ;j :YcmCompleter GoTo<CR>
 " Echos the semantic parent of the point under the cursor.
@@ -329,30 +329,30 @@ nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
 "        -- https://github.com/majutsushi/tagbar
 Plugin 'majutsushi/tagbar'
 
-" Shortcuts for Tagbar commands
+" Shortcuts for Tagbar commands.
 nn <silent> ;k :TagbarToggle<CR>
 
 
-" nerdcommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
+" NERDCommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
 "               -- https://github.com/scrooloose/nerdcommenter
 "   Useful keys like: `,cl` `,cu`
 Plugin 'scrooloose/nerdcommenter'
 
-" nerdcommenter settings
+" NERDCommenter settings.
 let g:NERDBlockComIgnoreEmpty = 0
 let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDSpaceDelims = 1
-" default python-left is '# '
+" Default python-left is '# '.
 let g:NERDCustomDelimiters = {
   \ 'python': { 'left': '#' },
   \ }
 
 
-" fugitive -- a Git wrapper -----------------------------------------------{{{2
+" Fugitive -- a Git wrapper -----------------------------------------------{{{2
 "          -- https://github.com/tpope/vim-fugitive
 Plugin 'tpope/vim-fugitive'
 
-" Shortcuts for fugitive commands
+" Shortcuts for Fugitive commands.
 " Use `g?` to show help after `;gs`.
 nn <silent> ;gs :Gstatus<CR>
 nn <silent> ;ga :Git add . -A<CR>
@@ -368,7 +368,7 @@ nn <silent> ;gb :Gblame<CR>
 "        -- https://github.com/fatih/vim-go
 Plugin 'fatih/vim-go'
 
-" vim-go settings
+" Vim-go settings.
 " By default when :GoInstallBinaries is called,
 " the binaries are installed to $GOBIN or $GOPATH/bin. To change it:
 "let g:go_bin_path = expand("~/.gotools")
@@ -389,7 +389,7 @@ let g:go_fmt_command = "goimports"
 " Jump to an existing buffer for the split, vsplit and tab mappings of :GoDef.
 let g:go_def_reuse_buffer = 1
 
-" Shortcuts for vim-go commands
+" Shortcuts for vim-go commands.
 " Use same shortcuts with YCM for consistency.
 aug GoShortcuts
   au!
@@ -418,7 +418,7 @@ aug END
 "                -- https://github.com/pangloss/vim-javascript
 Plugin 'pangloss/vim-javascript'
 
-" vim-javascript settings
+" Vim-javascript settings.
 " Enables syntax highlighting for Flow (https://flowtype.org/).
 let g:javascript_plugin_flow = 1
 
