@@ -55,6 +55,10 @@ cscope.*
 #############
 .svn
 
+# Node modules #
+################
+node_modules/
+
 # Dirs #
 ########
 bin/

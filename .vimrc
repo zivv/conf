@@ -4,12 +4,30 @@
 " vim -c "PluginInstall" -c q
 " git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 "
-" Install https://github.com/ryanoasis/nerd-fonts
-"   MacOS - https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
-"     brew tap caskroom/fonts && brew cask install font-hack-nerd-font
-"     # Then open iTerm2 and set `Preference`->`Profiles`->`Text`->
-"     # `Non-ASCII Font` as `Hack Nerd Font`.
-"   Linux - https://github.com/ryanoasis/nerd-fonts#linux
+" Install https://github.com/ryanoasis/vim-devicons
+"   Install https://github.com/ryanoasis/nerd-fonts
+"     MacOS - https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
+"       brew tap caskroom/fonts && brew cask install font-hack-nerd-font
+"       # Then open iTerm2 and set `Preference`->`Profiles`->`Text`->
+"       # `Non-ASCII Font` as `Hack Nerd Font`.
+"     Linux - https://github.com/ryanoasis/nerd-fonts#linux
+" Install https://github.com/Chiel92/vim-autoformat
+"   MacOS:
+"     brew install clang-format autopep8
+"   Linux:
+"     sudo apt-get install clang-format python3-pip && pip3 install autopep8
+"   # Bazel BUILD - buildifier.
+"   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
+"   go get github.com/bazelbuild/buildtools/buildifier
+"   # Shell - shfmt. A shell formatter written in Go supporting POSIX Shell.
+"   # See https://github.com/mvdan/sh.
+"   go get -u mvdan.cc/sh/cmd/shfmt
+"   # Markdown - remark. A Javascript based markdown processor.
+"   # See https://github.com/wooorm/remark.
+"   npm install -g remark-cli
+"   # JSON - fixjson. A JSON fixer for humans using (relaxed) JSON5.
+"   # See https://github.com/rhysd/fixjson.
+"   npm install -g fixjson
 " Install https://github.com/Valloric/YouCompleteMe
 "   # Completer options for install.py
 "   #   --clang-completer (need cmake, gcc, g++ and python-dev)
@@ -17,27 +35,22 @@
 "   #   --ts-completer (JavaScript and TypeScript support)
 "   #   --all (with everything enabled except --clangd-completer)
 "   cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
-" Install https://github.com/Chiel92/vim-autoformat
-"   brew install clang-format autopep8
-"   sudo apt-get install clang-format python3-pip && pip3 install autopep8
-"   # buildifier for bazel BUILD files.
-"   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
-"   go get github.com/bazelbuild/buildtools/buildifier
-"   # shfmt for Shell. A shell formatter written in Go supporting POSIX Shell.
-"   # See https://github.com/mvdan/sh.
-"   go get -u mvdan.cc/sh/cmd/shfmt
-"   # remark for Markdown. A Javascript based markdown processor.
-"   # See https://github.com/wooorm/remark.
-"   npm install -g remark-cli
-"   # fixjson for JSON. A JSON fixer for humans using (relaxed) JSON5.
-"   # See https://github.com/rhysd/fixjson.
-"   npm install -g fixjson
 " Install https://github.com/majutsushi/tagbar
 "   Depend on Exuberant Ctags or Universal Ctags (See https://ctags.io/).
 "   MacOS:
 "     brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 "   Linux:
 "     snap install universal-ctags
+"   # Javascript - jsctags.
+"   # See https://github.com/sergioramos/jsctags.
+"   npm install -g jsctags
+" Install https://github.com/dense-analysis/ale
+"   # Vim - vint. A vim script language lint.
+"   # See https://github.com/Kuniwak/vint.
+"   pip3 install vim-vint
+"   # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
+"   # See https://github.com/ckaznocha/protoc-gen-lint.
+"   go get github.com/ckaznocha/protoc-gen-lint
 " Install https://github.com/tpope/vim-fugitive
 "   vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
 " Install https://github.com/fatih/vim-go
@@ -221,7 +234,7 @@ Plugin 'Chiel92/vim-autoformat'
 
 " Vim-autoformat settings.
 " Uncomment to DEBUG.
-" let g:autoformat_verbosemode=1
+"let g:autoformat_verbosemode=1
 " See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
 " Only change the style option to Google.
 let g:formatdef_clangformat = "'clang-format ".
@@ -259,6 +272,12 @@ let g:formatters_javascript = [
 " Shortcuts for vim-autoformat commands.
 " For Normal, Visual, Select, Operator-pending modes.
 map <silent> <C-k> :Autoformat<CR>
+
+" Settings for autoformatting.
+aug AutoformatOnSaving
+  au!
+  au FileType javascript nn ;w :Autoformat<CR>:w!<CR>
+aug END
 
 
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
@@ -298,6 +317,8 @@ else
 endif
 
 " YCM settings.
+" Uncomment to DEBUG.
+"let g:ycm_log_level='debug'
 " Default value is ['<TAB>', '<Down>'].
 "let g:ycm_key_list_select_completion = ['<Down>']
 " Default value is ['<S-TAB>', '<Up>'].
@@ -310,7 +331,7 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 " YCM will automatically found '.ycm_extra_conf.py' file in path and ask if it
 " is safe to be loaded. To selectively get YCM to ask/not ask about loading
 " files, put the following line to '.vim_local' and add rules to it.
-"let g:ycm_extra_conf_globlist = []
+let g:ycm_extra_conf_globlist = ['!~/conf/*']
 
 " Shortcuts for YCM commands.
 " Jump to the header/definition/declaration.
@@ -327,10 +348,26 @@ nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
 
 " Tagbar -- a class outline viewer for Vim --------------------------------{{{2
 "        -- https://github.com/majutsushi/tagbar
+"   Support for additional filetypes: https://github.com/majutsushi/tagbar/wiki
 Plugin 'majutsushi/tagbar'
 
 " Shortcuts for Tagbar commands.
 nn <silent> ;k :TagbarToggle<CR>
+
+
+" ALE -- Asynchronous Lint Engine -----------------------------------------{{{2
+"     -- https://github.com/dense-analysis/ale
+"   Supported languages and tools:
+"     https://github.com/dense-analysis/ale/blob/master/supported-tools.md
+Plugin 'dense-analysis/ale'
+
+" ALE settings.
+let g:ale_linters = {
+  \ 'cpp': [''],
+  \ 'proto': ['protoc-gen-lint'],
+  \ }
+" Use current path as include path.
+let g:ale_proto_protoc_gen_lint_options = '-I .'
 
 
 " NERDCommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
@@ -491,7 +528,7 @@ aug ZSetting
   au BufRead,BufNewFile *.vim_* set filetype=vim
 
   " Autosave config files.
-  autocmd BufWritePost ~/conf/* !(cd ~/conf; ./set.sh)
+  au BufWritePost ~/conf/* !(cd ~/conf; ./set.sh)
 aug END
 
 
