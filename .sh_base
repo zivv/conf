@@ -16,7 +16,7 @@
 # Basic environment settings ----------------------------------------------{{{1
 WORK="$HOME/work"
 
-LC_CTYPE="en_US.UTF-8"
+LANG="en_US.UTF-8"
 
 # Auto generated variables.
 [[ -f ~/.sh_auto ]] && . ~/.sh_auto
