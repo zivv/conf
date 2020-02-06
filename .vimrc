@@ -220,7 +220,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
 " Exclude files and directories from the results.
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|(third_party|node_modules))$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(third_party|node_modules|dist))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
@@ -283,6 +283,12 @@ aug END
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
 "           -- https://github.com/SirVer/ultisnips
 Plugin 'SirVer/ultisnips'
+
+" Settings for merging snippet filetypes.
+aug UltiSnipsAddFiletypes
+  au!
+  au FileType javascript UltiSnipsAddFiletypes javascript.html
+aug END
 
 " UltiSnips settings.
 " Default value is <Tab>. Do not use <Tab> if use YouCompleteMe.
@@ -670,6 +676,8 @@ vn ;y "+y
 " Paste the contents in system clipboard.
 nn ;p "+p
 nn ;P "+P
+vn ;p "+p
+vn ;P "+P
 
 " Substitute for all lines.
 nn ;s :%s/
