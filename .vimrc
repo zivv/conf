@@ -343,7 +343,7 @@ let g:ycm_extra_conf_globlist = ['!~/conf/*']
 " Jump to the header/definition/declaration.
 nn <silent> ;j :YcmCompleter GoTo<CR>
 " Echos the semantic parent of the point under the cursor.
-nn <silent> ;t :YcmCompleter GetType<CR>
+nn <silent> ;v :YcmCompleter GetType<CR>
 " View documentation comments for identifiers.
 nn <silent> ;d :YcmCompleter GetDoc<CR>
 " Attempts to correct the diagnostic closest to the cursor position.
@@ -641,6 +641,10 @@ nn <silent> ;a :qa!<CR>
 nn <silent> ;l :only!<CR>:NERDTreeTabsClose<CR>
 " Forced saving.
 nn ;w :w!<CR>
+" Edit file, empty for reading current file from disk again.
+nn ;e :e 
+" Edit file in a new tab.
+nn ;t :tabe 
 " Switch between tabs.
 " {count}gT - Go {count} tab pages back.
 nn ;i gT
