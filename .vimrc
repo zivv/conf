@@ -532,6 +532,9 @@ aug ZSetting
   " Filetype detection.
   au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
   au BufRead,BufNewFile *.vim_* set filetype=vim
+  au BufRead,BufNewFile *.BUILD set filetype=bzl
+  " For better syntax highlight. (Looks poor if set ft=dockerfile)
+  au BufRead,BufNewFile Dockerfile,*.dockerfile set filetype=config
 
   " Autosave config files.
   au BufWritePost ~/conf/* !(cd ~/conf; ./set.sh)
