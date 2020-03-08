@@ -1,14 +1,12 @@
 # To add this to the config, run:
 # git config --global core.excludesfile ~/.gitignore_global
 
-# Compiled source #
-###################
+# Compiled source
 *.pyc
 *.class
 *.o
 
-# Packages #
-############
+# Packages
 *.7z
 *.dmg
 *.gz
@@ -18,48 +16,39 @@
 *.tar
 *.zip
 
-# Vim swapfiles #
-#################
+# Vim swapfiles
 .*.swp
 .*.swo
-
-# Gedit swapfiles #
-###################
+# Gedit swapfiles
 *~
 
-# Logs and databases #
-######################
+# Logs and databases
 *.log
 *.sql
 *.sqlite
 
-# ctags #
-#########
+# ctags
 tags
-
-# cscope #
-##########
+# cscope
 cscope.*
+# Clang
+compile_commands.json
+.clangd
 
-# tex output #
-##############
+# Tex output
 *.aux
 *.out
 *.toc
 
-# Mac files #
-#############
+# Mac files
 .DS_Store
 
-# SVN files #
-#############
+# SVN files
 .svn
 
-# Node modules #
-################
+# Node modules
 node_modules/
 
-# Dirs #
-########
+# Dirs
 bin/
 tmp/
