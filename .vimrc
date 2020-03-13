@@ -323,13 +323,13 @@ else
 endif
 
 " YCM settings.
-" Uncomment to DEBUG.
+" Uncomment to DEBUG. Try :YcmDebugInfo & :YcmToggleLogs.
 "let g:ycm_log_level='debug'
 " Default value is ['<TAB>', '<Down>'].
 "let g:ycm_key_list_select_completion = ['<Down>']
 " Default value is ['<S-TAB>', '<Up>'].
 "let g:ycm_key_list_previous_completion = ['<Up>']
-" Default value is 'same-buffer', could also be 'horizontal-split' or 'vertical-split'.
+" Default value is 'same-buffer'.
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 " Global conf file, see YCM's own .ycm_extra_conf.py:
 "   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
@@ -338,6 +338,15 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 " is safe to be loaded. To selectively get YCM to ask/not ask about loading
 " files, put the following line to '.vim_local' and add rules to it.
 let g:ycm_extra_conf_globlist = ['!~/conf/*']
+" C-family Semantic Completion:
+"   https://github.com/ycm-core/YouCompleteMe#c-family-semantic-completion
+" Check https://clang.llvm.org/extra/clangd/Installation.html#editor-plugins.
+" Let clangd fully control code completion.
+let g:ycm_clangd_uses_ycmd_caching = 0
+" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+let g:ycm_clangd_binary_path = exepath('clangd')
+" The command line arguments passed to the clangd binary.
+"let g:ycm_clangd_args = ['-log=verbose', '-pretty']
 
 " Shortcuts for YCM commands.
 " Jump to the header/definition/declaration.
@@ -385,10 +394,6 @@ Plugin 'scrooloose/nerdcommenter'
 let g:NERDBlockComIgnoreEmpty = 0
 let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDSpaceDelims = 1
-" Default python-left is '# '.
-let g:NERDCustomDelimiters = {
-  \ 'python': { 'left': '#' },
-  \ }
 
 
 " Fugitive -- a Git wrapper -----------------------------------------------{{{2
