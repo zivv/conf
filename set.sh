@@ -16,6 +16,7 @@ files=(
 
 z=(
   ".sh_env"
+  ".gitconfig_local"
   # TODO(ziv): Too old. Need to check update.
   #".mongorc.js"
   #".octaverc"
@@ -126,13 +127,6 @@ for loca in ${locas[*]}; do
   if [[ -f ~/.at_$loca ]]; then
     # Your place! \o/
     if [[ $loca =~ ^z_ ]]; then
-      if [[ .gitconfig -nt tmp/.gitconfig ]]; then
-        # Add author info to global gitconfig
-        mkdir -p tmp/
-        echo -e "[user]\n  name = ziv\n  email = zivvv0@gmail.com" >tmp/.gitconfig
-        cat .gitconfig >>tmp/.gitconfig
-      fi
-
       cp_files "" "${z[*]}"
     fi
 
@@ -141,5 +135,24 @@ for loca in ${locas[*]}; do
     cp_files $loca "${loca_files[*]}"
   fi
 done
+
+if [[ -f ~/.gitconfig_local ]]; then
+  if [[ .gitconfig -nt tmp/.gitconfig ]] ||
+    [[ ~/.gitconfig_local -nt tmp/.gitconfig ]]; then
+    mkdir -p tmp/
+    cat .gitconfig >tmp/.gitconfig
+    cat ~/.gitconfig_local >>tmp/.gitconfig
+  fi
+fi
+if [[ -f ~/.gitignore_local ]]; then
+  if [[ .gitignore_global -nt tmp/.gitignore_global ]] ||
+    [[ ~/.gitignore_local -nt tmp/.gitignore_global ]]; then
+    mkdir -p tmp/
+    cat .gitignore_global >tmp/.gitignore_global
+    echo -e "\n# Local git-ignore items in ~/.gitignore_local" \
+      >>tmp/.gitignore_global
+    cat ~/.gitignore_local >>tmp/.gitignore_global
+  fi
+fi
 
 cp_files "" "${files[*]}"
