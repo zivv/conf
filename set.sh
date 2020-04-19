@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-
+#
 # Set up configuration files.
+
+set -e
 
 # Internal Field Separator.
 # Use newline instead of default setting which includes space.

@@ -165,9 +165,4 @@ Run `ss` or `./set.sh` to set updated files.
 
 ## For remote server
 
-Basic configuration setup
-
-    scp for_server/.* REMOTE_SERVER:
-    ssh REMOTE_SERVER
-    echo "[[ -f ~/.z.sh_base ]] && . ~/.z.sh_base" >> ~/.bashrc
-    echo -e 'if filereadable(expand('\''~/.z.vimrc'\''))\n  source ~/.z.vimrc\nendif' >> .vimrc
+Assume the server address is `xxx`, run `INIT=1 ./set_server.sh xxx` to init and `./set_server.sh xxx` to update.

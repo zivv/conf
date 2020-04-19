@@ -1,123 +1,157 @@
-" To setup:
-" echo -e 'if filereadable(expand('\''~/.z.vimrc'\''))\n  source ~/.z.vimrc\nendif' >> .vimrc
+set tabstop=8
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set smarttab
+" Disable auto-insert line breaks.
+set textwidth=0
 
-syntax enable
+" Show line number.
+set number
+" Show relative line number.
+set relativenumber
 
-set number  " show line number
-set relativenumber  " show relative line number
+set encoding=utf-8
+" gb2312 is windows' default encoding.
+set fileencodings=utf-8,gb2312
 
-" easy to close highlighting after searching
+" Command-line completion operates in an enhanced mode.
+set wildmenu
+
+" Default fold method.
+set foldmethod=indent
+" Initially, no closed fold.
+set foldlevelstart=99
+" Special fold method, by marker {{{ and }}}
+aug FoldMarker
+  au!
+  au FileType vim,conf set foldmethod=marker | set foldlevel=0
+aug END
+
+" Display unprintable chars.
+set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
+"set showbreak=↪
+
+" Jump to the first open tab that contains the specified buffer.
+" Open a new tab page before loading a buffer for a quickfix command.
+set switchbuf=usetab,newtab
+
+" In Insert mode, allow backspacing over autoindent/line breaks/the start of
+" insert. See `:h 'bs'`.
+set backspace=indent,eol,start
+
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+" Always display the statusline in all windows.
+set laststatus=2
+" Always display the tabline, even if there is only one tab.
+set showtabline=2
+" Hide the default mode text (e.g. -- INSERT -- below the statusline).
+set noshowmode
+
+
+set cursorline
+hi CursorLine cterm=none ctermbg=237
+set cursorcolumn
+hi CursorColumn cterm=none ctermbg=237
+
+" Highlight during search.
+set hlsearch
+hi Search cterm=none ctermfg=grey ctermbg=darkyellow
+
+" Syntax highlight rules for all files.
+aug ZSyntaxHighlight
+  au!
+  " Show trailing whithspace.
+  hi TrailingWhitespace ctermbg=22
+  au BufWinEnter * call matchadd('TrailingWhitespace', '\s\+$')
+
+  " Highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks).
+  " Valid format: TODO, TODO:, TODO(ziv), TODO(ziv):
+  hi TODOs ctermfg=white ctermbg=33
+  au BufWinEnter * call matchadd('TODOs', '\<TODO(.\{-}):\?\|\<TODO:\?')
+  hi FIXMEs ctermfg=white ctermbg=196
+  au BufWinEnter * call matchadd('FIXMEs', '\<FIXME(.\{-}):\?\|\<FIXME:\?')
+  hi REVIEWs ctermfg=white ctermbg=208
+  au BufWinEnter * call matchadd('REVIEWs', '\<REVIEW(.\{-}):\?\|\<REVIEW:\?')
+  hi NOTEs ctermfg=white ctermbg=112
+  au BufWinEnter * call matchadd('NOTEs', '\<NOTE(.\{-}):\?\|\<NOTE:\?')
+  hi XXXs ctermfg=white ctermbg=99
+  au BufWinEnter * call matchadd('XXXs', '\<XXX(.\{-}):\?\|\<XXX:\?')
+
+  " Google-logo \o/
+  hi googleBlue ctermfg=27
+  hi googleRed ctermfg=160
+  hi googleYellow ctermfg=214
+  hi googleGreen ctermfg=34
+  au BufWinEnter * call matchadd('googleBlue', '[Gg]\(oogle\)\@=')
+  au BufWinEnter * call matchadd('googleRed', '\([Gg]\)\@<=o\(ogle\)\@=')
+  au BufWinEnter * call matchadd('googleYellow', '\([Gg]o\)\@<=o\(gle\)\@=')
+  au BufWinEnter * call matchadd('googleBlue', '\([Gg]oo\)\@<=g\(le\)\@=')
+  au BufWinEnter * call matchadd('googleGreen', '\([Gg]oog\)\@<=l\(e\)\@=')
+  au BufWinEnter * call matchadd('googleRed', '\([Gg]oogl\)\@<=e')
+aug END
+
+
+" Easy to close highlighting after searching.
 nn <silent> ;h :nohl<CR>
 
-" easy to open or close spell check
-nn <silent> ;p :set spell!<CR>
-set spellfile=~/.vim/spell/.vimspelldict.utf-8.add
-
-" easy to copy
+" Easy to copy.
 nn <silent> ;n :set rnu!<CR>:set nu!<CR>
 
-" switch between .cc / .h / -inl.h / _test.cc / _unittest.cc / .py / .js
-let pat = '\(\(_\(unit\)\?test\)\?\.\(c\|cc\|cpp\|js\|py\)\|\(-inl\)\?\.h\)$'
-nn <space>c<space> :fin <C-R>=substitute(expand("%"), pat, ".c", "")<CR><CR>
-nn <space>cc :fin <C-R>=substitute(expand("%"), pat, ".cc", "")<CR><CR>
-nn <space>cp :fin <C-R>=substitute(expand("%"), pat, ".cpp", "")<CR><CR>
-nn <space>h  :fin <C-R>=substitute(expand("%"), pat, ".h", "")<CR><CR>
-nn <space>i  :fin <C-R>=substitute(expand("%"), pat, "-inl.h", "")<CR><CR>
-nn <space>t  :fin <C-R>=substitute(expand("%"), pat, "_test.", "").
-      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>u  :fin <C-R>=substitute(expand("%"), pat, "_unittest.", "").
-      \substitute(expand("%:e"), "h", "cc", "")<CR><CR>
-nn <space>p  :e <C-R>=substitute(expand("%"), pat, ".py", "")<CR><CR>
-nn <space>j  :e <C-R>=substitute(expand("%"), pat, ".js", "")<CR><CR>
-
-" move to column 80
+" Move to column 80.
 nn ;80 079l
 
-" for window size
-nn <silent> [r :resize +5<CR>
-nn <silent> [v :vert resize +5<CR>
-
-" specific for quickfix window
-nn <silent> [w :cw<CR>
-nn <silent> [n :cn<CR>
-nn <silent> [p :cp<CR>
-
-" just avoid plugins' mapping with default key \
-let mapleader = ","
-" keep the default behavior of key ; to other key
-nn <silent> \ ;
-" convenient use of pair \ and |
-nn <silent> <bar> ,
-
-" quit current file without saving
+" Quit current file without saving.
 nn <silent> ;q :q!<CR>
-" quit all files without saving
+" Quit all files without saving.
 nn <silent> ;a :qa!<CR>
-" close all windows but current without saving
-nn <silent> ;l :only!<CR>
-" saving
-nn ;w :w<CR>
-" forced saving
-nn ;fw :w!<CR>
-" edit
+" Make the current window the only one on the screen, without saving.
+nn <silent> ;l :only!<CR>:NERDTreeTabsClose<CR>
+" Forced saving.
+nn ;w :w!<CR>
+" Edit file, empty for reading current file from disk again.
 nn ;e :e 
-" tab edit
+" Edit file in a new tab.
 nn ;t :tabe 
-" switch between tabs
-nn ;i :tabp<CR>
-nn ;o :tabn<CR>
-" switch between windows
+" Switch between tabs.
+" {count}gT - Go {count} tab pages back.
+nn ;i gT
+" {count}gt - Go to tab page {count}.
+nn ;o gt
+" Switch between windows.
+" {count};u - Go to {count}th window (when larger then # of wins, go to last).
 nn ;u <C-W><C-W>
 
-" get out of insert mode
-ino jk <Esc>
+" Get out of insert mode.
+" 'jk' is a good cmd for exiting insert mode but not good for virtual.
+no! ;l <Esc>
+" Get out of virtual mode.
+vn ;l <Esc>
 
-" delete trailing whithspace
-nn <silent> ds :%s#\s\+$##g<CR>
-
-" always use zM instead of zm
-nn zm zM
-nn zr zR
-
-" Redos since 'u' undos
+" Redo since key `u` for undos.
 nn U :redo<CR>
 
-nn H ^
-nn L g_
+" Go to the start/end of the current line.
+no H ^
+no L g_
 
-" Undo
-ino <C-l> <C-o>u
+" Check `vim --version | grep clipboard` or `:echo has("clipboard")`.
+" Yank to system clipboard.
+vn ;y "+y
+" Paste the contents in system clipboard.
+nn ;p "+p
+nn ;P "+P
+vn ;p "+p
+vn ;P "+P
 
-" Delete current character
-ino <C-x> <C-o>x
+" Substitute for all lines.
+nn ;s :%s/
+" Substitute for selected lines.
+vn ;s :s/
 
-" Go to begin of line
-ino <C-w> <Esc>I
-" Go to end of line
-ino <C-e> <Esc>A
-" Move cursor
-ino <C-o> <Down>
-ino <C-p> <Up>
-ino <C-r> <Left>
-ino <C-t> <Right>
-" Move a word forward/backward
-ino <C-f> <C-o>b
-ino <C-g> <C-o>w
-
-" Yank to system clipboard
-vn ;y "*y
-" Paste the contents in system clipboard
-nn ;p "*p
-nn ;P "*P
-
-"" Powerline
-""   Check `vim --version | grep +python` first
-"python3 from powerline.vim import setup as powerline_setup
-"python3 powerline_setup()
-"python3 del powerline_setup
-"" Always display the statusline in all windows
-"set laststatus=2
-"" Always display the tabline, even if there is only one tab
-"set showtabline=2
-"" Hide the default mode text (e.g. -- INSERT -- below the statusline)
-"set noshowmode
+" Open file under cursor in a new tab, see `:h CTRL-W_gf`.
+nn gf <C-w>gf

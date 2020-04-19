@@ -1,45 +1,33 @@
-# To setup:
-# echo "[[ -f ~/.z.sh_base ]] && . ~/.z.sh_base" >> ~/.bashrc
+alias v="vim"
+alias dk="docker"
+if [[ $(which kubectl) ]]; then
+  source <(kubectl completion bash)
 
-alias l='ls'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
+  alias k="kubectl"
 
-alias ~='cd ~'
-alias ..='cd ..'
-alias ...='.. && ..'
-alias ....='... && ..'
+  alias kcuc="kubectl config use-context"
+  alias kcsc="kubectl config set-context"
+  alias kcdc="kubectl config delete-context"
+  alias kccc="kubectl config current-context"
 
-alias s='source ~/.bashrc'
-alias v='vim'
-alias vd='vimdiff'
-alias g='git'
-alias q='exit'
-alias t='tree'
+  alias kl="kubectl logs"
+  alias klf="kubectl logs -f"
 
-alias su='sudo'
+  alias kgp="kubectl get pods"
+  alias kgpw="kgp --watch"
+  alias kdp="kubectl describe pods"
+  alias kdelp="kubectl delete pods"
 
-alias ga='g a'
-alias ga.='g a .'
-alias gcb='g co -b'
-alias gco-='g co --'
-alias gc-m='g ci -m'
-alias gd='g d'
-alias gdc='g dc'
-alias gdh='g dh'
-alias gdt='g dt'
-alias gl='g pl'
-alias gp='g ps'
-alias gst='g st'
+  alias kgd="kubectl get deployment"
+  alias kgdw="kgd --watch"
+  alias kdd="kubectl describe deployment"
+  alias kdeld="kubectl delete deployment"
+  alias ksd="kubectl scale deployment"
+  alias krsd="kubectl rollout status deployment"
 
-alias spd='supervisord'
-alias spc='supervisorctl'
-
-#if pip show powerline-status > /dev/null ; then
-#  powerline-daemon -q
-#  POWERLINE_BASH_CONTINUATION=1
-#  POWERLINE_BASH_SELECT=1
-#  POWERLINE_ROOT=$(pip show powerline-status | awk '/Location:/{print $2}')
-#  . $POWERLINE_ROOT/powerline/bindings/bash/powerline.sh
-#fi
+  alias kgi="kubectl get ingress"
+  alias kgns="kubectl get namespaces"
+  alias kgcm="kubectl get configmaps"
+  alias kgno="kubectl get nodes"
+  alias kgpvc="kubectl get pvc"
+fi
