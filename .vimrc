@@ -220,7 +220,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
 " Exclude files and directories from the results.
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|(third_party|node_modules|dist))$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(third_party|node_modules|dist|.clangd))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
@@ -259,15 +259,6 @@ let g:formatters_bzl = ['buildifier']
 let g:formatdef_buildifier = '"buildifier"'
 " Change the order of formatters for json to use fixjson at first.
 let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
-" Change the order of formatters for javascript to use prettier at first.
-let g:formatters_javascript = [
-  \ 'prettier',
-  \ 'eslint_local',
-  \ 'jsbeautify_javascript',
-  \ 'jscs',
-  \ 'standard_javascript',
-  \ 'xo_javascript',
-  \ ]
 
 " Shortcuts for vim-autoformat commands.
 " For Normal, Visual, Select, Operator-pending modes.
@@ -342,9 +333,11 @@ let g:ycm_extra_conf_globlist = ['!~/conf/*']
 "   https://github.com/ycm-core/YouCompleteMe#c-family-semantic-completion
 " Check https://clang.llvm.org/extra/clangd/Installation.html#editor-plugins.
 " Let clangd fully control code completion.
-let g:ycm_clangd_uses_ycmd_caching = 0
+"let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = exepath('clangd')
+" Failed to use local clangd-9 after update YCM to which uses clangd-10 :)
+"   ERROR - Clangd at /opt/llvm/bin/clangd is out-of-date
+"let g:ycm_clangd_binary_path = exepath('clangd')
 " The command line arguments passed to the clangd binary.
 "let g:ycm_clangd_args = ['-log=verbose', '-pretty']
 
