@@ -56,10 +56,11 @@ function auto() {
       echo "# $value" >>tmp/.sh_auto
 
       echo "Processing: $line"
-      eval "value=${line#*=}"
+      eval "value=$value"
       echo "Get value : $value"
+      eval "$key=$value"
       # Add the variable.
-      echo "${line%%=*}=$value" >>tmp/.sh_auto
+      echo "$key=$value" >>tmp/.sh_auto
     fi
   done
   tput setaf 4

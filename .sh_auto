@@ -1,5 +1,5 @@
 # Auto generated. Do NOT modify.
 _z_has_coreutils=$(which brew &>/dev/null && brew list | grep coreutils >/dev/null; echo $?)
-_z_has_dircolors=$(which dircolors &>/dev/null || _z_has_coreutils; echo $?)
-_z_coreutils_path=$(which brew &>/dev/null && brew --prefix coreutils)
+_z_has_dircolors=$(which dircolors &>/dev/null || [[ _z_has_coreutils -eq 0 ]]; echo $?)
+_z_coreutils_path=$([[ _z_has_coreutils -eq 1 ]] || brew --prefix coreutils)
 _z_powerline_root=$(which pip3 &>/dev/null && pip3 show powerline-status | grep "Location" | sed "s/Location: //")
