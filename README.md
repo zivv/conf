@@ -28,8 +28,6 @@ Or check doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/s
 
 Note that if failed to import powerline in .vimrc, check the result of `:python import sys; print(sys.path)` includes the powerline library path or not (see `import powerline; print(powerline.__file__)`), and add something like `python import sys; sys.path.append('POWERLINE_LIBPATH')` in `.vim_env` if necessary.
 
-_TODO(ziv): Powerline with tmux is not working and the doc is not good enough to solve it. Weird environmental variable (like $POWERLINE_CONFIG_COMMAND, $POWERLINE_COMMAND) in source files. Waiting for updates._
-
 #### [Powerline fonts](https://github.com/powerline/fonts)
 
 Install all Powerline Fonts. See the [documentation](https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation) for details.
