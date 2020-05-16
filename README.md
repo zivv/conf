@@ -37,6 +37,10 @@ Install all Powerline Fonts. See the [documentation](https://powerline.readthedo
 
 Then set terminal to use a powerline font. Personally prefer the font named **Sauce Code Powerline** (formerly known as _Source Code Pro_) with **Semibold, 15pt**.
 
+OR just to install **Source Code Pro** only:
+
+    mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts && curl -fLo "Source Code Pro Semibold for Powerline.otf" https://github.com/powerline/fonts/raw/master/SourceCodePro/Source%20Code%20Pro%20Semibold%20for%20Powerline.otf && fc-cache -f -v
+
 ## Set up
 
 ### tmux
@@ -51,9 +55,8 @@ Read [.sh_base](.sh_base) to set up.
 Copied from .sh_base as following:
 
     Install github.com/seebi/dircolors-solarized
-      # cd ~/Downloads
-      git clone https://github.com/seebi/dircolors-solarized.git
-      cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
+      curl -Lo ~/.dircolors.256dark \
+        https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
     Install github.com/andreafrancia/trash-cli
       pip3 install trash-cli
 
@@ -65,8 +68,8 @@ Copied from .sh_base as following:
 
 Copied from [.zsh_local](.zsh_local) as following:
 
-    Change default shell to zsh
-      chsh -s /bin/zsh
+    Install zsh and change default shell
+      sudo apt-get install zsh && chsh -s $(which zsh)
 
     Install [Oh My ZSH](http://ohmyz.sh/) via curl
       sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

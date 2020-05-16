@@ -1,7 +1,7 @@
 # ZSH set up steps
 #
-# Change default shell to zsh
-#   chsh -s /bin/zsh
+# Install zsh and change default shell
+#   sudo apt-get install zsh && chsh -s $(which zsh)
 #
 # Install [Oh My ZSH](http://ohmyz.sh/) via curl
 #   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

@@ -1,9 +1,8 @@
 # Set up steps ------------------------------------------------------------{{{1
 #
 # Install github.com/seebi/dircolors-solarized
-#   # cd ~/Downloads
-#   git clone https://github.com/seebi/dircolors-solarized.git
-#   cp dircolors-solarized/dircolors.256dark ~/.dircolors.256dark
+#   curl -Lo ~/.dircolors.256dark \
+#     https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
 # Install github.com/andreafrancia/trash-cli
 #   pip3 install trash-cli
 #
