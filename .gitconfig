@@ -5,6 +5,7 @@
   excludesfile = ~/.gitignore_global
 [diff]
   tool = vimdiff
+  submodule = log
 [merge]
   tool = vimdiff
 [difftool]
@@ -44,8 +45,14 @@
   ps = push
   psm = push origin master
   pso = push origin
+
+  sdiff = !git diff && git submodule foreach 'git diff'
+  spush = push --recurse-submodules=on-demand
+  supdate = submodule update --remote --merge
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+[status]
+  submodulesummary = 1
