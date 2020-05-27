@@ -333,11 +333,9 @@ let g:ycm_extra_conf_globlist = ['!~/conf/*']
 "   https://github.com/ycm-core/YouCompleteMe#c-family-semantic-completion
 " Check https://clang.llvm.org/extra/clangd/Installation.html#editor-plugins.
 " Let clangd fully control code completion.
-"let g:ycm_clangd_uses_ycmd_caching = 0
+let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-" Failed to use local clangd-9 after update YCM to which uses clangd-10 :)
-"   ERROR - Clangd at /opt/llvm/bin/clangd is out-of-date
-"let g:ycm_clangd_binary_path = exepath('clangd')
+let g:ycm_clangd_binary_path = exepath('clangd')
 " The command line arguments passed to the clangd binary.
 "let g:ycm_clangd_args = ['-log=verbose', '-pretty']
 
