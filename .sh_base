@@ -13,7 +13,7 @@
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
 # Basic environment settings ----------------------------------------------{{{1
-WORK="$HOME/work"
+export WORK="$HOME/work"
 
 LANG="en_US.UTF-8"
 
