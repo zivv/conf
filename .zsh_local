@@ -29,7 +29,7 @@ alias s="source ~/.zshrc"
 # Settings for oh-my-zsh.
 plugins=(
   z sudo zsh-autosuggestions colored-man-pages history-substring-search
-  tmux git golang docker kubectl yarn
+  tmux git golang docker docker-compose kubectl yarn
   # emoji emotty
 )
 if [[ $(uname) == "Darwin" ]]; then
