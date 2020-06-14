@@ -27,6 +27,11 @@
 alias s="source ~/.zshrc"
 
 # Settings for oh-my-zsh.
+plugins=(
+  z sudo zsh-autosuggestions colored-man-pages history-substring-search
+  tmux git golang docker kubectl yarn
+  # emoji emotty
+)
 if [[ $(uname) == "Darwin" ]]; then
   # Usage of plugin 'osx'
   #   tab           open the current directory in a new tab
@@ -37,14 +42,8 @@ if [[ $(uname) == "Darwin" ]]; then
   #   quick-look    quick Look a specified file
   #   man-preview   open a specified man page in Preview
   #   itunes        iTunes control function, see `itunes -h` for usage
-  ZSH_PLUGINS="$ZSH_PLUGINS osx"
+  plugins+=(osx)
 fi
-plugins=(
-  z sudo zsh-autosuggestions colored-man-pages history-substring-search
-  tmux git golang docker kubectl yarn
-  # emoji emotty
-  $ZSH_PLUGINS
-)
 ZSH_THEME="agnoster"
 ZSH_TMUX_AUTOSTART=true
 # Set false to use multiple tmux sessions.
