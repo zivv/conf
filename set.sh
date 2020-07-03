@@ -38,11 +38,17 @@ z_mac=(
   ".vim_local"
 )
 
+declare -A colors=(
+  [black]=0 [red]=1 [green]=2 [yellow]=3 [blue]=4 [magenta]=5 [cyan]=6 [white]=7
+)
+function color() {
+  tput setaf ${colors[$1]} 2>/dev/null || true
+  "${@:2}"
+  tput sgr0 2>/dev/null || true
+}
+
 # Auto generated variables to speed up shell initialization.
 function auto() {
-  tput sgr0
-
-  tput setaf 2
   mkdir -p tmp/
   >tmp/.sh_auto
   for line in $(cat .sh_auto); do
@@ -55,34 +61,28 @@ function auto() {
       # Add comments.
       echo "# $value" >>tmp/.sh_auto
 
-      echo "Processing: $line"
+      color green echo "Processing: $line"
       eval "value=$value"
-      echo "Get value : $value"
+      color green echo "Get value : $value"
       eval "$key=$value"
       # Add the variable.
       echo "$key=$value" >>tmp/.sh_auto
     fi
   done
-  tput setaf 4
-  echo "File tmp/.sh_auto has been generated"
-
-  tput sgr0
+  color blue echo "File tmp/.sh_auto has been generated"
 }
 if [[ .sh_auto -nt tmp/.sh_auto ]]; then
   auto
 fi
 
 function cp_file() {
-  tput sgr0
-
   f=$1
   if [[ -f tmp/$f ]]; then
     f=tmp/$f
   fi
   if [[ ! -f $f ]]; then
-    tput setaf 1
-    echo "File does not exist: $(pwd)/$file"
-    return
+    color red echo >&2 "File does not exist: $(pwd)/$f"
+    return 1
   fi
 
   if [[ $2 =~ "/" ]]; then
@@ -93,18 +93,13 @@ function cp_file() {
   fi
 
   if [[ ! -f $2 || $(diff $f $2) ]]; then
-    tput setaf 4
     # Verbose and copy only when $f is newer or $2 is missing.
-    cp -uv $f $2
+    color blue cp -uv $f $2
   fi
   if [[ $(diff $f $2) ]]; then
-    tput setaf 3
-    echo "$2 is newer"
-    tput setaf 2
-    diff -u $f $2
+    color yellow echo "$2 is newer"
+    color green diff -u $f $2
   fi
-
-  tput sgr0
 }
 
 # cp_files "prefix" "path1 path2 ..."
