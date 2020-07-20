@@ -57,7 +57,7 @@ alias vv="vim ~/conf/.vimrc"
 alias g="git"
 alias tr="tree"
 
-alias rsync="rsync -vcharz --progress"
+alias rsync="rsync -vchar --progress"
 
 # To avoid misops, please use trash-cli or other similar tools instead.
 alias rm="echo 'This is not the command you are looking for.'; false"
