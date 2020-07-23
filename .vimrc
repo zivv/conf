@@ -220,8 +220,10 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
 " Exclude files and directories from the results.
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|(third_party|node_modules|dist|.clangd))$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn|clangd)|('.
+  \         'third_party|node_modules|dist))$',
   \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'bazel-*',
   \ }
 
 " Shortcuts for CtrlP commands.
@@ -531,6 +533,7 @@ aug ZSetting
   au BufRead,BufNewFile *.BUILD set filetype=bzl
   " For better syntax highlight. (Looks poor if set ft=dockerfile)
   au BufRead,BufNewFile Dockerfile,*.dockerfile set filetype=config
+  au BufRead,BufNewFile *.launch set filetype=xml
 
   " Autosave config files.
   au BufWritePost ~/conf/* !(cd ~/conf; ./set.sh)
