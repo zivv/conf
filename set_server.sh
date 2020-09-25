@@ -12,7 +12,7 @@ set -ex
 
 SERVER=${SERVER:-$1}
 if [[ -z $SERVER ]]; then
-  echo "Please provide server address"
+  echo >&2 "Please provide server address"
   exit 1
 fi
 
