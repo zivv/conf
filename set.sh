@@ -9,8 +9,8 @@ set -e
 IFS=$(echo -en "\n\b")
 
 files=(
-  ".sh_auto"
-  ".sh_base" ".bash_local" ".zsh_local"
+  ".sh_auto" ".sh_base" ".sh_custom"
+  ".bash_local" ".zsh_local"
   ".tmux.conf"
   ".vimrc" ".vim" ".gvimrc"
   ".gitconfig" ".gitignore_global"

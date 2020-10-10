@@ -3,20 +3,8 @@
 # Install zsh and change default shell
 #   sudo apt-get install zsh && chsh -s $(which zsh)
 #
-# Install [Oh My ZSH](http://ohmyz.sh/) via curl
-#   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-#
-# Comment some lines in `.zshrc` to accept new settings in this file
-#   Linux:
-#     #sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
-#     sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
-#   MacOS:
-#     brew install gnu-sed
-#     #gsed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && gsed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
-#     gsed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
-#
-# Install Fish-like autosuggestions for zsh
-#   git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+# Install https://github.com/zsh-users/antigen
+#   curl -Lo ~/.zsh_antigen git.io/antigen
 #
 # Set up steps for MacOS
 #   brew install coreutils
@@ -26,60 +14,76 @@
 
 alias s="source ~/.zshrc"
 
-# Settings for oh-my-zsh.
-plugins=(
-  z sudo zsh-autosuggestions colored-man-pages history-substring-search
-  tmux git golang docker docker-compose kubectl yarn
-  # emoji emotty
-)
-if [[ $(uname) == "Darwin" ]]; then
-  # Usage of plugin 'osx'
-  #   tab           open the current directory in a new tab
-  #   pfd           return the path of the frontmost Finder window
-  #   pfs           return the current Finder selection
-  #   cdf           cd to the current Finder directory
-  #   pushdf        pushd to the current Finder directory
-  #   quick-look    quick Look a specified file
-  #   man-preview   open a specified man page in Preview
-  #   itunes        iTunes control function, see `itunes -h` for usage
-  plugins+=(osx)
-fi
-ZSH_THEME="agnoster"
+# Antigen -- The plugin manager for zsh
+#         -- https://github.com/zsh-users/antigen
+
+. ~/.zsh_antigen
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+export ZSH=$HOME/.antigen/bundles/robbyrussell/oh-my-zsh
+
+# Load the theme.
+antigen theme agnoster
+
+# $ZSH/plugins/tmux/README.md
+antigen bundle tmux
 ZSH_TMUX_AUTOSTART=true
 # Set false to use multiple tmux sessions.
 ZSH_TMUX_AUTOQUIT=false
-. $ZSH/oh-my-zsh.sh
-# Highlighting for zsh-autosuggestions.
+
+# $ZSH/plugins/z/README.md
+antigen bundle z
+# $ZSH/plugins/sudo/README.md
+antigen bundle sudo
+# $ZSH/plugins/colored-man-pages/README.md
+antigen bundle colored-man-pages
+# $ZSH/plugins/command-not-found/README.md
+antigen bundle command-not-found
+
+# $ZSH/plugins/emoji/README.md
+antigen bundle emoji
+# $ZSH/plugins/emotty/README.md
+# antigen bundle emotty
+
+# $ZSH/plugins/git/README.md
+antigen bundle git
+
+# $ZSH/plugins/docker/README.md
+antigen bundle docker
+# $ZSH/plugins/docker-compose/README.md
+antigen bundle docker-compose
+# $ZSH/plugins/kubectl/README.md
+antigen bundle kubectl
+
+# $ZSH/plugins/golang/README.md
+antigen bundle golang
+
+# $ZSH/plugins/yarn/README.md
+antigen bundle yarn
+
+# https://github.com/zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-completions
+# https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
-# Settings for zsh-history-substring-search.
-# See https://github.com/zsh-users/zsh-history-substring-search.
-setopt HIST_IGNORE_ALL_DUPS
+# https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
+# $ZSH/plugins/history-substring-search/README.md
+antigen bundle history-substring-search
+
+if [[ $(uname) == "Darwin" ]]; then
+  # $ZSH/plugins/osx/README.md
+  antigen bundle osx
+fi
+
+# Tell Antigen that you're done.
+antigen apply
+
+# Settings for history-substring-search.
+# See $ZSH/plugins/history-substring-search/README.md.
 bindkey '^R' history-substring-search-up
 bindkey '^S' history-substring-search-down
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=blue,fg=white"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
-
-# Uncomment it if usnig Powerline instead of oh-my-zsh.
-# . $POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh
-
-# Check directory related aliases in $HOME/.oh-my-zsh/lib/directories.zsh.
-if [[ $(uname) == "Darwin" ]]; then
-  if [[ $_z_has_coreutils -eq 0 ]]; then
-    alias ls="ls -F --show-control-chars --color=auto"
-  fi
-fi
-alias l="ls"
-alias ll="ls -lh"
-alias la="ls -A"
-alias lla="ls -lhA"
-
-alias gdh="g dh"
-alias gdc="g dc"
-alias gdt="g dt"
-alias ga.="g a ."
-alias gcx="g co --"
-alias gcx.="g co -- ."
-alias gcm="g ci -m"
-alias gca="g ci --amend"
-alias grh="g rh"
-alias glf="g lfs"
+HISTORY_SUBSTRING_SEARCH_FUZZY=true

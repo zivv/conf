@@ -3,6 +3,7 @@
 # Install github.com/seebi/dircolors-solarized
 #   curl -Lo ~/.dircolors.256dark \
 #     https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
+#
 # Install github.com/andreafrancia/trash-cli
 #   pip3 install trash-cli
 #
@@ -10,7 +11,8 @@
 # If using bash in Linux:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
 # If using bash in MacOS:
-#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && \
+#     source ~/.bash_profile
 
 # Basic environment settings ----------------------------------------------{{{1
 export WORK="$HOME/work"
@@ -18,10 +20,10 @@ export WORK="$HOME/work"
 LANG="en_US.UTF-8"
 
 # Auto generated variables.
-[[ -f ~/.sh_auto ]] && . ~/.sh_auto
+[[ -f ~/.sh_auto ]] && . ~/.sh_auto || true
 
 # Custom environment settings.
-[[ -f ~/.sh_env ]] && . ~/.sh_env
+[[ -f ~/.sh_env ]] && . ~/.sh_env || true
 
 # For MacOS.
 if [[ $(uname) == "Darwin" ]]; then
@@ -30,7 +32,6 @@ if [[ $(uname) == "Darwin" ]]; then
     MANPATH="$_z_coreutils_path/libexec/gnuman:$MANPATH"
   fi
   PATH="$PATH:/usr/local/sbin"
-  [[ -f ~/.at_china ]] && HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 fi
 
 # Export for tmux.
@@ -44,60 +45,14 @@ if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
   eval $(dircolors ~/.dircolors.256dark)
 fi
 
-# Custom commands ---------------------------------------------------------{{{1
-#   Use "unalias" to cancle.
-
-# Always keep `conf` dir under $HOME :)
-alias ss="(cd ~/conf; ./set.sh)"
-
-alias v="vim"
-alias vd="vimdiff"
-alias vv="vim ~/conf/.vimrc"
-
-alias g="git"
-alias tr="tree"
-
-alias rsync="rsync -avhP"
-
-# To avoid misops, please use trash-cli or other similar tools instead.
-alias rm="echo 'This is not the command you are looking for.'; false"
-# trash-cli -- Command Line Interface to FreeDesktop.org Trash.
-#           -- https://github.com/andreafrancia/trash-cli
-#   Supported commands:
-#       trash-put           trashes files and directories.
-#       trash-empty         empty the trashcan(s).
-#       trash-list          list trashed file.
-#       trash-restore       restore a trashed file.
-#       trash-rm            remove individual files from trash can.
-#   Note if found segfault, check issue #52 and try to fetch pull request #53.
-alias t="trash-put"
-
-alias ms="mysql.server start"
-alias mr="mysql -u root -p"
-
-alias nb="(cd $WORK/notebook && jupyter notebook --port 9883 >/dev/null 2>&1 &)"
-alias knb="pkill -f notebook"
-
-alias spd="supervisord"
-alias spc="supervisorctl"
-
-# Update current branch.
-alias gu="(br=\$(git name-rev --name-only HEAD);g co master;gl;g co \$br;g rb master)"
-# Always asked when pushing a new branch.
-alias gps="gp --set-upstream origin \$(git symbolic-ref --short HEAD)"
-
-alias dk="docker"
-
-# To find more: https://kubernetes.io/docs/reference/kubectl/cheatsheet/.
-alias kak='kubectl apply -k'
-
-if [[ $(uname) == "Linux" ]]; then
-  alias o="xdg-open >/dev/null"
-fi
-
 # Local settings ----------------------------------------------------------{{{1
+
 # Shell special.
-[[ $SHELL == *bash && -f ~/.bash_local ]] && . ~/.bash_local
-[[ $SHELL == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
+[[ $(ps -p $$ -o comm=) == *bash && -f ~/.bash_local ]] && . ~/.bash_local
+[[ $(ps -p $$ -o comm=) == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
+
+# Common custom settings.
+[[ -f ~/.sh_custom ]] && . ~/.sh_custom || true
+
 # Work environment special.
 [[ -f ~/.sh_local ]] && . ~/.sh_local || true

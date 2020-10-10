@@ -496,7 +496,7 @@ set foldlevelstart=99
 " Special fold method, by marker {{{ and }}}
 aug FoldMarker
   au!
-  au FileType vim,conf set foldmethod=marker | set foldlevel=0
+  au BufRead,BufNewFile ~/conf/* set foldmethod=marker | set foldlevel=0
 aug END
 
 " Display unprintable chars.

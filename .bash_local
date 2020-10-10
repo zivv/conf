@@ -7,38 +7,28 @@ else
 fi
 alias s="source $BASH_FILE"
 
-
-# Use same aliases with zsh.
-alias ~="cd ~"
-alias ..="cd .."
-alias ...=".. && .."
-alias ....="... && .."
-
-alias gl="g pl"
-alias gp="g ps"
-alias gst="g st"
-alias ga="g a"
-alias gd="g d"
-
-alias gdh="g dh"
-alias gdc="g dc"
-alias gdt="g dt"
-alias ga.="g a ."
-alias gcx="g co --"
-alias gcx.="g co -- ."
-alias gcm="g ci -m"
-alias gca="g ci --amend"
-alias grh="g rh"
-alias glf="g lfs"
-
-alias ta="tmux attach -t"
-alias ts="tmux new-session -s"
-alias tl="tmux list-sessions"
-
-
-if pip3 show powerline-status > /dev/null ; then
+if [[ -n $POWERLINE_ROOT ]]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
   . $POWERLINE_ROOT/powerline/bindings/bash/powerline.sh
 fi
+
+# Use same aliases with zsh.
+
+alias ~="cd ~"
+alias ..="cd .."
+alias ...=".. && .."
+alias ....="... && .."
+
+alias gl="git pull"
+alias gp="git push"
+alias gst="git status"
+alias ga="git add"
+alias gd="git diff"
+alias gco="git checkout"
+alias grb="git rebase"
+
+alias ta="tmux attach -t"
+alias ts="tmux new-session -s"
+alias tl="tmux list-sessions"
