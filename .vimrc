@@ -13,9 +13,9 @@
 "     Linux - https://github.com/ryanoasis/nerd-fonts#linux
 " Install https://github.com/Chiel92/vim-autoformat
 "   MacOS:
-"     brew install clang-format autopep8
+"     brew install clang-format python3 && pip3 install black
 "   Linux:
-"     sudo apt-get install clang-format python3-pip && pip3 install autopep8
+"     sudo apt-get install clang-format python3-pip && pip3 install black
 "   # Bazel BUILD - buildifier.
 "   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
 "   go get github.com/bazelbuild/buildtools/buildifier
