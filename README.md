@@ -57,37 +57,24 @@ Copied from .sh_base as following:
     Install github.com/seebi/dircolors-solarized
       curl -Lo ~/.dircolors.256dark \
         https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
+
     Install github.com/andreafrancia/trash-cli
       pip3 install trash-cli
 
+    Set up steps for MacOS
+      brew install bash coreutils
+
     If using zsh, read .zsh_local to set up.
-    If using bash in Linux:
+    If using bash:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
-    If using bash in MacOS:
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && source ~/.bash_profile
 
 Copied from [.zsh_local](.zsh_local) as following:
 
     Install zsh and change default shell
       sudo apt-get install zsh && chsh -s $(which zsh)
 
-    Install [Oh My ZSH](http://ohmyz.sh/) via curl
-      sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    Comment some lines in `.zshrc` to accept new settings in this file
-      Linux:
-        #sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
-        sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
-      MacOS:
-        brew install gnu-sed
-        #gsed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && gsed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
-        gsed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
-
-    Install Fish-like autosuggestions for zsh
-      git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-
-    Set up steps for MacOS
-      brew install coreutils
+    Install https://github.com/zsh-users/antigen
+      curl -Lo ~/.zsh_antigen git.io/antigen
 
     Set up shell confs
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc

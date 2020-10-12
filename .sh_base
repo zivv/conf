@@ -7,12 +7,12 @@
 # Install github.com/andreafrancia/trash-cli
 #   pip3 install trash-cli
 #
+# Set up steps for MacOS
+#   brew install bash coreutils
+#
 # If using zsh, read .zsh_local to set up.
-# If using bash in Linux:
+# If using bash:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
-# If using bash in MacOS:
-#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bash_profile && \
-#     source ~/.bash_profile
 
 # Basic environment settings ----------------------------------------------{{{1
 export WORK="$HOME/work"

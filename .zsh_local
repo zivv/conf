@@ -6,9 +6,6 @@
 # Install https://github.com/zsh-users/antigen
 #   curl -Lo ~/.zsh_antigen git.io/antigen
 #
-# Set up steps for MacOS
-#   brew install coreutils
-#
 # Set up shell confs
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc
 
