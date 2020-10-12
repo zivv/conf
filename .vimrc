@@ -259,8 +259,6 @@ let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
 " See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
 let g:formatters_bzl = ['buildifier']
 let g:formatdef_buildifier = '"buildifier"'
-" Change the order of formatters for json to use fixjson at first.
-let g:formatters_json = ['fixjson', 'jsbeautify_json', 'prettier']
 
 " Shortcuts for vim-autoformat commands.
 " For Normal, Visual, Select, Operator-pending modes.
