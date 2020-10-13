@@ -91,9 +91,7 @@ Read [.vimrc](.vimrc) to set up.
 
 Copied from .vimrc as following:
 
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    vim -c "PluginInstall" -c q
-    git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
+    The installation for vim-plug and all plugins will be auto triggered.
 
     Install https://github.com/ryanoasis/vim-devicons
       Install https://github.com/ryanoasis/nerd-fonts
@@ -125,7 +123,7 @@ Copied from .vimrc as following:
       #   --gocode-completer
       #   --ts-completer (JavaScript and TypeScript support)
       #   --all (with everything enabled except --clangd-completer)
-      cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+      cd ~/.vim/plugged/YouCompleteMe && ./install.py --clangd-completer
     Install https://github.com/majutsushi/tagbar
       Depend on Exuberant Ctags or Universal Ctags (See https://ctags.io/).
       MacOS:
@@ -142,10 +140,6 @@ Copied from .vimrc as following:
       # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
       # See https://github.com/ckaznocha/protoc-gen-lint.
       go get github.com/ckaznocha/protoc-gen-lint
-    Install https://github.com/tpope/vim-fugitive
-      vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
-    Install https://github.com/fatih/vim-go
-      vim -c "GoInstallBinaries" -c q
 
 ## Update
 

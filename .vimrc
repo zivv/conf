@@ -1,8 +1,6 @@
 " Set up steps ------------------------------------------------------------{{{1
 "
-" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-" vim -c "PluginInstall" -c q
-" git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
+" The installation for vim-plug and all plugins will be auto triggered.
 "
 " Install https://github.com/ryanoasis/vim-devicons
 "   Install https://github.com/ryanoasis/nerd-fonts
@@ -34,7 +32,7 @@
 "   #   --gocode-completer
 "   #   --ts-completer (JavaScript and TypeScript support)
 "   #   --all (with everything enabled except --clangd-completer)
-"   cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+"   cd ~/.vim/plugged/YouCompleteMe && ./install.py --clangd-completer
 " Install https://github.com/majutsushi/tagbar
 "   Depend on Exuberant Ctags or Universal Ctags (See https://ctags.io/).
 "   MacOS:
@@ -51,10 +49,6 @@
 "   # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
 "   # See https://github.com/ckaznocha/protoc-gen-lint.
 "   go get github.com/ckaznocha/protoc-gen-lint
-" Install https://github.com/tpope/vim-fugitive
-"   vim -c "helptags ~/.vim/bundle/vim-fugitive/doc" -c q
-" Install https://github.com/fatih/vim-go
-"   vim -c "GoInstallBinaries" -c q
 "
 "
 " Notes -------------------------------------------------------------------{{{1
@@ -79,53 +73,25 @@ if filereadable(expand('~/.vim_env'))
   source ~/.vim_env
 endif
 
-syntax enable
 
+" vim-plug -- A minimalist Vim plugin manager -----------------------------{{{1
+"          -- https://github.com/junegunn/vim-plug
 
-" Vundle -- manage Vim plugins --------------------------------------------{{{1
-"        -- https://github.com/gmarik/Vundle.vim
+" Automatic installation.
+" See https://github.com/junegunn/vim-plug/wiki/tips.
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
 
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
-
-Plugin 'gmarik/Vundle.vim'
-
-
-" Examples of adding scripts from different repos
-"   scripts on GitHub repos
-"     eg. Plugin 'gmarik/vundle' for http://github.com/gmarik/vundle
-"   scripts from http://vim-scripts.org/vim/scripts.html
-"     eg. Plugin 'L9'
-"   scripts not on GitHub
-"     eg. Plugin 'git://git.wincent.com/command-t.git'
-"   git repos on your local machine (i.e. when working on your own plugin)
-"     eg. Plugin 'file:///home/gmarik/path/to/plugin'
+" Specify a directory for plugins.
+call plug#begin('~/.vim/plugged')
 
 
 " Solarized -- Precision colors for machines and people -------------------{{{2
 "           -- https://github.com/altercation/vim-colors-solarized
-Plugin 'altercation/vim-colors-solarized'
-
-" Required settings.
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-endif
-let g:solarized_termcolors = 256
-colorscheme solarized
-
-
-" VimDevIcons -- Adds file type glyphs/icons to popular Vim plugins -------{{{2
-"             -- https://github.com/ryanoasis/vim-devicons
-"   Need to install a Nerd Font compatible font or patch your own and then set
-"   the terminal font. See
-"   https://github.com/ryanoasis/nerd-fonts#font-installation or
-"   https://github.com/ryanoasis/nerd-fonts#font-patcher.
-Plugin 'ryanoasis/vim-devicons'
+Plug 'altercation/vim-colors-solarized'
 
 
 " Startify -- The fancy start screen for Vim ------------------------------{{{2
@@ -136,7 +102,7 @@ Plugin 'ryanoasis/vim-devicons'
 "     :SSave       save a session
 "     :SDelete[!]  delete a session(If ! is given, you won't get prompted.)
 "     :SClose      close a session
-Plugin 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 
 " Startify settings.
 let g:startify_enable_special         = 0
@@ -169,12 +135,12 @@ nn <silent> gs :tabe<CR>:Startify<CR>
 
 " NERDTree -- A file system explorer for Vim ------------------------------{{{2
 "          -- https://github.com/scrooloose/nerdtree
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " NERDTree plugins.
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " NERDTree settings.
 let g:NERDTreeExactMatchHighlightFullName = 1
@@ -207,7 +173,7 @@ nn [c :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
 "     <C-z> to mark/unmark multiple files and <C-o> to open them
 "     Submit .. (or more dots) to up 1 (or more) level of directory tree
 "     @cd path          change CtrlP's local working directory
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " CtrlP settings.
 " Create file in a new tab when pressing <C-y>.
@@ -232,12 +198,12 @@ nn ;<C-P> :CtrlP
 
 " vim-autoformat -- format code with one button press ---------------------{{{2
 "                -- https://github.com/Chiel92/vim-autoformat
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
 " Vim-autoformat settings.
 " Uncomment to DEBUG.
 "let g:autoformat_verbosemode=1
-" See ~/.vim/bundle/vim-autoformat/plugin/defaults.vim.
+" See ~/.vim/plugged/vim-autoformat/plugin/defaults.vim.
 " Only change the style option to Google.
 let g:formatdef_clangformat = "'clang-format ".
   \ "-lines='.a:firstline.':'.a:lastline.' ".
@@ -273,7 +239,9 @@ aug END
 
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
 "           -- https://github.com/SirVer/ultisnips
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips', {
+    \ 'do': 'git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips'
+    \ }
 
 " Settings for merging snippet filetypes.
 aug UltiSnipsAddFiletypes
@@ -294,13 +262,13 @@ let g:UltiSnipsExpandTrigger = "<C-h>"
 " Snipmate & UltiSnip Snippets -- for UltiSnips
 "   https://github.com/honza/vim-snippets
 "   Seems support <C-p>(or <Tab>) & <C-n> to choose trigger.
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 
 " vim-multiple-cursors -- True Sublime Text style multiple selections -----{{{2
 "                      -- https://github.com/terryma/vim-multiple-cursors
 " TODO(ziv): g:multi_cursor_quit_key & g:multi_cursor_normal_maps not working
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 
 " YCM -- code completion engine -------------------------------------------{{{2
@@ -310,7 +278,7 @@ if filereadable(expand('~/.at_google'))
   " Google-only
 else
   " Non-Google only
-  Plugin 'Valloric/YouCompleteMe'
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 endif
 
 " YCM settings.
@@ -355,7 +323,7 @@ nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
 " Tagbar -- a class outline viewer for Vim --------------------------------{{{2
 "        -- https://github.com/majutsushi/tagbar
 "   Support for additional filetypes: https://github.com/majutsushi/tagbar/wiki
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " Shortcuts for Tagbar commands.
 nn <silent> ;k :TagbarToggle<CR>
@@ -365,7 +333,7 @@ nn <silent> ;k :TagbarToggle<CR>
 "     -- https://github.com/dense-analysis/ale
 "   Supported languages and tools:
 "     https://github.com/dense-analysis/ale/blob/master/supported-tools.md
-Plugin 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 " ALE settings.
 let g:ale_linters = {
@@ -379,7 +347,7 @@ let g:ale_proto_protoc_gen_lint_options = '-I .'
 " NERDCommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
 "               -- https://github.com/scrooloose/nerdcommenter
 "   Useful keys like: `,cl` `,cu`
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
 " NERDCommenter settings.
 let g:NERDBlockComIgnoreEmpty = 0
@@ -389,7 +357,7 @@ let g:NERDSpaceDelims = 1
 
 " Fugitive -- a Git wrapper -----------------------------------------------{{{2
 "          -- https://github.com/tpope/vim-fugitive
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Shortcuts for Fugitive commands.
 " Use `g?` to show help after `;gs`.
@@ -405,7 +373,7 @@ nn <silent> ;gb :Gblame<CR>
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
 "        -- https://github.com/fatih/vim-go
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " Vim-go settings.
 " By default when :GoInstallBinaries is called,
@@ -455,11 +423,30 @@ aug END
 
 " vim-javascript -- Vastly improved JS indentation and syntax support -----{{{2
 "                -- https://github.com/pangloss/vim-javascript
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " Vim-javascript settings.
 " Enables syntax highlighting for Flow (https://flowtype.org/).
 let g:javascript_plugin_flow = 1
+
+
+" VimDevIcons -- Adds file type glyphs/icons to popular Vim plugins -------{{{2
+"             -- https://github.com/ryanoasis/vim-devicons
+"   Need to install a Nerd Font compatible font or patch your own and then set
+"   the terminal font. See
+"   https://github.com/ryanoasis/nerd-fonts#font-installation or
+"   https://github.com/ryanoasis/nerd-fonts#font-patcher.
+" Always load the vim-devicons as the very last one.
+Plug 'ryanoasis/vim-devicons'
+
+
+" Initialize plugin system
+call plug#end()
+
+" Run PlugInstall if there are missing plugins
+if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 
 " Settings ----------------------------------------------------------------{{{1
@@ -553,6 +540,16 @@ set noshowmode
 
 
 " Color settings ----------------------------------------------------------{{{2
+
+" See Solarized.
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
+let g:solarized_termcolors = 256
+colorscheme solarized
+
 set cursorline
 hi CursorLine cterm=none ctermbg=237
 set cursorcolumn
@@ -739,6 +736,3 @@ nn <space>g :ZSwitch <C-R>=expand("%")<CR> \\(_test\\)\\?.go$ .go _test.go<CR>
 if filereadable(expand('~/.vim_local'))
   source ~/.vim_local
 endif
-
-" Enable all the plugins.
-filetype plugin indent on
