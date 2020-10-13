@@ -126,7 +126,7 @@ let g:startify_custom_footer = [
   \ '',
   \ "   Vim is charityware. Please read ':help uganda'.",
   \ '',
-  \ "                           -- ziv @ Feb 2016",
+  \ '                           -- ziv @ Feb 2016',
   \ '']
 
 " Shortcuts for Startify commands.
@@ -209,7 +209,7 @@ let g:formatdef_clangformat = "'clang-format ".
   \ "-lines='.a:firstline.':'.a:lastline.' ".
   \ "--assume-filename=\"'.expand('%:p').'\" ".
   \ "-style=\"{BasedOnStyle: Google, ".
-  \ "          BinPackArguments: false, BinPackParameters: false, ".
+  \ '          BinPackArguments: false, BinPackParameters: false, '.
   \ "          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
 " Default style is 'ansi'.
 " TODO(ziv): Consider if change to use .astylerc conf file.
@@ -240,8 +240,8 @@ aug END
 " UltiSnips -- The ultimate solution for snippets in Vim ------------------{{{2
 "           -- https://github.com/SirVer/ultisnips
 Plug 'SirVer/ultisnips', {
-    \ 'do': 'git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips'
-    \ }
+  \ 'do': 'git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips'
+  \ }
 
 " Settings for merging snippet filetypes.
 aug UltiSnipsAddFiletypes
@@ -251,13 +251,13 @@ aug END
 
 " UltiSnips settings.
 " Default value is <Tab>. Do not use <Tab> if use YouCompleteMe.
-let g:UltiSnipsExpandTrigger = "<C-h>"
+let g:UltiSnipsExpandTrigger = '<C-h>'
 " Default value is <C-Tab>.
-"let g:UltiSnipsListSnippets = "<C-Tab>"
+"let g:UltiSnipsListSnippets = '<C-Tab>'
 " Default value is <C-j>.
-"let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+"let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 " Default value is <C-k>.
-"let g:UltiSnipsJumpBackwardTrigger = "<C-Tab>"
+"let g:UltiSnipsJumpBackwardTrigger = '<C-Tab>'
 
 " Snipmate & UltiSnip Snippets -- for UltiSnips
 "   https://github.com/honza/vim-snippets
@@ -338,7 +338,6 @@ Plug 'dense-analysis/ale'
 " ALE settings.
 let g:ale_linters = {
   \ 'cpp': [''],
-  \ 'proto': ['protoc-gen-lint'],
   \ }
 " Use current path as include path.
 let g:ale_proto_protoc_gen_lint_options = '-I .'
@@ -378,7 +377,7 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Vim-go settings.
 " By default when :GoInstallBinaries is called,
 " the binaries are installed to $GOBIN or $GOPATH/bin. To change it:
-"let g:go_bin_path = expand("~/.gotools")
+"let g:go_bin_path = expand('~/.gotools')
 " Customed syntax highlighting. They are disabled by default. (:h go-syntax)
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
@@ -392,7 +391,7 @@ let g:go_highlight_generate_tags = 1
 let g:go_highlight_variable_declarations = 1
 "let g:go_highlight_variable_assignments = 1
 " Enable goimports to automatically insert import paths instead of gofmt.
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 " Jump to an existing buffer for the split, vsplit and tab mappings of :GoDef.
 let g:go_def_reuse_buffer = 1
 
@@ -445,7 +444,9 @@ call plug#end()
 
 " Run PlugInstall if there are missing plugins
 if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  aug AutoInstall
+    au VimEnter * PlugInstall --sync | source $MYVIMRC
+  aug END
 endif
 
 
@@ -464,6 +465,7 @@ set number
 set relativenumber
 
 set encoding=utf-8
+scriptencoding utf-8
 " gb2312 is windows' default encoding.
 set fileencodings=utf-8,gb2312
 
@@ -557,7 +559,7 @@ hi CursorColumn cterm=none ctermbg=237
 
 " Highlight column 80 as well as 100 and onward.
 " Google java style accepts a column limit of either 80 or 100 characters.
-let &colorcolumn = "80,".join(range(100,256),",")
+let &colorcolumn = '80,'.join(range(100,256),',')
 
 " Highlight during search.
 set hlsearch
@@ -624,7 +626,7 @@ nn <silent> [i :cp<CR>
 nn <silent> [o :cn<CR>
 
 " Just avoid plugins mapping with default key `\`.
-let mapleader = ","
+let mapleader = ','
 " Keep the default behavior of key `;` to other key.
 nn <silent> \ ;
 " Convenient use of pair `\` and `|`.
@@ -701,21 +703,21 @@ nn gf <C-w>gf
 " Similar to :drop, but :drop can only be used in GUI.
 command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
 function s:ZFindBufOrNew(filename)
-  for tabnr in range(tabpagenr("$"))
+  for tabnr in range(tabpagenr('$'))
     for bufnr in tabpagebuflist(tabnr + 1)
       if bufname(bufnr) == a:filename
-        exe "sb " . a:filename
+        exe 'sb ' . a:filename
         return
       endif
     endfor
   endfor
-  exe "tabf " . a:filename
+  exe 'tabf ' . a:filename
 endfunction
 " Open the related file found first.
 command -n=+ ZSwitch call s:ZSwitch(<f-args>)
 function s:ZSwitch(name, pat, ...)
   for sub in a:000
-    let l:file = substitute(a:name, a:pat, sub, "")
+    let l:file = substitute(a:name, a:pat, sub, '')
     if l:file != a:name && filereadable(l:file)
       ZFindBufOrNew l:file
       break
