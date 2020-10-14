@@ -8,7 +8,12 @@ set -ex
 # Open Terminal->Preferences->Colors, set 'Text and Background Color' as
 # 'Solarized dark' and 'Palette' as 'Solarized'.
 
-sudo apt install -y curl python3-pip zsh tmux vim-gtk3 xclip tree git
+# To install vim 8.2:
+# sudo add-apt-repository ppa:jonathonf/vim
+# sudo apt update
+# sudo apt install vim-gtk3=2:8.2\*
+
+sudo apt install -y curl python3-pip zsh tmux xclip tree git
 pip3 install psutil powerline-status trash-cli
 
 # Optional:
@@ -39,19 +44,13 @@ popd
 curl -Lo ~/.dircolors.256dark \
   https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
 
-sh -c "$(curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
-git clone git://github.com/zsh-users/zsh-autosuggestions \
-  $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+curl -Lo ~/.zsh_antigen git.io/antigen
 echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
 
 git clone --depth=1 https://github.com/zivv/conf ~/conf &&
   (cd ~/conf && ./set.sh)
 
 # Recommend: rsync -avhP ~/.vim $SERVER:
-# git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-# vim -c "PluginInstall" -c q
-# git clone https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 
 # Reboot it!
 
