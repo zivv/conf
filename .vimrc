@@ -65,7 +65,7 @@
 "     the command (and CTRL-I to jump forward; see `:h jumplist` for details).
 "
 "   To find unused keys:
-"     for i in {a..z};do;if ! grep \;$i ~/.vimrc>/dev/null;then;echo $i;fi;done
+"     for i in {a..z}; do; grep -q \;$i ~/.vimrc || echo $i; done
 
 
 " Basic environment and setting -------------------------------------------{{{1
@@ -153,11 +153,11 @@ let g:NERDTreeShowLineNumbers = 1
 
 " Shortcuts for NERDTree commands.
 " Switches NERDTree on/off for all tabs.
-nm ;r <plug>NERDTreeTabsToggle<CR>
+nm [n <plug>NERDTreeTabsToggle<CR>
 " Find and reveal the file for the active buffer in the NERDTree window.
 nn [p :NERDTreeFind<CR>:NERDTreeTabsOpen<CR>
 " Open a fresh NERD tree with root as the dir which current file is under.
-nn [c :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
+nn [P :NERDTree %:h<CR>:NERDTreeTabsOpen<CR>
 
 
 " CtrlP -- Fuzzy file, buffer, mru, tag, etc finder -----------------------{{{2
@@ -272,7 +272,6 @@ Plug 'terryma/vim-multiple-cursors'
 
 
 " YCM -- code completion engine -------------------------------------------{{{2
-"     -- require vim 7.3.584+
 "     -- https://github.com/Valloric/YouCompleteMe
 if filereadable(expand('~/.at_google'))
   " Google-only
@@ -290,9 +289,9 @@ endif
 "let g:ycm_key_list_previous_completion = ['<Up>']
 " Default value is 'same-buffer'.
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
-" Global conf file, see YCM's own .ycm_extra_conf.py:
-"   https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
-let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
+" Global conf file, use ycmd's own .ycm_extra_conf.py.
+let g:ycm_global_ycm_extra_conf =
+  \ '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
 " YCM will automatically found '.ycm_extra_conf.py' file in path and ask if it
 " is safe to be loaded. To selectively get YCM to ask/not ask about loading
 " files, put the following line to '.vim_local' and add rules to it.
@@ -310,14 +309,16 @@ let g:ycm_clangd_binary_path = exepath('clangd')
 " Shortcuts for YCM commands.
 " Jump to the header/definition/declaration.
 nn <silent> ;j :YcmCompleter GoTo<CR>
-" Echos the semantic parent of the point under the cursor.
+" Show documentation in a popup at the cursor location.
+nm <silent> ;d <Plug>(YCMHover)
+" Echo the type of the variable or method under the cursor.
 nn <silent> ;v :YcmCompleter GetType<CR>
-" View documentation comments for identifiers.
-nn <silent> ;d :YcmCompleter GetDoc<CR>
-" Attempts to correct the diagnostic closest to the cursor position.
+" Attempt to correct the diagnostic closest to the cursor position.
 nn <silent> ;x :YcmCompleter FixIt<CR>
-" Refresh the diagnostics.
-nn <silent> ;c :YcmForceCompileAndDiagnostics<CR>
+" Find all of the references to the identifier under the cursor.
+nn <silent> ;f :YcmCompleter GoToReferences<CR>
+" Force YCM to immediately recompile and display any new diagnostics.
+nn <silent> ;b :YcmForceCompileAndDiagnostics<CR>
 
 
 " Tagbar -- a class outline viewer for Vim --------------------------------{{{2
@@ -364,7 +365,7 @@ nn <silent> ;gs :Gstatus<CR>
 nn <silent> ;ga :Git add . -A<CR>
 nn <silent> ;gc :Gcommit<CR>
 nn <silent> ;gl :Gpull<CR>
-nn <silent> ;gu :Gpush<CR>
+nn <silent> ;gp :Gpush<CR>
 nn <silent> ;gd :Gvdiff<CR>
 nn <silent> ;gh :Gvdiff HEAD<CR>
 nn <silent> ;gb :Gblame<CR>
@@ -404,7 +405,7 @@ aug GoShortcuts
   au FileType go nm ;j <Plug>(go-def-tab)
   " go run/build/test for the current package.
   au FileType go nm gr <Plug>(go-run)
-  au FileType go nm ;c <Plug>(go-build)
+  au FileType go nm ;b <Plug>(go-build)
   au FileType go nm gt <Plug>(go-test)
   " Beautifully annotated source code to see which functions are covered.
   au FileType go nm gc <Plug>(go-coverage)
@@ -416,7 +417,7 @@ aug GoShortcuts
   " linters are enabled: `vet`, `golint`, and `errcheck`.
   au FileType go nm ;;l <Plug>(go-metalinter)
   " Show all refs to entity denoted by selected identifier.
-  au FileType go nm ;;f <Plug>(go-referrers)
+  au FileType go nm ;f <Plug>(go-referrers)
 aug END
 
 
