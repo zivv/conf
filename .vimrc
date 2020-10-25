@@ -49,6 +49,9 @@
 "   # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
 "   # See https://github.com/ckaznocha/protoc-gen-lint.
 "   go get github.com/ckaznocha/protoc-gen-lint
+"   # Python - flake8. Your Tool For Style Guide Enforcement.
+"   # See https://flake8.pycqa.org/.
+"   pip3 install flake8 flake8-awesome
 "
 "
 " Notes -------------------------------------------------------------------{{{1
@@ -153,7 +156,7 @@ let g:NERDTreeShowLineNumbers = 1
 
 " Shortcuts for NERDTree commands.
 " Switches NERDTree on/off for all tabs.
-nm [n <plug>NERDTreeTabsToggle<CR>
+nm [j <plug>NERDTreeTabsToggle<CR>
 " Find and reveal the file for the active buffer in the NERDTree window.
 nn [p :NERDTreeFind<CR>:NERDTreeTabsOpen<CR>
 " Open a fresh NERD tree with root as the dir which current file is under.
@@ -327,7 +330,7 @@ nn <silent> ;b :YcmForceCompileAndDiagnostics<CR>
 Plug 'majutsushi/tagbar'
 
 " Shortcuts for Tagbar commands.
-nn <silent> ;k :TagbarToggle<CR>
+nn <silent> [k :TagbarToggle<CR>
 
 
 " ALE -- Asynchronous Lint Engine -----------------------------------------{{{2
@@ -505,7 +508,7 @@ source ~/.vim/files/cscope_maps.vim
 aug ZSetting
   au!
   " Special indent.
-  au FileType python set softtabstop=4 | set shiftwidth=4
+  au FileType python set softtabstop=4 | set shiftwidth=4 | set textwidth=79
   au FileType go     set softtabstop=8 | set shiftwidth=8 | set noexpandtab
   au FileType bzl    set softtabstop=4 | set shiftwidth=4
 
@@ -518,7 +521,7 @@ aug ZSetting
   " Filetype detection.
   au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
   au BufRead,BufNewFile *.vim_* set filetype=vim
-  au BufRead,BufNewFile *.BUILD set filetype=bzl
+  au BufRead,BufNewFile *.BUILD,*.bazelrc set filetype=bzl
   " For better syntax highlight. (Looks poor if set ft=dockerfile)
   au BufRead,BufNewFile Dockerfile,*.dockerfile set filetype=config
   au BufRead,BufNewFile *.launch set filetype=xml

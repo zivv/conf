@@ -140,6 +140,9 @@ Copied from .vimrc as following:
       # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
       # See https://github.com/ckaznocha/protoc-gen-lint.
       go get github.com/ckaznocha/protoc-gen-lint
+      # Python - flake8. Your Tool For Style Guide Enforcement.
+      # See https://flake8.pycqa.org/.
+      pip3 install flake8 flake8-awesome
 
 ## Update
 
