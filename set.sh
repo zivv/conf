@@ -14,6 +14,7 @@ files=(
   ".tmux.conf"
   ".vimrc" ".vim" ".gvimrc"
   ".gitconfig" ".gitignore_global"
+  ".config/flake8"
 )
 
 z=(
