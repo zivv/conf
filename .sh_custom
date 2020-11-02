@@ -56,7 +56,7 @@ alias g="git"
 # Update current branch.
 alias gu="(B=\$(g name-rev --name-only HEAD);gco master;gl;gco \$B;grb master)"
 # Always asked when pushing a new branch.
-alias gps="gp --set-upstream origin \$(git symbolic-ref --short HEAD)"
+alias gps="gp -u origin \$(git symbolic-ref --short HEAD)"
 # Check git related aliases in
 # $HOME/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git/README.md.
 alias gdh="g dh"
