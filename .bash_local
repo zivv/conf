@@ -30,5 +30,5 @@ alias gco="git checkout"
 alias grb="git rebase"
 
 alias ta="tmux attach -t"
-alias ts="tmux new-session -s"
+alias tn="tmux new-session -s"
 alias tl="tmux list-sessions"

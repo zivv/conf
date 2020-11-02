@@ -77,6 +77,10 @@ fi
 # Tell Antigen that you're done.
 antigen apply
 
+# Conflict with `ts` tool in moreutils.
+unalias ts
+alias tn="tmux new-session -s"
+
 # Settings for history-substring-search.
 # See $ZSH/plugins/history-substring-search/README.md.
 bindkey '^R' history-substring-search-up
