@@ -25,7 +25,7 @@
   dt = difftool
   dtc = difftool --cached
   dth = difftool HEAD
-  dtl = difftool HEAD~1
+  dtl = difftool HEAD~1 HEAD
 
   l = log
   lf = ls-files
