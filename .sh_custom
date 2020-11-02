@@ -22,7 +22,7 @@ alias v="vim"
 alias vd="vimdiff"
 alias vv="vim ~/conf/.vimrc"
 
-alias tr="tree"
+alias tt="tree"
 
 alias rsync="rsync -avhP"
 
