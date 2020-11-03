@@ -109,8 +109,8 @@ Copied from .vimrc as following:
       # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
       go get github.com/bazelbuild/buildtools/buildifier
       # Shell - shfmt. A shell formatter written in Go supporting POSIX Shell.
-      # See https://github.com/mvdan/sh.
-      go get -u mvdan.cc/sh/cmd/shfmt
+      # See https://github.com/mvdan/sh#shfmt.
+      GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
       # Markdown - remark. A Javascript based markdown processor.
       # See https://github.com/wooorm/remark.
       npm install -g remark-cli
