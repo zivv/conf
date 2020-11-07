@@ -28,6 +28,7 @@ z=(
 locas=(
   "z_lenovo"
   "z_mac"
+  "z_wsl"
 )
 
 z_lenovo=(
@@ -36,6 +37,10 @@ z_lenovo=(
 )
 
 z_mac=(
+  ".vim_local"
+)
+
+z_wsl=(
   ".vim_local"
 )
 

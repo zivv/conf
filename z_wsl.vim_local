@@ -1,0 +1,4 @@
+" TODO(ziv): Using 256 colors is slow. Figure out why since it's normal on SSH
+" server if use 'SSH connections' of Terminus directly.
+let g:solarized_termcolors=16
+colorscheme solarized

@@ -17,9 +17,8 @@ sudo apt install -y curl python3-pip zsh tmux xclip tree git
 pip3 install psutil powerline-status trash-cli
 
 # Optional:
-# sudo apt install -y build-essential cmake exuberant-ctags clang-format
+# sudo apt install -y build-essential cmake gcc g++ exuberant-ctags
 # sudo apt install -y net-tools ibus-pinyin mosh netcat-openbsd moreutils rename
-# pip3 install autopep8
 
 mkdir -p ~/.local/share/fonts
 pushd ~/.local/share/fonts

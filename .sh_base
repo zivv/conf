@@ -25,6 +25,10 @@ LANG="en_US.UTF-8"
 # Custom environment settings.
 [[ -f ~/.sh_env ]] && . ~/.sh_env || true
 
+if [[ -d ~/.local/bin ]] && ! echo $PATH | grep -q "$HOME/.local/bin"; then
+  PATH="$HOME/.local/bin:$PATH"
+fi
+
 # For MacOS.
 if [[ $(uname) == "Darwin" ]]; then
   if [[ $_z_has_coreutils -eq 0 ]]; then
