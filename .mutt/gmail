@@ -1,0 +1,8 @@
+set from = "zivvv0@gmail.com"
+set realname = "Zi Ye"
+
+set imap_user = "zivvv0@gmail.com"
+set imap_pass = "[Please insert the password]"
+
+set smtp_url = "smtps://zivvv0@smtp.gmail.com"
+set smtp_pass = "[Please insert the password]"
