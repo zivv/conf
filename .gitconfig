@@ -25,6 +25,7 @@
   dt = difftool
   dtc = difftool --cached
   dth = difftool HEAD
+  dthh = difftool HEAD~1
   dtl = difftool HEAD~1 HEAD
 
   l = log
