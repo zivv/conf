@@ -45,6 +45,7 @@ curl -Lo ~/.dircolors.256dark \
 
 curl -Lo ~/.zsh_antigen git.io/antigen
 echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
+chsh -s $(which zsh)
 
 git clone --depth=1 https://github.com/zivv/conf ~/conf &&
   (cd ~/conf && ./set.sh)
