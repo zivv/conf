@@ -8,6 +8,8 @@ set -e
 # Use newline instead of default setting which includes space.
 IFS=$(echo -en "\n\b")
 
+cd $(dirname $(realpath "$BASH_SOURCE"))
+
 files=(
   ".sh_auto" ".sh_base" ".sh_custom"
   ".bash_local" ".zsh_local"
