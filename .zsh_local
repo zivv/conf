@@ -1,4 +1,4 @@
-# ZSH set up steps
+# ZSH set up steps --------------------------------------------------------{{{1
 #
 # Install zsh and change default shell
 #   sudo apt-get install zsh && chsh -s $(which zsh)
@@ -11,17 +11,20 @@
 
 alias s="source ~/.zshrc"
 
-# Antigen -- The plugin manager for zsh
+# Antigen -- The plugin manager for zsh -----------------------------------{{{1
 #         -- https://github.com/zsh-users/antigen
 
 . ~/.zsh_antigen
 
 # Load the oh-my-zsh's library.
+# https://github.com/ohmyzsh/ohmyzsh
 antigen use oh-my-zsh
 export ZSH=$HOME/.antigen/bundles/robbyrussell/oh-my-zsh
 
 # Load the theme.
 antigen theme agnoster
+
+# oh-my-zsh's plugins -----------------------------------------------------{{{2
 
 # $ZSH/plugins/tmux/README.md
 antigen bundle tmux
@@ -37,6 +40,12 @@ antigen bundle sudo
 antigen bundle colored-man-pages
 # $ZSH/plugins/command-not-found/README.md
 antigen bundle command-not-found
+# $ZSH/plugins/magic-enter/README.md
+antigen bundle magic-enter
+# $ZSH/plugins/systemadmin/README.md
+antigen bundle systemadmin
+# $ZSH/plugins/web-search/README.md
+antigen bundle web-search
 
 # $ZSH/plugins/emoji/README.md
 antigen bundle emoji
@@ -59,23 +68,32 @@ antigen bundle golang
 # $ZSH/plugins/yarn/README.md
 antigen bundle yarn
 
-# https://github.com/zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-completions
-# https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
-# https://github.com/zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-syntax-highlighting
-# $ZSH/plugins/history-substring-search/README.md
-antigen bundle history-substring-search
-
 if [[ $(uname) == "Darwin" ]]; then
   # $ZSH/plugins/osx/README.md
   antigen bundle osx
 fi
 
+# Github plugins ----------------------------------------------------------{{{2
+
+# https://github.com/zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-completions
+# https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
+
+# https://github.com/caarlos0-graveyard/zsh-open-pr
+antigen bundle caarlos0-graveyard/zsh-open-pr
+
+# NOTE: Do not change the order of following plugins.
+# https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
+# $ZSH/plugins/history-substring-search/README.md
+antigen bundle history-substring-search
+
 # Tell Antigen that you're done.
 antigen apply
+
+# Final steps -------------------------------------------------------------{{{1
 
 # Conflict with `ts` tool in moreutils.
 unalias ts
