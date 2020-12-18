@@ -49,14 +49,85 @@ if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
   eval $(dircolors ~/.dircolors.256dark)
 fi
 
-# Local settings ----------------------------------------------------------{{{1
-
-# Shell special.
+# Shell special -----------------------------------------------------------{{{1
 [[ $(ps -p $$ -o comm=) == *bash && -f ~/.bash_local ]] && . ~/.bash_local
 [[ $(ps -p $$ -o comm=) == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
 
-# Common custom settings.
-[[ -f ~/.sh_custom ]] && . ~/.sh_custom || true
+# Custom commands ---------------------------------------------------------{{{1
+#   Use "unalias" to cancle.
 
-# Work environment special.
+# Always keep `conf` dir under $HOME :)
+alias ss="(cd ~/conf; ./set.sh)"
+
+# To avoid misops, please use trash-cli or other similar tools instead.
+alias rm="echo 'This is not the command you are looking for.'; false"
+# trash-cli -- Command Line Interface to FreeDesktop.org Trash.
+#           -- https://github.com/andreafrancia/trash-cli
+#   Supported commands:
+#       trash-put           trashes files and directories.
+#       trash-empty         empty the trashcan(s).
+#       trash-list          list trashed file.
+#       trash-restore       restore a trashed file.
+#       trash-rm            remove individual files from trash can.
+#   Note if found segfault, check issue #52 and try to fetch pull request #53.
+alias t="trash-put"
+
+alias v="vim"
+alias vd="vimdiff"
+alias vv="vim ~/conf/.vimrc"
+
+alias tt="tree"
+
+alias rsync="rsync -avhP"
+
+alias ms="mysql.server start"
+alias mr="mysql -u root -p"
+
+alias nb="(cd $WORK/notebook && jupyter notebook --port 9883 >/dev/null 2>&1 &)"
+alias knb="pkill -f notebook"
+
+alias spd="supervisord"
+alias spc="supervisorctl"
+
+if [[ $(uname) == "Linux" ]]; then
+  alias o="xdg-open >/dev/null"
+fi
+
+if [[ $(uname) == "Darwin" ]]; then
+  if [[ $_z_has_coreutils -eq 0 ]]; then
+    alias ls="ls -F --show-control-chars --color=auto"
+  fi
+fi
+
+# Check directory related aliases in
+# $HOME/.antigen/bundles/robbyrussell/oh-my-zsh/lib/directories.zsh.
+alias l="ls"
+alias ll="ls -lh"
+alias la="ls -A"
+alias lla="ls -lhA"
+
+alias g="git"
+# Update current branch.
+alias gu="(B=\$(g name-rev --name-only HEAD);gco master;gl;gco \$B;grb master)"
+# Always asked when pushing a new branch.
+alias gps="gp -u origin \$(git symbolic-ref --short HEAD)"
+# Check git related aliases in
+# $HOME/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git/README.md.
+alias gdh="g dh"
+alias gdc="g dc"
+alias gdt="g dt"
+alias ga.="g a ."
+alias gcx="g co --"
+alias gcx.="g co -- ."
+alias gcm="g ci -m"
+alias gca="g ci --amend"
+alias grh="g rh"
+alias glf="g lfs"
+
+alias dk="docker"
+
+# To find more: https://kubernetes.io/docs/reference/kubectl/cheatsheet/.
+alias kak='kubectl apply -k'
+
+# Work environment special ------------------------------------------------{{{1
 [[ -f ~/.sh_local ]] && . ~/.sh_local || true
