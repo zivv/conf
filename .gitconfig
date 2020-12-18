@@ -11,7 +11,7 @@
 [merge]
   tool = vimdiff
 [difftool]
-  prompt = false
+  prompt = true
 [alias]
   a = add
   br = branch
