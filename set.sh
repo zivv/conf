@@ -11,17 +11,17 @@ IFS=$(echo -en "\n\b")
 cd $(dirname $(realpath "$BASH_SOURCE"))
 
 files=(
-  ".sh_auto" ".sh_base" ".bash_local" ".zsh_local"
-  ".tmux.conf"
-  ".vimrc" ".vim" ".gvimrc"
-  ".gitconfig" ".gitignore_global"
-  ".config/flake8"
-  ".mutt/muttrc"
+  ".sh_auto" ".sh_base" "bash:.bash_local" "zsh:.zsh_local"
+  "tmux:.tmux.conf"
+  "vim:.vimrc" "vim:.vim" "vim:.gvimrc"
+  "git:.gitconfig" "git:.gitignore_global"
+  "flake8:.config/flake8"
+  "mutt:.mutt/muttrc"
 )
 
 z=(
   ".sh_env"
-  ".gitconfig_local"
+  "git:.gitconfig_local"
   # TODO(ziv): Too old. Need to check update.
   #".mongorc.js"
   #".octaverc"
@@ -35,15 +35,15 @@ locas=(
 
 z_lenovo=(
   ".sh_local"
-  ".vim_path"
+  "vim:.vim_path"
 )
 
 z_mac=(
-  ".vim_local"
+  "vim:.vim_local"
 )
 
 z_wsl=(
-  ".vim_local"
+  "vim:.vim_local"
 )
 
 declare -A colors=(
@@ -60,7 +60,7 @@ function auto() {
   mkdir -p tmp/
   >tmp/.sh_auto
   for line in $(cat .sh_auto); do
-    if [[ $line =~ ^#.* ]]; then
+    if [[ "$line" =~ ^#.* ]]; then
       # Copy comments.
       echo $line >>tmp/.sh_auto
     else
@@ -93,7 +93,7 @@ function cp_file() {
     return 1
   fi
 
-  if [[ $2 =~ "/" ]]; then
+  if [[ "$2" =~ "/" ]]; then
     dir=${2%/*}
     if [[ ! -d $dir ]]; then
       mkdir -p $dir
@@ -113,13 +113,21 @@ function cp_file() {
 # cp_files "prefix" "path1 path2 ..."
 function cp_files() {
   for path in $2; do
+    if [[ "$path" =~ ":" ]]; then
+      req=${path%:*}
+      path=${path##*:}
+      if ! which $req >/dev/null; then
+        color yellow echo "Skip path: $path"
+        continue
+      fi
+    fi
     if [[ -d $path ]]; then
       for file in $(find $path -type f); do
         cp_file $file $HOME/$file
       done
     else
       file=$path
-      if [[ $file =~ "/" ]]; then
+      if [[ "$file" =~ "/" ]]; then
         file=${file%/*}/$1${file##*/}
       else
         file=$1$file
@@ -132,7 +140,7 @@ function cp_files() {
 for loca in ${locas[*]}; do
   if [[ -f ~/.at_$loca ]]; then
     # Your place! \o/
-    if [[ $loca =~ ^z_ ]]; then
+    if [[ "$loca" =~ ^z_ ]]; then
       cp_files "" "${z[*]}"
     fi
 
