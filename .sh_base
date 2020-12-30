@@ -1,11 +1,8 @@
 # Set up steps ------------------------------------------------------------{{{1
 #
-# Install github.com/seebi/dircolors-solarized
-#   curl -Lo ~/.dircolors.256dark \
+# Install https://github.com/seebi/dircolors-solarized
+#   curl -Lo ~/.dircolors.256dark \\
 #     https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
-#
-# Install github.com/andreafrancia/trash-cli
-#   pip3 install trash-cli
 #
 # Set up steps for MacOS
 #   brew install bash coreutils
@@ -13,6 +10,25 @@
 # If using zsh, read .zsh_local to set up.
 # If using bash:
 #   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
+#
+# Recommended tools:
+#   Install https://github.com/andreafrancia/trash-cli
+#     pip3 install trash-cli
+#   Install https://github.com/junegunn/fzf
+#     git clone --depth 1 https://github.com/junegunn/fzf.git /tmp/.fzf
+#     /tmp/.fzf/install --key-bindings --completion --no-update-rc
+#   Install https://github.com/sharkdp/fd
+#     See https://github.com/sharkdp/fd#installation.
+#     Try `fd-find` / `fd` for package manager or check https://github.com/sharkdp/fd/releases.
+#   Install https://github.com/BurntSushi/ripgrep
+#     See https://github.com/BurntSushi/ripgrep#installation.
+#     Try `ripgrep` for package manager or check https://github.com/BurntSushi/ripgrep/releases.
+#   Install https://github.com/sharkdp/bat
+#     See https://github.com/sharkdp/bat#installation.
+#     Try `bat` for package manager or check https://github.com/sharkdp/bat/releases.
+#   Install https://github.com/jez/as-tree
+#     See https://github.com/jez/as-tree#install.
+#     Check https://github.com/jez/as-tree/releases.
 
 # Basic environment settings ----------------------------------------------{{{1
 export WORK="$HOME/work"
@@ -50,8 +66,19 @@ if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
 fi
 
 # Shell special -----------------------------------------------------------{{{1
-[[ $(ps -p $$ -o comm=) == *bash && -f ~/.bash_local ]] && . ~/.bash_local
-[[ $(ps -p $$ -o comm=) == *zsh && -f ~/.zsh_local ]] && . ~/.zsh_local
+#   NOTE: Source fzf by shell at here also.
+
+# If using bash.
+if [[ $(ps -p $$ -o comm=) == *bash && -f ~/.bash_local ]]; then
+  . ~/.bash_local
+  [[ -f ~/.fzf.bash ]] && . ~/.fzf.bash || true
+fi
+
+# If using zsh.
+if [[ $(ps -p $$ -o comm=) == *zsh && -f ~/.zsh_local ]]; then
+  . ~/.zsh_local
+  [[ -f ~/.fzf.zsh ]] && . ~/.fzf.zsh || true
+fi
 
 # Custom commands ---------------------------------------------------------{{{1
 #   Use "unalias" to cancle.
@@ -59,9 +86,7 @@ fi
 # Always keep `conf` dir under $HOME :)
 alias ss="(cd ~/conf; ./set.sh)"
 
-# To avoid misops, please use trash-cli or other similar tools instead.
-alias rm="echo 'This is not the command you are looking for.'; false"
-# trash-cli -- Command Line Interface to FreeDesktop.org Trash.
+# trash-cli -- Command Line Interface to FreeDesktop.org Trash
 #           -- https://github.com/andreafrancia/trash-cli
 #   Supported commands:
 #       trash-put           trashes files and directories.
@@ -70,7 +95,11 @@ alias rm="echo 'This is not the command you are looking for.'; false"
 #       trash-restore       restore a trashed file.
 #       trash-rm            remove individual files from trash can.
 #   Note if found segfault, check issue #52 and try to fetch pull request #53.
-alias t="trash-put"
+if which trash-put >/dev/null; then
+  # To avoid misops, please use trash-cli or other similar tools instead.
+  alias rm="echo 'This is not the command you are looking for.'; false"
+  alias t="trash-put"
+fi
 
 alias v="vim"
 alias vd="vimdiff"
@@ -128,6 +157,86 @@ alias dk="docker"
 
 # To find more: https://kubernetes.io/docs/reference/kubectl/cheatsheet/.
 alias kak='kubectl apply -k'
+
+# bat -- A cat clone with syntax highlighting and Git integration
+#     -- https://github.com/sharkdp/bat
+if which bat >/dev/null; then
+  # https://github.com/sharkdp/bat#highlighting-theme
+  export BAT_THEME="Solarized (dark)"
+  # https://github.com/sharkdp/bat#man
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# fzf -- General-purpose command-line fuzzy finder ------------------------{{{2
+#     -- https://github.com/junegunn/fzf
+#   Search syntax: https://github.com/junegunn/fzf#search-syntax
+#   Useful examples: https://github.com/junegunn/fzf/wiki/examples
+
+# Configure default layout & key bindings.
+FZF_DEFAULT_OPTS="--height=99% --reverse --inline-info \
+  --bind page-up:preview-page-up,page-down:preview-page-down"
+
+# Use fd instead of the default find command to traverse the file system.
+if which fd >/dev/null; then
+  FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git \
+    --color=always"
+  FZF_DEFAULT_OPTS+=" --ansi"
+  FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+# Configure shell key bindings --------------------------------------------{{{3
+#   https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings
+
+# CTRL-R - Paste the selected command from history onto the command-line
+#   If you want to see the commands in chronological order, press CTRL-R again
+#   which toggles sorting by relevance.
+# Bind ? key for toggling the preview window.
+FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap \
+  --bind '?:toggle-preview'"
+
+# CTRL-T - Paste the selected files and directories onto the command-line
+# Preview the content of the file under the cursor.
+if which bat >/dev/null; then
+  FZF_CTRL_T_OPTS+=" --preview '(bat {} --color=always || tree -C {}) 2>/dev/null'"
+else
+  FZF_CTRL_T_OPTS+=" --preview '(cat {} || tree -C {}) 2>/dev/null'"
+fi
+# Automatically selects the item if only one & automatically exits if empty.
+FZF_CTRL_T_OPTS+=" --select-1 --exit-0"
+
+# ALT-C - cd into the selected directory
+# Uses tree command to show the entries of the directory.
+FZF_ALT_C_OPTS+=" --preview 'tree -aC {}'"
+# Automatically selects the item if only one & automatically exits if empty.
+FZF_ALT_C_OPTS+=" --select-1 --exit-0"
+
+# Fuzzy completion for bash and zsh ---------------------------------------{{{3
+#   https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
+
+if which fd >/dev/null; then
+  # Use fd instead of the default find command for listing path candidates.
+  _fzf_compgen_path() {
+    fd --color=always --hidden --follow --exclude ".git" . "$1"
+  }
+  # Use fd to generate the list for directory completion.
+  _fzf_compgen_dir() {
+    fd --color=always --type d --hidden --follow --exclude ".git" . "$1"
+  }
+  FZF_COMPLETION_OPTS+=" --ansi"
+fi
+
+# Advanced customization of fzf options via _fzf_comprun function.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+  cd) fzf "$@" --preview 'tree -aC {}' ;;
+  export | unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+  ssh) fzf "$@" --preview 'dig {}' ;;
+  *) fzf "$@" ;;
+  esac
+}
 
 # Work environment special ------------------------------------------------{{{1
 [[ -f ~/.sh_local ]] && . ~/.sh_local || true
