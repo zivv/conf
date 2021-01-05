@@ -5,6 +5,7 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
+  pager = delta
 [diff]
   tool = vimdiff
   submodule = log
@@ -25,8 +26,8 @@
   dt = difftool
   dtc = difftool --cached
   dth = difftool HEAD
-  dthh = difftool HEAD~1
   dtl = difftool HEAD~1 HEAD
+  dthh = difftool HEAD~1
 
   l = log
   lf = ls-files
@@ -59,3 +60,6 @@
   required = true
 [status]
   submodulesummary = 1
+[delta]
+  syntax-theme = Solarized (dark)
+  side-by-side = true
