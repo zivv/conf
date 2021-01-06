@@ -1,13 +1,13 @@
 # ZSH set up steps --------------------------------------------------------{{{1
 #
 # Install zsh and change default shell
-#   sudo apt-get install zsh && chsh -s $(which zsh)
+#   sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
 #
 # Install https://github.com/zsh-users/antigen
 #   curl -Lo ~/.zsh_antigen git.io/antigen
 #
 # Set up shell confs
-#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.zshrc && source ~/.zshrc
+#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
 
 alias s="source ~/.zshrc"
 
@@ -95,14 +95,13 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
 
-if [[ -d $HOME/.fzf ]]; then
+if [[ -f $HOME/.fzf.zsh ]]; then
   # https://github.com/changyuheng/fz
   antigen bundle changyuheng/fz
 
   # https://github.com/bigH/git-fuzzy
   antigen bundle bigH/git-fuzzy
   PATH="$PATH:$HOME/.antigen/bundles/bigH/git-fuzzy/bin"
-  export FZF_DEFAULT_OPTS
 fi
 
 # https://github.com/caarlos0-graveyard/zsh-open-pr
