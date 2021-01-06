@@ -58,15 +58,31 @@ Copied from .sh_base as following:
       curl -Lo ~/.dircolors.256dark \
         https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
 
-    Install github.com/andreafrancia/trash-cli
-      pip3 install trash-cli
-
     Set up steps for MacOS
       brew install bash coreutils
 
     If using zsh, read .zsh_local to set up.
     If using bash:
       echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
+
+    Recommended tools:
+      Install https://github.com/andreafrancia/trash-cli
+        pip3 install trash-cli
+      Install https://github.com/junegunn/fzf
+        git clone --depth 1 https://github.com/junegunn/fzf.git /tmp/.fzf
+        /tmp/.fzf/install --key-bindings --completion --no-update-rc
+      Install https://github.com/sharkdp/fd
+        See https://github.com/sharkdp/fd#installation.
+        Try `fd-find` / `fd` for package manager or check https://github.com/sharkdp/fd/releases.
+      Install https://github.com/BurntSushi/ripgrep
+        See https://github.com/BurntSushi/ripgrep#installation.
+        Try `ripgrep` for package manager or check https://github.com/BurntSushi/ripgrep/releases.
+      Install https://github.com/sharkdp/bat
+        See https://github.com/sharkdp/bat#installation.
+        Try `bat` for package manager or check https://github.com/sharkdp/bat/releases.
+      Install https://github.com/dandavison/delta
+        See https://github.com/dandavison/delta#installation.
+        Download the tarball from https://github.com/dandavison/delta/releases.
 
 Copied from [.zsh_local](.zsh_local) as following:
 

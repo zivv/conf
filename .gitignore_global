@@ -50,6 +50,7 @@ compile_commands.json
 node_modules/
 
 # Dirs
+/.git/
 /bin/
 /tmp/
 /dist/

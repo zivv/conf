@@ -62,4 +62,6 @@
   submodulesummary = 1
 [delta]
   syntax-theme = Solarized (dark)
-  side-by-side = true
+  # Wait for auto side-by-side based on width:
+  # https://github.com/dandavison/delta/issues/359
+  # side-by-side = true

@@ -19,72 +19,70 @@ alias s="source ~/.zshrc"
 # Load the oh-my-zsh's library.
 # https://github.com/ohmyzsh/ohmyzsh
 antigen use oh-my-zsh
-export ZSH=$HOME/.antigen/bundles/robbyrussell/oh-my-zsh
+export OMZ=$HOME/.antigen/bundles/robbyrussell/oh-my-zsh
 
 # Load the theme.
 antigen theme agnoster
 
 # oh-my-zsh's plugins -----------------------------------------------------{{{2
 
-# $ZSH/plugins/tmux/README.md
+# $OMZ/plugins/tmux/README.md
 antigen bundle tmux
 ZSH_TMUX_AUTOSTART=true
 # Set false to use multiple tmux sessions.
 ZSH_TMUX_AUTOQUIT=false
 
-# $ZSH/plugins/z/README.md
+# $OMZ/plugins/z/README.md
 antigen bundle z
-# $ZSH/plugins/sudo/README.md
+# $OMZ/plugins/sudo/README.md
 antigen bundle sudo
 # Use bat for man pages if exists.
 if ! which bat >/dev/null; then
-  # $ZSH/plugins/colored-man-pages/README.md
+  # $OMZ/plugins/colored-man-pages/README.md
   antigen bundle colored-man-pages
 fi
-# $ZSH/plugins/command-not-found/README.md
+# $OMZ/plugins/command-not-found/README.md
 antigen bundle command-not-found
-# $ZSH/plugins/magic-enter/README.md
+# $OMZ/plugins/magic-enter/README.md
 antigen bundle magic-enter
-# $ZSH/plugins/systemadmin/README.md
+# $OMZ/plugins/systemadmin/README.md
 antigen bundle systemadmin
-# $ZSH/plugins/web-search/README.md
+# $OMZ/plugins/web-search/README.md
 antigen bundle web-search
 
-# $ZSH/plugins/emoji/README.md
-antigen bundle emoji
-# $ZSH/plugins/emotty/README.md
+# $OMZ/plugins/emoji/README.md
+# antigen bundle emoji
+# $OMZ/plugins/emotty/README.md
 # antigen bundle emotty
 
-# $ZSH/plugins/git/README.md
-if which git >/dev/null; then
-  antigen bundle git
-fi
+# $OMZ/plugins/git/README.md
+antigen bundle git
 
-# $ZSH/plugins/docker/README.md
+# $OMZ/plugins/docker/README.md
 if which docker >/dev/null; then
   antigen bundle docker
 fi
-# $ZSH/plugins/docker-compose/README.md
+# $OMZ/plugins/docker-compose/README.md
 if which docker-compose >/dev/null; then
   antigen bundle docker-compose
 fi
-# $ZSH/plugins/kubectl/README.md
+# $OMZ/plugins/kubectl/README.md
 if which kubectl >/dev/null; then
   antigen bundle kubectl
 fi
 
-# $ZSH/plugins/golang/README.md
+# $OMZ/plugins/golang/README.md
 if which go >/dev/null; then
   antigen bundle golang
 fi
 
-# $ZSH/plugins/yarn/README.md
+# $OMZ/plugins/yarn/README.md
 if which yarn >/dev/null; then
   antigen bundle yarn
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
-  # $ZSH/plugins/osx/README.md
+  # $OMZ/plugins/osx/README.md
   antigen bundle osx
 fi
 
@@ -92,21 +90,31 @@ fi
 
 # https://github.com/zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-completions
+
 # https://github.com/zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
 
-# https://github.com/changyuheng/fz
-if which fzf >/dev/null; then
+if [[ -d $HOME/.fzf ]]; then
+  # https://github.com/changyuheng/fz
   antigen bundle changyuheng/fz
+
+  # https://github.com/bigH/git-fuzzy
+  antigen bundle bigH/git-fuzzy
+  PATH="$PATH:$HOME/.antigen/bundles/bigH/git-fuzzy/bin"
+  export FZF_DEFAULT_OPTS
 fi
+
 # https://github.com/caarlos0-graveyard/zsh-open-pr
 antigen bundle caarlos0-graveyard/zsh-open-pr
+
+# https://github.com/djui/alias-tips
+antigen bundle djui/alias-tips
 
 # NOTE: Do not change the order of following plugins.
 # https://github.com/zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-syntax-highlighting
-# $ZSH/plugins/history-substring-search/README.md
+# $OMZ/plugins/history-substring-search/README.md
 antigen bundle history-substring-search
 
 # Tell Antigen that you're done.
@@ -119,9 +127,19 @@ unalias ts
 alias tn="tmux new-session -s"
 
 # Settings for history-substring-search.
-# See $ZSH/plugins/history-substring-search/README.md.
+# See $OMZ/plugins/history-substring-search/README.md.
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=blue,fg=white"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
+
+# Alias for git-fuzzy. Override some aliases of oh-my-zsh's git plugin.
+if which git-fuzzy >/dev/null; then
+  alias gfz="git fuzzy"
+  alias gst="git fuzzy status"
+  alias glg="git fuzzy log"
+  alias grl="git fuzzy reflog"
+  alias gss="git fuzzy stash"
+  alias gd="git fuzzy diff"
+fi
