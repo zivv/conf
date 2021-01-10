@@ -182,7 +182,7 @@ alias vv="vim ~/conf/.vimrc"
 
 alias tt="tree"
 
-alias rsync="rsync -avhP"
+alias rsync="rsync -rlptvhP"
 
 alias ms="mysql.server start"
 alias mr="mysql -u root -p"
