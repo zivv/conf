@@ -73,7 +73,12 @@ fi
 # Configure default layout & key bindings.
 FZF_DEFAULT_OPTS="--height=99% --reverse --inline-info \
   --preview-window right:60%:wrap \
-  --bind page-up:preview-page-up,page-down:preview-page-down"
+  --bind ctrl-j:down,ctrl-k:up \
+  --bind ctrl-d:half-page-down,ctrl-u:half-page-up \
+  --bind ctrl-f:page-down,ctrl-b:page-up \
+  --bind alt-j:preview-down,alt-k:preview-up \
+  --bind alt-d:preview-half-page-down,alt-u:preview-half-page-up \
+  --bind alt-f:preview-page-down,alt-b:preview-page-up"
 
 # Use fd instead of the default find command to traverse the file system.
 if which fd >/dev/null; then

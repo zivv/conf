@@ -45,6 +45,9 @@ fi
 antigen bundle command-not-found
 # $OMZ/plugins/magic-enter/README.md
 antigen bundle magic-enter
+# Use alias to avoid alias tips.
+MAGIC_ENTER_GIT_COMMAND="g st -u"
+MAGIC_ENTER_OTHER_COMMAND="ll"
 # $OMZ/plugins/systemadmin/README.md
 antigen bundle systemadmin
 # $OMZ/plugins/web-search/README.md
@@ -109,6 +112,7 @@ antigen bundle caarlos0-graveyard/zsh-open-pr
 
 # https://github.com/djui/alias-tips
 antigen bundle djui/alias-tips
+export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_"
 
 # NOTE: Do not change the order of following plugins.
 # https://github.com/zsh-users/zsh-syntax-highlighting
@@ -133,12 +137,12 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=blue,fg=white"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
-# Alias for git-fuzzy. Override some aliases of oh-my-zsh's git plugin.
+# Alias for git-fuzzy.
 if which git-fuzzy >/dev/null; then
   alias gfz="git fuzzy"
-  alias gst="git fuzzy status"
-  alias glg="git fuzzy log"
-  alias grl="git fuzzy reflog"
-  alias gss="git fuzzy stash"
-  alias gd="git fuzzy diff"
+  alias gfs="git fuzzy status"
+  alias gfl="git fuzzy log"
+  alias gfr="git fuzzy reflog"
+  alias gfh="git fuzzy stash"
+  alias gfd="git fuzzy diff"
 fi
