@@ -30,5 +30,5 @@ if [[ $INIT == 1 ]]; then
 fi
 
 echo "Copying files ..."
-DIR=$(cd $(dirname $0) && pwd)/for_server
+DIR=$(dirname $(realpath "$BASH_SOURCE"))/for_server
 rsync -vcharz --progress -L $DIR/.??* $SERVER:
