@@ -141,6 +141,7 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=true
 if which git-fuzzy >/dev/null; then
   alias gfz="git fuzzy"
   alias gfs="git fuzzy status"
+  alias gfb="git fuzzy branch"
   alias gfl="git fuzzy log"
   alias gfr="git fuzzy reflog"
   alias gfh="git fuzzy stash"
