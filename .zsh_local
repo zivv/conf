@@ -126,7 +126,7 @@ antigen apply
 # Final steps -------------------------------------------------------------{{{1
 
 # Conflict with `ts` tool in moreutils.
-unalias ts
+unalias ts || true
 alias tn="tmux new-session -s"
 
 # Settings for history-substring-search.
