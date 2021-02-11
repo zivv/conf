@@ -1,7 +1,10 @@
 # ZSH set up steps --------------------------------------------------------{{{1
 #
 # Install zsh and change default shell
-#   sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+#   MacOS:
+#     brew install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+#   Linux:
+#     sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
 #
 # Install https://github.com/zsh-users/antigen
 #   curl -Lo ~/.zsh_antigen git.io/antigen

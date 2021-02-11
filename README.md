@@ -74,8 +74,12 @@ Copied from .sh_base as following:
       Install https://github.com/andreafrancia/trash-cli
         pip3 install trash-cli
       Install https://github.com/junegunn/fzf
-        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-        ~/.fzf/install --key-bindings --completion --no-update-rc
+        MacOS:
+          brew install fzf
+          $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc
+        Linux:
+          git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+          ~/.fzf/install --key-bindings --completion --no-update-rc
       Install https://github.com/sharkdp/fd
         See https://github.com/sharkdp/fd#installation.
         Try `fd-find` / `fd` for package manager or check https://github.com/sharkdp/fd/releases.
@@ -92,7 +96,10 @@ Copied from .sh_base as following:
 Copied from [.zsh_local](.zsh_local) as following:
 
     Install zsh and change default shell
-      sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+      MacOS:
+        brew install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+      Linux:
+        sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
 
     Install https://github.com/zsh-users/antigen
       curl -Lo ~/.zsh_antigen git.io/antigen

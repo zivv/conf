@@ -15,8 +15,12 @@
 #   Install https://github.com/andreafrancia/trash-cli
 #     pip3 install trash-cli
 #   Install https://github.com/junegunn/fzf
-#     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-#     ~/.fzf/install --key-bindings --completion --no-update-rc
+#     MacOS:
+#       brew install fzf
+#       $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc
+#     Linux:
+#       git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+#       ~/.fzf/install --key-bindings --completion --no-update-rc
 #   Install https://github.com/sharkdp/fd
 #     See https://github.com/sharkdp/fd#installation.
 #     Try `fd-find` / `fd` for package manager or check https://github.com/sharkdp/fd/releases.
