@@ -22,11 +22,11 @@
   d = diff
   dc = diff --cached
   dh = diff HEAD
+  dhh = diff HEAD~1
   dl = diff HEAD~1 HEAD
   dt = difftool
   dtc = difftool --cached
   dth = difftool HEAD
-  dtl = difftool HEAD~1 HEAD
   dthh = difftool HEAD~1
 
   l = log
