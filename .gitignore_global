@@ -1,6 +1,13 @@
 # To add this to the config, run:
 # git config --global core.excludesfile ~/.gitignore_global
 
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
 # Compiled source
 *.pyc
 *.class
@@ -21,6 +28,9 @@
 .*.swo
 # Gedit swapfiles
 *~
+# JetBrains IDEs' settings
+# https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+.idea
 
 # Logs and databases
 *.log
