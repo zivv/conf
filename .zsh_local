@@ -16,6 +16,7 @@ alias s="source ~/.zshrc"
 
 # Antigen -- The plugin manager for zsh -----------------------------------{{{1
 #         -- https://github.com/zsh-users/antigen
+# TODO(ziv): Dead project? https://github.com/zsh-users/antigen/issues/725
 
 . ~/.zsh_antigen
 
@@ -127,6 +128,10 @@ antigen bundle history-substring-search
 antigen apply
 
 # Final steps -------------------------------------------------------------{{{1
+
+# Fix broken completion: https://github.com/zsh-users/antigen/issues/603
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
 
 # Conflict with `ts` tool in moreutils.
 unalias ts || true
