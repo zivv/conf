@@ -116,7 +116,7 @@ function cp_files() {
     if [[ "$path" =~ ":" ]]; then
       req=${path%:*}
       path=${path##*:}
-      if ! which $req >/dev/null; then
+      if ! command -v $req >/dev/null; then
         color yellow echo "Skip path: $path"
         continue
       fi

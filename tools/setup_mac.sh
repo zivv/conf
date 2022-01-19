@@ -20,8 +20,8 @@ fi
 brew install fzf fd ripgrep bat git-delta
 $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc
 
-if ! which zsh >/dev/null; then
-  brew install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+if ! command -v zsh >/dev/null; then
+  brew install zsh && touch ~/.zshrc && chsh -s $(command -v zsh)
   curl -Lo ~/.zsh_antigen git.io/antigen
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
 fi

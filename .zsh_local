@@ -2,9 +2,9 @@
 #
 # Install zsh and change default shell
 #   MacOS:
-#     brew install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+#     brew install zsh && touch ~/.zshrc && chsh -s $(command -v zsh)
 #   Linux:
-#     sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+#     sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(command -v zsh)
 #
 # Install https://github.com/zsh-users/antigen
 #   curl -Lo ~/.zsh_antigen git.io/antigen
@@ -41,7 +41,7 @@ antigen bundle z
 # $OMZ/plugins/sudo/README.md
 antigen bundle sudo
 # Use bat for man pages if exists.
-if ! which bat >/dev/null; then
+if ! command -v bat >/dev/null; then
   # $OMZ/plugins/colored-man-pages/README.md
   antigen bundle colored-man-pages
 fi
@@ -66,25 +66,25 @@ antigen bundle web-search
 antigen bundle git
 
 # $OMZ/plugins/docker/README.md
-if which docker >/dev/null; then
+if command -v docker >/dev/null; then
   antigen bundle docker
 fi
 # $OMZ/plugins/docker-compose/README.md
-if which docker-compose >/dev/null; then
+if command -v docker-compose >/dev/null; then
   antigen bundle docker-compose
 fi
 # $OMZ/plugins/kubectl/README.md
-if which kubectl >/dev/null; then
+if command -v kubectl >/dev/null; then
   antigen bundle kubectl
 fi
 
 # $OMZ/plugins/golang/README.md
-if which go >/dev/null; then
+if command -v go >/dev/null; then
   antigen bundle golang
 fi
 
 # $OMZ/plugins/yarn/README.md
-if which yarn >/dev/null; then
+if command -v yarn >/dev/null; then
   antigen bundle yarn
 fi
 
@@ -146,7 +146,7 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
 # Alias for git-fuzzy.
-if which git-fuzzy >/dev/null; then
+if command -v git-fuzzy >/dev/null; then
   alias gfz="git fuzzy"
   alias gfs="git fuzzy status"
   alias gfb="git fuzzy branch"

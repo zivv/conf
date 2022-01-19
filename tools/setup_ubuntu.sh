@@ -37,7 +37,7 @@ if [[ ! -d ~/.fzf ]]; then
   ~/.fzf/install --key-bindings --completion --no-update-rc
 fi
 # https://github.com/sharkdp/fd
-if ! which fd >/dev/null; then
+if ! command -v fd >/dev/null; then
   sudo apt install fd-find || (
     # https://github.com/sharkdp/fd/releases
     curl -Lo /tmp/fd.deb github.com/sharkdp/fd/releases/download/v8.1.1/fd_8.1.1_amd64.deb
@@ -45,27 +45,27 @@ if ! which fd >/dev/null; then
   )
 fi
 # https://github.com/BurntSushi/ripgrep
-if ! which rg >/dev/null; then
+if ! command -v rg >/dev/null; then
   curl -Lo /tmp/rg.deb \
     https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb
   sudo dpkg -i /tmp/rg.deb
 fi
 # https://github.com/sharkdp/bat
-if ! which bat >/dev/null; then
+if ! command -v bat >/dev/null; then
   curl -Lo /tmp/bat.deb \
     https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
   sudo dpkg -i /tmp/bat.deb
 fi
 # https://github.com/dandavison/delta
-if ! which delta >/dev/null; then
+if ! command -v delta >/dev/null; then
   curl -Lo /tmp/delta.tar.gz \
     https://github.com/dandavison/delta/releases/download/0.5.0/delta-0.5.0-x86_64-unknown-linux-gnu.tar.gz
   tar xvf /tmp/delta.tar.gz -C /tmp
   sudo mv /tmp/delta-0.5.0-x86_64-unknown-linux-gnu/delta /usr/local/bin
 fi
 
-if ! which zsh >/dev/null; then
-  sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
+if ! command -v zsh >/dev/null; then
+  sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(command -v zsh)
   curl -Lo ~/.zsh_antigen git.io/antigen
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
 fi

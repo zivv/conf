@@ -85,7 +85,7 @@ FZF_DEFAULT_OPTS="--height=99% --reverse --inline-info \
   --bind alt-f:preview-page-down,alt-b:preview-page-up"
 
 # Use fd instead of the default find command to traverse the file system.
-if which fd >/dev/null; then
+if command -v fd >/dev/null; then
   FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git \
     --color=always"
   FZF_DEFAULT_OPTS+=" --ansi"
@@ -104,7 +104,7 @@ FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap \
 
 # CTRL-T - Paste the selected files and directories onto the command-line
 # Preview the content of the file under the cursor.
-if which bat >/dev/null; then
+if command -v bat >/dev/null; then
   FZF_CTRL_T_OPTS+=" --preview 'bat {} --color=always --style=numbers'"
 else
   FZF_CTRL_T_OPTS+=" --preview '(cat {} || tree -C {}) 2>/dev/null'"
@@ -121,7 +121,7 @@ FZF_ALT_C_OPTS+=" --select-1 --exit-0"
 # Fuzzy completion for bash and zsh ---------------------------------------{{{2
 #   https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
 
-if which fd >/dev/null; then
+if command -v fd >/dev/null; then
   # Use fd instead of the default find command for listing path candidates.
   _fzf_compgen_path() {
     fd --color=always --hidden --follow --exclude ".git" . "$1"
@@ -179,7 +179,7 @@ alias ss="(cd ~/conf; ./set.sh)"
 #       trash-restore       restore a trashed file.
 #       trash-rm            remove individual files from trash can.
 #   Note if found segfault, check issue #52 and try to fetch pull request #53.
-if which trash-put >/dev/null; then
+if command -v trash-put >/dev/null; then
   # To avoid misops, please use trash-cli or other similar tools instead.
   alias rm="echo 'This is not the command you are looking for.'; false"
   alias t="trash-put"
@@ -250,7 +250,7 @@ alias kdf="kubectl diff -f"
 
 # bat -- A cat clone with syntax highlighting and Git integration
 #     -- https://github.com/sharkdp/bat
-if which bat >/dev/null; then
+if command -v bat >/dev/null; then
   # https://github.com/sharkdp/bat#highlighting-theme
   export BAT_THEME="Solarized (dark)"
   # https://github.com/sharkdp/bat#man
@@ -259,7 +259,7 @@ fi
 
 # ripgrep -- A regex pattern search tool respecting gitignore
 #         -- https://github.com/BurntSushi/ripgrep
-if which rg >/dev/null; then
+if command -v rg >/dev/null; then
   alias rg="rg --hidden --smart-case"
   # See https://github.com/junegunn/fzf#3-interactive-ripgrep-integration.
   rgf() {
