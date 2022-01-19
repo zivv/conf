@@ -152,17 +152,10 @@ _fzf_comprun() {
 
 export FZF_DEFAULT_OPTS
 
-# If using bash.
-if [[ $(ps -p $$ -o comm=) == *bash ]]; then
-  [[ -f ~/.bash_local ]] && . ~/.bash_local || true
-  [[ -f ~/.fzf.bash ]] && . ~/.fzf.bash || true
-fi
-
-# If using zsh.
-if [[ $(ps -p $$ -o comm=) == *zsh ]]; then
-  [[ -f ~/.zsh_local ]] && . ~/.zsh_local || true
-  [[ -f ~/.fzf.zsh ]] && . ~/.fzf.zsh || true
-fi
+# Get current shell.
+SH=$(ps -p $$ -o comm=)
+[[ -f ~/.${SH}_local ]] && . ~/.${SH}_local || true
+[[ -f ~/.fzf.${SH} ]] && . ~/.fzf.${SH} || true
 
 # Custom commands ---------------------------------------------------------{{{1
 #   Use "unalias" to cancle.
@@ -269,6 +262,14 @@ if command -v rg >/dev/null; then
       fzf --bind "change:reload:$RG_PREFIX {q} || true" \
       --ansi --phony --query "$INITIAL_QUERY"
   }
+fi
+
+# Load auto-completion files ----------------------------------------------{{{1
+export COMPLETION_DIR=${COMPLETION_DIR:-$HOME/.completion}
+if [[ -d $COMPLETION_DIR ]]; then
+  for f in $(find $COMPLETION_DIR -type f -name "*.$SH"); do
+    . $f
+  done
 fi
 
 # Work environment special ------------------------------------------------{{{1
