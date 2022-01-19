@@ -244,6 +244,9 @@ alias dk="docker"
 
 # To find more: https://kubernetes.io/docs/reference/kubectl/cheatsheet/.
 alias kak="kubectl apply -k"
+alias kg="kubectl get -o wide"
+alias kd="kubectl describe"
+alias kdf="kubectl diff -f"
 
 # bat -- A cat clone with syntax highlighting and Git integration
 #     -- https://github.com/sharkdp/bat
