@@ -22,6 +22,7 @@
 *.rar
 *.tar
 *.zip
+*.tgz
 
 # Vim swapfiles
 .*.swp
