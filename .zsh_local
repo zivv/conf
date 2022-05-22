@@ -1,148 +1,147 @@
 # ZSH set up steps --------------------------------------------------------{{{1
 #
-# Install zsh and change default shell
-#   MacOS:
-#     brew install zsh && touch ~/.zshrc && chsh -s $(command -v zsh)
-#   Linux:
-#     sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(command -v zsh)
-#
-# Install https://github.com/zsh-users/antigen
-#   curl -Lo ~/.zsh_antigen git.io/antigen
-#
-# Set up shell confs
-#   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
+# Run `tools/setup-zsh.sh`.
 
 alias s="source ~/.zshrc"
 
-# Antigen -- The plugin manager for zsh -----------------------------------{{{1
-#         -- https://github.com/zsh-users/antigen
-# TODO(ziv): Dead project? https://github.com/zsh-users/antigen/issues/725
+# oh-my-zsh -- framework for managing your zsh configuration --------------{{{1
+#           -- https://github.com/robbyrussell/oh-my-zsh
 
-. ~/.zsh_antigen
+# Set name of the theme to load.
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes.
+ZSH_THEME="agnoster"
 
-# Load the oh-my-zsh's library.
-# https://github.com/ohmyzsh/ohmyzsh
-antigen use oh-my-zsh
-export OMZ=$HOME/.antigen/bundles/robbyrussell/oh-my-zsh
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
 
-# Load the theme.
-antigen theme agnoster
+# Disable automatic updates.
+zstyle ':omz:update' mode disabled
+
+# Export so we could access custom plugins' readme in this file.
+export ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
 
 # oh-my-zsh's plugins -----------------------------------------------------{{{2
 
-# $OMZ/plugins/tmux/README.md
-antigen bundle tmux
+plugins=(
+  # $ZSH/plugins/z/README.md
+  z
+  # $ZSH/plugins/sudo/README.md
+  sudo
+  # $ZSH/plugins/command-not-found/README.md
+  command-not-found
+  # $ZSH/plugins/systemadmin/README.md
+  systemadmin
+  # $ZSH/plugins/web-search/README.md
+  web-search
+  # $ZSH/plugins/emoji/README.md
+  # emoji
+  # $ZSH/plugins/emotty/README.md
+  # emotty
+
+  # $ZSH/plugins/git/README.md
+  git
+)
+
+# $ZSH/plugins/tmux/README.md
+plugins+=(tmux)
+# Automatically starts tmux.
 ZSH_TMUX_AUTOSTART=true
+# Automatically closes terminal once tmux exits.
 # Set false to use multiple tmux sessions.
 ZSH_TMUX_AUTOQUIT=false
 
-# $OMZ/plugins/z/README.md
-antigen bundle z
-# $OMZ/plugins/sudo/README.md
-antigen bundle sudo
 # Use bat for man pages if exists.
 if ! command -v bat >/dev/null; then
-  # $OMZ/plugins/colored-man-pages/README.md
-  antigen bundle colored-man-pages
+  # $ZSH/plugins/colored-man-pages/README.md
+  plugins+=(colored-man-pages)
 fi
-# $OMZ/plugins/command-not-found/README.md
-antigen bundle command-not-found
-# $OMZ/plugins/magic-enter/README.md
-antigen bundle magic-enter
+
+# $ZSH/plugins/magic-enter/README.md
+plugins+=(magic-enter)
 # Use alias to avoid alias tips.
 MAGIC_ENTER_GIT_COMMAND="g st -u"
 MAGIC_ENTER_OTHER_COMMAND="ll"
-# $OMZ/plugins/systemadmin/README.md
-antigen bundle systemadmin
-# $OMZ/plugins/web-search/README.md
-antigen bundle web-search
 
-# $OMZ/plugins/emoji/README.md
-# antigen bundle emoji
-# $OMZ/plugins/emotty/README.md
-# antigen bundle emotty
-
-# $OMZ/plugins/git/README.md
-antigen bundle git
-
-# $OMZ/plugins/docker/README.md
+# $ZSH/plugins/docker/README.md
 if command -v docker >/dev/null; then
-  antigen bundle docker
+  plugins+=(docker)
 fi
-# $OMZ/plugins/docker-compose/README.md
+# $ZSH/plugins/docker-compose/README.md
 if command -v docker-compose >/dev/null; then
-  antigen bundle docker-compose
+  plugins+=(docker-compose)
 fi
-# $OMZ/plugins/kubectl/README.md
+# $ZSH/plugins/kubectl/README.md
 if command -v kubectl >/dev/null; then
-  antigen bundle kubectl
+  plugins+=(kubectl)
 fi
 
-# $OMZ/plugins/golang/README.md
+# $ZSH/plugins/golang/README.md
 if command -v go >/dev/null; then
-  antigen bundle golang
+  plugins+=(golang)
 fi
 
-# $OMZ/plugins/yarn/README.md
+# $ZSH/plugins/yarn/README.md
 if command -v yarn >/dev/null; then
-  antigen bundle yarn
+  plugins+=(yarn)
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
-  # $OMZ/plugins/osx/README.md
-  antigen bundle osx
+  # $ZSH/plugins/macos/README.md
+  plugins+=(macos)
 fi
 
 # Github plugins ----------------------------------------------------------{{{2
 
-# https://github.com/zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-completions
+plugins+=(
+  # https://github.com/zsh-users/zsh-completions
+  # $ZSH_CUSTOM/plugins/zsh-completions/README.md
+  zsh-completions
+  # https://github.com/djui/alias-tips
+  # $ZSH_CUSTOM/plugins/alias-tips/README.md
+  alias-tips
+)
 
 # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-autosuggestions
+# $ZSH_CUSTOM/plugins/zsh-autosuggestions/README.md
+plugins+=(zsh-autosuggestions)
+# Highlight style.
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
 
 if [[ -f $HOME/.fzf.zsh ]]; then
   # https://github.com/changyuheng/fz
-  antigen bundle changyuheng/fz
-
+  # $ZSH_CUSTOM/plugins/fz/README.md
+  plugins+=(fz)
   # https://github.com/bigH/git-fuzzy
-  antigen bundle bigH/git-fuzzy
-  PATH="$PATH:$HOME/.antigen/bundles/bigH/git-fuzzy/bin"
+  # $ZSH_CUSTOM/plugins/git-fuzzy/README.md
+  PATH="$PATH:$ZSH_CUSTOM/git-fuzzy/bin"
 fi
-
-# https://github.com/caarlos0-graveyard/zsh-open-pr
-antigen bundle caarlos0-graveyard/zsh-open-pr
-
-# https://github.com/djui/alias-tips
-antigen bundle djui/alias-tips
-export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_"
 
 # NOTE: Do not change the order of following plugins.
 # https://github.com/zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-syntax-highlighting
-# $OMZ/plugins/history-substring-search/README.md
-antigen bundle history-substring-search
+# $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/README.md
+plugins+=(zsh-syntax-highlighting)
+# $ZSH/plugins/history-substring-search/README.md
+plugins+=(history-substring-search)
 
-# Tell Antigen that you're done.
-antigen apply
+. $ZSH/oh-my-zsh.sh
 
 # Final steps -------------------------------------------------------------{{{1
-
-# Fix broken completion: https://github.com/zsh-users/antigen/issues/603
-autoload -U +X compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
 
 # Conflict with `ts` tool in moreutils.
 unalias ts || true
 alias tn="tmux new-session -s"
 
 # Settings for history-substring-search.
-# See $OMZ/plugins/history-substring-search/README.md.
+# See $ZSH/plugins/history-substring-search/README.md
+# Bind the Control-P/N keys for use in EMACS mode.
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
+# Highlight style.
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=blue,fg=white"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
+# Perform a fuzzy search by words, matching in given order.
+# E.g. `ab c` will match `*ab*c*`
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
 # Alias for git-fuzzy.
