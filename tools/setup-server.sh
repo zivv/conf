@@ -7,6 +7,8 @@
 #     sudo apt-get install openssh-server
 #   On local, if want to login without password
 #     ssh-copy-id -i ~/.ssh/id_rsa.pub $SERVER
+#
+# Recommend: rsync -avhP ~/.vim $SERVER:
 
 set -ex
 
@@ -16,7 +18,8 @@ if [[ -z $SERVER ]]; then
   exit 1
 fi
 
-if [[ $INIT == 1 ]]; then
+if ! ssh -t $SERVER "[[ -f .at_server ]]"; then
+  ssh -t $SERVER "touch .at_server"
   echo "Checking ..."
   ssh -t $SERVER "which tmux || sudo apt install tmux"
   ssh -t $SERVER "which pip3 || sudo apt install python3-pip"
@@ -30,5 +33,5 @@ if [[ $INIT == 1 ]]; then
 fi
 
 echo "Copying files ..."
-DIR=$(dirname $(realpath "$BASH_SOURCE"))/for_server
+DIR=$(dirname $(realpath "$BASH_SOURCE"))/for-server
 rsync -vcharz --progress -L $DIR/.??* $SERVER:

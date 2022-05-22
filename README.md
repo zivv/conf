@@ -23,11 +23,11 @@ Open `Terminal`->`Preferences`->`Colors`, set `Built-in schemes` under `Text and
 
 ### Statusline & Prompt - [Powerline](https://github.com/powerline/powerline)
 
+The following steps are already done in conf files. :)
+
 #### Installation
 
     pip3 install powerline-status
-
-The following steps are already done in conf files. :)
 
 Or check doc [shell-prompts](https://powerline.readthedocs.org/en/master/usage/shell-prompts.html) for how to set up **shell** prompts and doc [other](https://powerline.readthedocs.org/en/master/usage/other.html) to set up other plugins (like **vim**, **tmux**, **ipython**, etc).
 
@@ -48,129 +48,13 @@ OR just to install **Source Code Pro** only:
 
 ## Set up
 
-### tmux
+Put all config files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)) and init all:
 
-    # To use powerline for statusline.
-    pip3 install psutil
-
-### shell
-
-Read [.sh_base](.sh_base) to set up.
-
-Copied from .sh_base as following:
-
-    Install github.com/seebi/dircolors-solarized
-      curl -Lo ~/.dircolors.256dark \
-        https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
-
-    Set up steps for MacOS
-      brew install bash coreutils
-
-    If using zsh, read .zsh_local to set up.
-    If using bash:
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >> ~/.bashrc && source ~/.bashrc
-
-    Recommended tools:
-      Install https://github.com/andreafrancia/trash-cli
-        pip3 install trash-cli
-      Install https://github.com/junegunn/fzf
-        MacOS:
-          brew install fzf
-          $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc
-        Linux:
-          git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-          ~/.fzf/install --key-bindings --completion --no-update-rc
-      Install https://github.com/sharkdp/fd
-        See https://github.com/sharkdp/fd#installation.
-        Try `fd-find` / `fd` for package manager or check https://github.com/sharkdp/fd/releases.
-      Install https://github.com/BurntSushi/ripgrep
-        See https://github.com/BurntSushi/ripgrep#installation.
-        Try `ripgrep` for package manager or check https://github.com/BurntSushi/ripgrep/releases.
-      Install https://github.com/sharkdp/bat
-        See https://github.com/sharkdp/bat#installation.
-        Try `bat` for package manager or check https://github.com/sharkdp/bat/releases.
-      Install https://github.com/dandavison/delta
-        See https://github.com/dandavison/delta#installation.
-        Download the tarball from https://github.com/dandavison/delta/releases.
-
-Copied from [.zsh_local](.zsh_local) as following:
-
-    Install zsh and change default shell
-      MacOS:
-        brew install zsh && touch ~/.zshrc && chsh -s $(which zsh)
-      Linux:
-        sudo apt-get install zsh && touch ~/.zshrc && chsh -s $(which zsh)
-
-    Install https://github.com/zsh-users/antigen
-      curl -Lo ~/.zsh_antigen git.io/antigen
-
-    Set up shell confs
-      echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc && source ~/.zshrc
-
-### config files
-
-Put all config files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)).
-
-    git clone https://github.com/zivv/conf ~/conf && (cd ~/conf && ./set.sh)
+    curl -sf https://raw.githubusercontent.com/zivv/conf/master/init.sh | bash
 
 ### vim
 
-Read [.vimrc](.vimrc) to set up.
-
-Copied from .vimrc as following:
-
-    The installation for vim-plug and all plugins will be auto triggered.
-
-    Install https://github.com/ryanoasis/vim-devicons
-      Install https://github.com/ryanoasis/nerd-fonts
-        MacOS - https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
-          brew tap caskroom/fonts && brew cask install font-hack-nerd-font
-          # Then open iTerm2 and set `Preference`->`Profiles`->`Text`->
-          # `Non-ASCII Font` as `Hack Nerd Font`.
-        Linux - https://github.com/ryanoasis/nerd-fonts#linux
-    Install https://github.com/Chiel92/vim-autoformat
-      MacOS:
-        brew install clang-format python3 && pip3 install black
-      Linux:
-        sudo apt-get install clang-format python3-pip && pip3 install black
-      # Bazel BUILD - buildifier.
-      # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
-      go get github.com/bazelbuild/buildtools/buildifier
-      # Shell - shfmt. A shell formatter written in Go supporting POSIX Shell.
-      # See https://github.com/mvdan/sh#shfmt.
-      GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
-      # Markdown - remark. A Javascript based markdown processor.
-      # See https://github.com/wooorm/remark.
-      npm install -g remark-cli
-      # JSON - fixjson. A JSON fixer for humans using (relaxed) JSON5.
-      # See https://github.com/rhysd/fixjson.
-      npm install -g fixjson
-    Install https://github.com/Valloric/YouCompleteMe
-      # Completer options for install.py
-      #   --clang-completer (need cmake, gcc, g++ and python-dev)
-      #   --gocode-completer
-      #   --ts-completer (JavaScript and TypeScript support)
-      #   --all (with everything enabled except --clangd-completer)
-      cd ~/.vim/plugged/YouCompleteMe && ./install.py --clangd-completer
-    Install https://github.com/majutsushi/tagbar
-      Depend on Exuberant Ctags or Universal Ctags (See https://ctags.io/).
-      MacOS:
-        brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-      Linux:
-        snap install universal-ctags
-      # Javascript - jsctags.
-      # See https://github.com/sergioramos/jsctags.
-      npm install -g jsctags
-    Install https://github.com/dense-analysis/ale
-      # Vim - vint. A vim script language lint.
-      # See https://github.com/Kuniwak/vint.
-      pip3 install vim-vint
-      # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
-      # See https://github.com/ckaznocha/protoc-gen-lint.
-      go get github.com/ckaznocha/protoc-gen-lint
-      # Python - flake8. Your Tool For Style Guide Enforcement.
-      # See https://flake8.pycqa.org/.
-      pip3 install flake8 flake8-awesome
+Check [.vimrc](.vimrc) for your needs.
 
 ## Update
 
@@ -178,4 +62,4 @@ Run `ss` or `./set.sh` to set updated files.
 
 ## For remote server
 
-Assume the server address is `xxx`, run `INIT=1 ./set_server.sh xxx` to init and `./set_server.sh xxx` to update.
+Check [tools/setup-server.sh](tools/setup-server.sh).

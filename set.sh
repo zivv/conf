@@ -4,11 +4,15 @@
 
 set -e
 
+if [[ -z "$BASH_SOURCE" ]]; then
+  echo >&2 "Unable to find relative files"
+  exit 1
+fi
+cd $(dirname $(realpath "$BASH_SOURCE"))
+
 # Internal Field Separator.
 # Use newline instead of default setting which includes space.
 IFS=$(echo -en "\n\b")
-
-cd $(dirname $(realpath "$BASH_SOURCE"))
 
 files=(
   ".sh_auto" ".sh_base" "bash:.bash_local" "zsh:.zsh_local"
@@ -89,7 +93,7 @@ function cp_file() {
     f=tmp/$f
   fi
   if [[ ! -f $f ]]; then
-    color red echo >&2 "File does not exist: $(pwd)/$f"
+    color red echo "File does not exist: $(pwd)/$f" >&2
     return 1
   fi
 
