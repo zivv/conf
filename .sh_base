@@ -118,6 +118,8 @@ export FZF_DEFAULT_OPTS
 
 # Get current shell.
 SH=$(ps -p $$ -o comm=)
+# Will be "-zsh" in MacOS.
+SH=${SH#-}
 [[ -f ~/.${SH}_local ]] && . ~/.${SH}_local || true
 [[ -f ~/.fzf.${SH} ]] && . ~/.fzf.${SH} || true
 

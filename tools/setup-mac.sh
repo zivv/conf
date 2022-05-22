@@ -2,11 +2,16 @@
 
 set -e
 
+[[ ! -z $PKG_INSTALL ]] || (
+  echo "Empty \$PKG_INSTALL"
+  exit 1
+)
+
 if ! command -v brew >/dev/null; then
   curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 fi
-
-brew install coreutils
+$PKG_INSTALL coreutils
+$PKG_INSTALL python3 vim
 
 # Optional:
 # brew install moreutils

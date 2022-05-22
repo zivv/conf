@@ -1,30 +1,37 @@
 #!/usr/bin/env bash
 #
-# curl -sf https://raw.githubusercontent.com/zivv/conf/master/init.sh | bash
+# curl -fsSL https://raw.github.com/zivv/conf/HEAD/init.sh | bash
 
 set -e
 
-DIR=$(dirname $(realpath "$BASH_SOURCE"))
-RAW_URL="https://raw.githubusercontent.com/zivv/conf/master/"
-
+RAW_URL="https://raw.github.com/zivv/conf/HEAD/"
+if [[ -z $BASH_SOURCE ]]; then
+  DIR="~/conf"
+else
+  DIR=$(dirname $(realpath "$BASH_SOURCE"))
+fi
 function run() {
   local f=$1
   if [[ -f $DIR/$f ]]; then
     $DIR/$f
   else
-    curl -sf $RAW_URL/$f | bash
+    curl -fsSL $RAW_URL/$f | bash
   fi
 }
+
+if [[ $(uname) == "Darwin" ]]; then
+  export PKG_INSTALL="brew install -q"
+else
+  export PKG_INSTALL="sudo apt install -y --no-install-recommends --no-upgrade"
+fi
 
 echo "### basic"
 if [[ $(uname) == "Darwin" ]]; then
   run tools/setup-mac.sh
-  PKG_INSTALL="brew install"
 else
   run tools/setup-ubuntu.sh
-  PKG_INSTALL="sudo apt install -y"
 fi
-$PKG_INSTALL python3-pip tmux tree git vim
+$PKG_INSTALL tmux tree git
 if [[ ! -d ~/conf ]]; then
   git clone --depth=1 https://github.com/zivv/conf ~/conf
   ~/conf/set.sh
@@ -34,11 +41,11 @@ echo "### powerline"
 if ! pip3 show powerline-status >/dev/null; then
   pip3 install powerline-status
 fi
-if ! ls ~/.local/share/fonts/*Powerline.otf >/dev/null; then
+if ! ls ~/.local/share/fonts/*Powerline*.otf >/dev/null; then
   mkdir -p ~/.local/share/fonts
   pushd ~/.local/share/fonts >/dev/null
   curl -fLo "Source Code Pro Semibold for Powerline.otf" \
-    https://github.com/powerline/fonts/raw/master/SourceCodePro/Source%20Code%20Pro%20Semibold%20for%20Powerline.otf
+    https://raw.github.com/powerline/fonts/HEAD/SourceCodePro/Source%20Code%20Pro%20Semibold%20for%20Powerline.otf
   popd >/dev/null
   fc-cache -f -v
 fi
@@ -54,7 +61,7 @@ echo "### shell - $SHL"
 if [[ ! -f ~/.dircolors.256dark ]]; then
   echo "Install github.com/seebi/dircolors-solarized"
   curl -Lo ~/.dircolors.256dark \
-    https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
+    https://raw.github.com/seebi/dircolors-solarized/HEAD/dircolors.256dark
 fi
 if [[ $SHL == "zsh" ]]; then
   run tools/setup-zsh.sh

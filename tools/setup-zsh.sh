@@ -3,11 +3,7 @@
 set -e
 
 if ! command -v zsh >/dev/null; then
-  if [[ $(uname) == "Darwin" ]]; then
-    brew install zsh
-  else
-    sudo apt-get install zsh
-  fi
+  $PKG_INSTALL zsh
   touch ~/.zshrc
   chsh -s $(command -v zsh)
 fi
@@ -18,8 +14,9 @@ fi
 
 if [[ $(uname) == "Darwin" ]]; then
   if ! command -v gsed >/dev/null; then
-    gsed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
+    $PKG_INSTALL gnu-sed
   fi
+  gsed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
 else
   #sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
   sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc

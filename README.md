@@ -50,7 +50,7 @@ OR just to install **Source Code Pro** only:
 
 Put all config files into right place (create file `~/.at_YOUR_PLACE` if necessary, see [set.sh](set.sh)) and init all:
 
-    curl -sf https://raw.githubusercontent.com/zivv/conf/master/init.sh | bash
+    curl -fsSL https://raw.github.com/zivv/conf/HEAD/init.sh | bash
 
 ### vim
 
