@@ -38,16 +38,26 @@ if [[ ! -d ~/conf ]]; then
 fi
 
 echo "### powerline"
+# https://github.com/powerline/powerline
+# For shell prompts:
+# https://powerline.readthedocs.org/en/master/usage/shell-prompts.html
+# For other plugins (like vim, tmux, ipython, etc):
+# https://powerline.readthedocs.org/en/master/usage/other.html
 if ! pip3 show powerline-status >/dev/null; then
   pip3 install powerline-status
 fi
-if ! ls ~/.local/share/fonts/*Powerline*.otf >/dev/null; then
-  mkdir -p ~/.local/share/fonts
-  pushd ~/.local/share/fonts >/dev/null
+# https://github.com/powerline/fonts
+# https://powerline.readthedocs.io/en/latest/installation/linux.html#fonts-installation
+# To install all fonts:
+#   git clone https://github.com/powerline/fonts.git --depth=1 && (cd fonts && ./install.sh)
+FONT_DIR=~/.local/share/fonts
+if ! ls $FONT_DIR/*Powerline*.otf >/dev/null; then
+  mkdir -p $FONT_DIR
+  pushd $FONT_DIR >/dev/null
   curl -fLo "Source Code Pro Semibold for Powerline.otf" \
     https://raw.github.com/powerline/fonts/HEAD/SourceCodePro/Source%20Code%20Pro%20Semibold%20for%20Powerline.otf
   popd >/dev/null
-  fc-cache -f -v
+  fc-cache -vf $FONT_DIR
 fi
 
 echo "### tmux"
@@ -58,8 +68,8 @@ fi
 
 SHL=${SHL:-zsh}
 echo "### shell - $SHL"
+# https://github.com/seebi/dircolors-solarized
 if [[ ! -f ~/.dircolors.256dark ]]; then
-  echo "Install github.com/seebi/dircolors-solarized"
   curl -Lo ~/.dircolors.256dark \
     https://raw.github.com/seebi/dircolors-solarized/HEAD/dircolors.256dark
 fi

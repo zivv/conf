@@ -527,7 +527,7 @@ aug ZSetting
   au BufRead,BufNewFile *.launch set filetype=xml
 
   " Autosave config files.
-  au BufWritePost ~/conf/* !(cd ~/conf; ./set.sh)
+  au BufWritePost ~/conf/* !~/conf/set.sh
 aug END
 
 
