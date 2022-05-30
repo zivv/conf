@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
-# curl -fsSL https://raw.github.com/zivv/conf/HEAD/init.sh | bash
+# Init all environments.
 
 set -e
 
 RAW_URL="https://raw.github.com/zivv/conf/HEAD/"
-if [[ -z $BASH_SOURCE ]]; then
-  DIR="~/conf"
-else
+if realpath "$BASH_SOURCE" &>/dev/null; then
   DIR=$(dirname $(realpath "$BASH_SOURCE"))
+else
+  DIR="~/conf"
 fi
 function run() {
   local f=$1
