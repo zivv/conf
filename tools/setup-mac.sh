@@ -8,7 +8,7 @@ set -e
 )
 
 if ! command -v brew >/dev/null; then
-  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+  curl -fsSL https://raw.github.com/Homebrew/install/HEAD/install.sh | bash
 fi
 $PKG_INSTALL coreutils
 $PKG_INSTALL python3 vim

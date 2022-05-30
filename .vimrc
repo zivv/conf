@@ -84,8 +84,8 @@ endif
 " See https://github.com/junegunn/vim-plug/wiki/tips.
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !curl -fsSLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.github.com/junegunn/vim-plug/HEAD/plug.vim
 endif
 
 " Specify a directory for plugins.
