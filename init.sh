@@ -82,8 +82,7 @@ if ! grep -q ".sh_base" ~/.bashrc; then
 fi
 
 echo "### vim"
-vim -c q
-vim -c PlugInstall -c q -c q
+yes | vim -c PlugInstall -c q -c q
 if [[ ! -d ~/.vim/UltiSnips ]]; then
   git clone --depth=1 https://github.com/zivv/UltiSnips.git ~/.vim/UltiSnips
 fi
