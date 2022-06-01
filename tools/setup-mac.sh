@@ -2,10 +2,7 @@
 
 set -e
 
-[[ ! -z $PKG_INSTALL ]] || (
-  echo "Empty \$PKG_INSTALL"
-  exit 1
-)
+PKG_INSTALL=${PKG_INSTALL:-brew install}
 
 if ! command -v brew >/dev/null; then
   curl -fsSL https://raw.github.com/Homebrew/install/HEAD/install.sh | bash

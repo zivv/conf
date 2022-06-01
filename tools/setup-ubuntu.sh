@@ -2,18 +2,24 @@
 
 set -e
 
-[[ ! -z $PKG_INSTALL ]] || (
-  echo "Empty \$PKG_INSTALL"
-  exit 1
-)
+PKG_INSTALL=${PKG_INSTALL:-sudo apt install}
 
-$PKG_INSTALL software-properties-common curl xclip
-$PKG_INSTALL python3-pip vim
+# Avoid to input sudo password if already installed.
+function check_or_install() {
+  for lib in "${@}"; do
+    if ! apt list --installed $lib 2>/dev/null | grep $lib; then
+      echo "Install $lib ..."
+      $PKG_INSTALL $lib
+    fi
+  done
+}
+check_or_install software-properties-common curl xclip
+check_or_install python3-pip vim
 
 if (($(echo "$(
   vim --version | grep "IMproved" | sed 's/.*IMproved \(.*\) (.*/\1/'
 ) < 8.2" | bc -l))); then
-  # To install vim 8.2:
+  echo "Install vim 8.2 ..."
   sudo add-apt-repository ppa:jonathonf/vim
   sudo apt update
   $PKG_INSTALL vim-gtk3=2:8.2\*
