@@ -364,14 +364,14 @@ Plug 'tpope/vim-fugitive'
 
 " Shortcuts for Fugitive commands.
 " Use `g?` to show help after `;gs`.
-nn <silent> ;gs :Gstatus<CR>
-nn <silent> ;ga :Git add . -A<CR>
-nn <silent> ;gc :Gcommit<CR>
-nn <silent> ;gl :Gpull<CR>
-nn <silent> ;gp :Gpush<CR>
-nn <silent> ;gd :Gvdiff<CR>
-nn <silent> ;gh :Gvdiff HEAD<CR>
-nn <silent> ;gb :Gblame<CR>
+nn <silent> ;gs :Git<CR>
+nn <silent> ;ga :Git add .<CR>
+nn <silent> ;gc :Git commit<CR>
+nn <silent> ;gl :Git pull<CR>
+nn <silent> ;gp :Git push<CR>
+nn <silent> ;gd :Gvdiffsplit<CR>
+nn <silent> ;gh :Gvdiffsplit HEAD<CR>
+nn <silent> ;gb :Git blame<CR>
 
 
 " vim-go -- Go (golang) support for Vim -----------------------------------{{{2
