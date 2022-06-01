@@ -97,9 +97,6 @@ plugins+=(
   # https://github.com/zsh-users/zsh-completions
   # $ZSH_CUSTOM/plugins/zsh-completions/README.md
   zsh-completions
-  # https://github.com/djui/alias-tips
-  # $ZSH_CUSTOM/plugins/alias-tips/README.md
-  alias-tips
 )
 
 # https://github.com/zsh-users/zsh-autosuggestions
@@ -116,6 +113,13 @@ if [[ -f $HOME/.fzf.zsh ]]; then
   # $ZSH_CUSTOM/plugins/git-fuzzy/README.md
   PATH="$PATH:$ZSH_CUSTOM/git-fuzzy/bin"
 fi
+
+
+# https://github.com/djui/alias-tips
+# $ZSH_CUSTOM/plugins/alias-tips/README.md
+plugins+=(alias-tips)
+# A list of aliases to be excluded from being reminded (space separated).
+export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_"
 
 # NOTE: Do not change the order of following plugins.
 # https://github.com/zsh-users/zsh-syntax-highlighting
