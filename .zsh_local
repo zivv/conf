@@ -111,7 +111,7 @@ if [[ -f $HOME/.fzf.zsh ]]; then
   plugins+=(fz)
   # https://github.com/bigH/git-fuzzy
   # $ZSH_CUSTOM/plugins/git-fuzzy/README.md
-  PATH="$PATH:$ZSH_CUSTOM/git-fuzzy/bin"
+  PATH="$PATH:$ZSH_CUSTOM/plugins/git-fuzzy/bin"
 fi
 
 
