@@ -199,6 +199,8 @@ alias gu="(B=\$(g name-rev --name-only HEAD);gco master;gl;gco \$B;grb master)"
 alias gbd="(B=\$(g name-rev --name-only HEAD);gco master;gl;g br -D \$B)"
 # Always asked when pushing a new branch.
 alias gps="gp -u origin \$(git symbolic-ref --short HEAD)"
+alias gci="g rev-parse --verify HEAD"
+alias gcpc="g rev-parse --verify HEAD | clipcopy"
 
 alias dk="docker"
 
