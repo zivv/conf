@@ -195,7 +195,7 @@ alias grh.="g rh ."
 alias glf="g lfs"
 alias gsh="g sh"
 # Update current branch.
-alias gu="(B=\$(g name-rev --name-only HEAD);gco master;gl;gco \$B;grb master)"
+alias gu="(gco master;gl;gco -;grb master)"
 alias gbd="(B=\$(g name-rev --name-only HEAD);gco master;gl;g br -D \$B)"
 # Always asked when pushing a new branch.
 alias gps="gp -u origin \$(git symbolic-ref --short HEAD)"
