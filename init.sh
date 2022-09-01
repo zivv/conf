@@ -4,8 +4,11 @@
 #
 # Test in docker images:
 #   docker run --rm -it ubuntu:22.04 bash
-#   apt update && apt install -y sudo curl
-#   useradd -mGsudo zi && echo zi:123456 | chpasswd && su - zi
+#     apt update && apt install -y sudo curl
+#     useradd -mGsudo zi && echo zi:123456 | chpasswd && su - zi
+#   docker run --rm -it almalinux:9.0 bash
+#     dnf install -y --nobest --allowerasing curl sudo
+#     useradd -mGwheel zi && echo zi:123456 | chpasswd && su - zi
 
 set -e
 
@@ -24,18 +27,22 @@ function run() {
   fi
 }
 
-if [[ $(uname) == "Darwin" ]]; then
-  export PKG_INSTALL="brew install -q"
-else
-  export PKG_INSTALL="sudo apt install -y --no-install-recommends --no-upgrade"
-  export DEBIAN_FRONTEND=noninteractive
-fi
-
 echo "### basic"
 if [[ $(uname) == "Darwin" ]]; then
+  export PKG_INSTALL="brew install -q"
   run tools/setup-mac.sh
+elif [[ $(uname) == "Linux" ]] && grep ID_LIKE /etc/os-release |
+  grep -q debian; then
+  export PKG_INSTALL="sudo apt install -y --no-install-recommends --no-upgrade"
+  export DEBIAN_FRONTEND=noninteractive
+  run tools/setup-debian.sh
+elif [[ $(uname) == "Linux" ]] && grep ID_LIKE /etc/os-release |
+  grep -q rhel; then
+  export PKG_INSTALL="sudo dnf install -y --nobest --allowerasing"
+  run tools/setup-rhel.sh
 else
-  run tools/setup-ubuntu.sh
+  echo >&2 "Unsupported OS"
+  exit 1
 fi
 $PKG_INSTALL tmux tree git fontconfig
 if [[ ! -d ~/conf ]]; then
