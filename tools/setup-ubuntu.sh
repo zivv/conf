@@ -13,16 +13,16 @@ function check_or_install() {
     fi
   done
 }
-check_or_install software-properties-common curl xclip
+check_or_install software-properties-common curl xclip bc procps
 check_or_install python3-pip vim
 
 if (($(echo "$(
   vim --version | grep "IMproved" | sed 's/.*IMproved \(.*\) (.*/\1/'
 ) < 8.2" | bc -l))); then
-  echo "Install vim 8.2 ..."
+  echo "Install vim 8.2+ ..."
   sudo add-apt-repository ppa:jonathonf/vim
   sudo apt update
-  $PKG_INSTALL vim-gtk3=2:8.2\*
+  $PKG_INSTALL vim-gtk3
 fi
 
 # Optional:

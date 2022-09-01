@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 #
 # Init all environments.
+#
+# Test in docker images:
+#   docker run --rm -it ubuntu:22.04 bash
+#   apt update && apt install -y sudo curl
+#   useradd -mGsudo zi && echo zi:123456 | chpasswd && su - zi
 
 set -e
 
@@ -23,6 +28,7 @@ if [[ $(uname) == "Darwin" ]]; then
   export PKG_INSTALL="brew install -q"
 else
   export PKG_INSTALL="sudo apt install -y --no-install-recommends --no-upgrade"
+  export DEBIAN_FRONTEND=noninteractive
 fi
 
 echo "### basic"
@@ -31,7 +37,7 @@ if [[ $(uname) == "Darwin" ]]; then
 else
   run tools/setup-ubuntu.sh
 fi
-$PKG_INSTALL tmux tree git
+$PKG_INSTALL tmux tree git fontconfig
 if [[ ! -d ~/conf ]]; then
   git clone --depth=1 https://github.com/zivv/conf ~/conf
   ~/conf/set.sh
@@ -159,7 +165,7 @@ if ! command -v delta >/dev/null; then
   else
     curl -Lo /tmp/delta.tar.gz \
       https://github.com/dandavison/delta/releases/download/0.5.0/delta-0.5.0-x86_64-unknown-linux-gnu.tar.gz
-    tar xvf /tmp/delta.tar.gz -C /tmp
-    sudo mv /tmp/delta-0.5.0-x86_64-unknown-linux-gnu/delta /usr/local/bin
+    tar xf /tmp/delta.tar.gz -C /tmp
+    sudo mv -v /tmp/delta-0.5.0-x86_64-unknown-linux-gnu/delta /usr/local/bin
   fi
 fi

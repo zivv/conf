@@ -5,7 +5,7 @@ set -e
 if ! command -v zsh >/dev/null; then
   $PKG_INSTALL zsh
   touch ~/.zshrc
-  chsh -s $(command -v zsh)
+  sudo chsh -s $(command -v zsh)
 fi
 
 if [[ -z $ZSH ]]; then
@@ -26,7 +26,7 @@ if ! grep -q ".sh_base" ~/.zshrc; then
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc
 fi
 
-ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
+ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}
 pushd $ZSH_CUSTOM/plugins >/dev/null
 for repo in $(grep ZSH_CUSTOM ~/.zsh_local -B1 | grep github.com); do
   if echo $repo | grep -q github.com; then
