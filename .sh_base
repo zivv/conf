@@ -1,7 +1,7 @@
 # Basic environment settings ----------------------------------------------{{{1
 export WORK="$HOME/work"
 
-LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # Auto generated variables.
 [[ -f ~/.sh_auto ]] && . ~/.sh_auto || true
