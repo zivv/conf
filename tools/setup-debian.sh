@@ -13,9 +13,15 @@ function check_or_install() {
     fi
   done
 }
-check_or_install software-properties-common curl xclip bc procps
-check_or_install python3-pip vim
 
+check_or_install software-properties-common curl xclip bc procps
+
+if ! locale -a | grep -q "en_US.utf8"; then
+  check_or_install locales
+  sudo locale-gen en_US.UTF-8
+fi
+
+check_or_install python3-pip vim
 if (($(echo "$(
   vim --version | grep "IMproved" | sed 's/.*IMproved \(.*\) (.*/\1/'
 ) < 8.2" | bc -l))); then
