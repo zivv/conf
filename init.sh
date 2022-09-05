@@ -31,13 +31,11 @@ echo "### basic"
 if [[ $(uname) == "Darwin" ]]; then
   export PKG_INSTALL="brew install -q"
   run tools/setup-mac.sh
-elif [[ $(uname) == "Linux" ]] && grep ID_LIKE /etc/os-release |
-  grep -q debian; then
+elif [[ $(uname) == "Linux" ]] && grep -q debian /etc/os-release; then
   export PKG_INSTALL="sudo apt install -y --no-install-recommends --no-upgrade"
   export DEBIAN_FRONTEND=noninteractive
   run tools/setup-debian.sh
-elif [[ $(uname) == "Linux" ]] && grep ID_LIKE /etc/os-release |
-  grep -q rhel; then
+elif [[ $(uname) == "Linux" ]] && grep -q rhel /etc/os-release; then
   export PKG_INSTALL="sudo dnf install -y --nobest --allowerasing"
   run tools/setup-rhel.sh
 else
