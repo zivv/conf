@@ -28,15 +28,32 @@ function run() {
 }
 
 echo "### basic"
+function pkg_install() {
+  local pkgs=""
+  for pkg in "${@}"; do
+    if ! $PKG_LIST_CMD $pkg 2>/dev/null | grep $pkg; then
+      pkgs+="$pkg "
+    fi
+  done
+  if [[ -n "$pkgs" ]]; then
+    echo "#### Packages to be installed: $pkgs"
+    $PKG_INST_CMD $pkgs
+  fi
+}
+export -f pkg_install
+export PKG_INSTALL="pkg_install"
 if [[ $(uname) == "Darwin" ]]; then
-  export PKG_INSTALL="brew install -q"
+  export PKG_LIST_CMD="brew ls --versions"
+  export PKG_INST_CMD="brew install -q"
   run tools/setup-mac.sh
 elif [[ $(uname) == "Linux" ]] && grep -q debian /etc/os-release; then
-  export PKG_INSTALL="sudo apt install -y --no-install-recommends --no-upgrade"
+  export PKG_LIST_CMD="apt list --installed"
+  export PKG_INST_CMD="sudo apt install -y --no-install-recommends --no-upgrade"
   export DEBIAN_FRONTEND=noninteractive
   run tools/setup-debian.sh
 elif [[ $(uname) == "Linux" ]] && grep -q rhel /etc/os-release; then
-  export PKG_INSTALL="sudo dnf install -y --nobest --allowerasing"
+  export PKG_LIST_CMD="dnf list installed"
+  export PKG_INST_CMD="sudo dnf install -y --nobest --allowerasing"
   run tools/setup-rhel.sh
 else
   echo >&2 "Unsupported OS"
