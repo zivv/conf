@@ -45,10 +45,6 @@ else
   exit 1
 fi
 $PKG_INSTALL tmux tree git fontconfig
-if [[ ! -d ~/conf ]]; then
-  git clone --depth=1 https://github.com/zivv/conf ~/conf
-  ~/conf/set.sh
-fi
 
 echo "### powerline"
 # https://github.com/powerline/powerline
@@ -92,6 +88,12 @@ fi
 # Needs bash anyway.
 if ! grep -q ".sh_base" ~/.bashrc; then
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.bashrc
+fi
+
+echo "### conf"
+if [[ ! -d ~/conf ]]; then
+  git clone --depth=1 https://github.com/zivv/conf ~/conf
+  ~/conf/set.sh
 fi
 
 echo "### vim"

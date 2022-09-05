@@ -4,8 +4,7 @@ set -e
 
 if ! command -v zsh >/dev/null; then
   $PKG_INSTALL zsh
-  touch ~/.zshrc
-  sudo chsh -s $(command -v zsh)
+  sudo chsh -s $(command -v zsh) $(whoami)
 fi
 
 if [[ -z $ZSH ]]; then
@@ -28,6 +27,9 @@ fi
 
 ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}
 pushd $ZSH_CUSTOM/plugins >/dev/null
+if [[ ! -f ~/.zsh_local ]]; then
+  curl -fsSLo ~/.zsh_local https://raw.github.com/zivv/conf/HEAD/.zsh_local
+fi
 for repo in $(grep ZSH_CUSTOM ~/.zsh_local -B1 | grep github.com); do
   if echo $repo | grep -q github.com; then
     name=${repo##*/}
