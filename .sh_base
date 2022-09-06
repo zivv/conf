@@ -30,7 +30,7 @@ export GOPATH="$WORK/goz"
 PATH="$PATH:$GOPATH/bin"
 
 if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
-  eval $(dircolors ~/.dircolors.256dark)
+  eval $(dircolors -b ~/.dircolors.256dark)
 fi
 
 # fzf -- General-purpose command-line fuzzy finder ------------------------{{{1
