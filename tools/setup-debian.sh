@@ -2,13 +2,13 @@
 
 set -e
 
-PKG_INSTALL=${PKG_INSTALL:-sudo apt install --no-install-recommends}
+PKG_INSTALL=${PKG_INSTALL:-sudo apt install -y --no-install-recommends}
 
 $PKG_INSTALL software-properties-common curl xclip bc procps
 
-if ! locale -a | grep -q "en_US.utf8"; then
+if ! locale -a | grep -q "$LOCALE"; then
   $PKG_INSTALL locales
-  sudo sed -i 's/# en_GB.UTF-8/en_GB.UTF-8/' /etc/locale.gen
+  sudo sed -i "s/# $LOCALE/$LOCALE/" /etc/locale.gen
   sudo dpkg-reconfigure --frontend=noninteractive locales
 fi
 
