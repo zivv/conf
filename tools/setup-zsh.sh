@@ -7,6 +7,8 @@ if ! command -v zsh >/dev/null; then
   sudo chsh -s $(command -v zsh) $(whoami)
 fi
 
+# Install oh-my-zsh.
+# https://github.com/ohmyzsh/ohmyzsh#basic-installation
 if [[ -z $ZSH ]]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
@@ -25,8 +27,10 @@ if ! grep -q ".sh_base" ~/.zshrc; then
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc
 fi
 
+# Download custom plugins.
 ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}
 pushd $ZSH_CUSTOM/plugins >/dev/null
+
 if [[ ! -f ~/.zsh_local ]]; then
   curl -fsSLo ~/.zsh_local https://raw.github.com/zivv/conf/HEAD/.zsh_local
 fi
@@ -45,4 +49,9 @@ for repo in $(grep ZSH_CUSTOM ~/.zsh_local -B1 | grep github.com); do
     fi
   fi
 done
+
+# Fix completions insecurities.
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/compfix.zsh
+chmod g-w,o-w $ZSH_CUSTOM/plugins/*
+
 popd >/dev/null
