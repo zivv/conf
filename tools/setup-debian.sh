@@ -8,7 +8,8 @@ $PKG_INSTALL software-properties-common curl xclip bc procps
 
 if ! locale -a | grep -q "en_US.utf8"; then
   $PKG_INSTALL locales
-  sudo locale-gen en_US.UTF-8
+  sudo sed -i 's/# en_GB.UTF-8/en_GB.UTF-8/' /etc/locale.gen
+  sudo dpkg-reconfigure --frontend=noninteractive locales
 fi
 
 $PKG_INSTALL python3-pip vim
