@@ -202,6 +202,8 @@ alias gps="gp -u origin \$(git symbolic-ref --short HEAD)"
 alias gci="g rev-parse --verify HEAD"
 alias gcpc="g rev-parse --verify HEAD | clipcopy"
 
+alias ip="ip -c -br"
+
 alias dk="docker"
 
 # To find more: https://kubernetes.io/docs/reference/kubectl/cheatsheet/.
