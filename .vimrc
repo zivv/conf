@@ -398,6 +398,13 @@ let g:go_highlight_variable_declarations = 1
 let g:go_fmt_command = 'goimports'
 " Jump to an existing buffer for the split, vsplit and tab mappings of :GoDef.
 let g:go_def_reuse_buffer = 1
+" Uncomment to DEBUG. Try also:
+"   :GoErrCheck
+"   :!gopls -rpc.trace -v check %
+"   :!go list -e -json -compiled -test <packages>
+"let g:go_debug = ['lsp']
+" For bazel:
+" https://github.com/bazelbuild/rules_go/blob/master/docs/go/editors/vim.md
 
 " Shortcuts for vim-go commands.
 " Use same shortcuts with YCM for consistency.
