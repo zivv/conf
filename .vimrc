@@ -712,7 +712,7 @@ vn ;s :s/
 nn gf <C-w>gf
 
 " Similar to :drop, but :drop can only be used in GUI.
-command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<args>)
+command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<f-args>)
 function s:ZFindBufOrNew(filename)
   for tabnr in range(tabpagenr('$'))
     for bufnr in tabpagebuflist(tabnr + 1)
