@@ -114,12 +114,15 @@ if [[ -f $HOME/.fzf.zsh ]]; then
   PATH="$PATH:$ZSH_CUSTOM/plugins/git-fuzzy/bin"
 fi
 
-
 # https://github.com/djui/alias-tips
 # $ZSH_CUSTOM/plugins/alias-tips/README.md
 plugins+=(alias-tips)
 # A list of aliases to be excluded from being reminded (space separated).
 export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_"
+
+# https://github.com/caarlos0-graveyard/zsh-open-pr
+# $ZSH_CUSTOM/plugins/zsh-open-pr/README.md
+plugins+=(zsh-open-pr)
 
 # NOTE: Do not change the order of following plugins.
 # https://github.com/zsh-users/zsh-syntax-highlighting
