@@ -402,9 +402,8 @@ let g:go_def_reuse_buffer = 1
 "   :GoErrCheck
 "   :!gopls -rpc.trace -v check %
 "   :!go list -e -json -compiled -test <packages>
+"   :!ps fauxww | grep gopls -C 10
 "let g:go_debug = ['lsp']
-" For bazel:
-" https://github.com/bazelbuild/rules_go/blob/master/docs/go/editors/vim.md
 
 " Shortcuts for vim-go commands.
 " Use same shortcuts with YCM for consistency.
@@ -429,6 +428,29 @@ aug GoShortcuts
   " Show all refs to entity denoted by selected identifier.
   au FileType go nm ;f <Plug>(go-referrers)
 aug END
+
+" Settings for golang+bazel. See
+" https://github.com/bazelbuild/rules_go/blob/master/docs/go/editors/vim.md.
+" TODO(ziv): The gopls server keeps running after exist Vim and needs to be
+" killed like `pkill -ef gopls` to revert the driver setting.
+function GoBazelDriver()
+  if len($GOBAZELDRIVER) == 0
+    return
+  end
+  let l:repo = trim(system('git rev-parse --show-toplevel'))
+  if v:shell_error != 0
+    return
+  end
+  if !filereadable(simplify(join([l:repo, 'go.mod'], '/')))
+    return
+  end
+  if !filereadable(simplify(join([l:repo, 'WORKSPACE'], '/')))
+    return
+  end
+  let $GOPACKAGESDRIVER = $GOBAZELDRIVER
+  " echom 'Find golang+bazel, use driver '.$GOPACKAGESDRIVER
+endfunction
+call GoBazelDriver()
 
 
 " vim-javascript -- Vastly improved JS indentation and syntax support -----{{{2
