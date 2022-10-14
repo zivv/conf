@@ -195,12 +195,13 @@ alias grh.="g rh ."
 alias glf="g lfs"
 alias gsh="g sh"
 # Update current branch.
-alias gu="(gco master;gl;gco -;grb master)"
-alias gbd="(B=\$(g name-rev --name-only HEAD);gco master;gl;g br -D \$B)"
+alias gu="g u"
+# Delete current branch.
+alias gbd="g bd"
 # Always asked when pushing a new branch.
-alias gps="gp -u origin \$(git symbolic-ref --short HEAD)"
-alias gci="g rev-parse --verify HEAD"
-alias gcpc="g rev-parse --verify HEAD | clipcopy"
+alias gps="gp -u origin \$(git brn)"
+alias gid="g id"
+alias gidc="g id | tr -d '\n' | clipcopy"
 
 alias ip="ip -c -br"
 

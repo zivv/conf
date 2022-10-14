@@ -16,6 +16,7 @@
 [alias]
   a = add
   br = branch
+  brn = rev-parse --abbrev-ref HEAD
   ci = commit
   co = checkout
 
@@ -29,6 +30,7 @@
   dth = difftool HEAD
   dthh = difftool HEAD~1
 
+  id = rev-parse --verify HEAD
   l = log
   lf = ls-files
   mg = merge
@@ -38,7 +40,7 @@
 
   sh = stash
   shl = stash list
-  shs = stash show -p
+  shs = !git stash show -p stash@{$1} && :
   sp = stash pop
 
   st = status
@@ -53,6 +55,9 @@
   sdiff = !git diff && git submodule foreach 'git diff'
   spush = push --recurse-submodules=on-demand
   supdate = submodule update --remote --merge
+
+  u = !git co ${1:-master} && git pl && git co - && git rb ${1:-master} && :
+  bd = !B=$(git brn) && git co ${1:-master} && git pl && git br -D $B && :
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
