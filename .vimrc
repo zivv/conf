@@ -548,7 +548,9 @@ aug ZSetting
   au BufNewFile *.proto 0r ~/.vim/skeletons/skeleton.proto
 
   " Filetype detection.
-  au BufRead,BufNewFile *.sh_*,*.zsh_*,*.bash_* set filetype=sh
+  au BufRead,BufNewFile *.sh_* set filetype=sh
+  au BufRead,BufNewFile *.zsh_* set filetype=zsh
+  au BufRead,BufNewFile *.bash_* set filetype=bash
   au BufRead,BufNewFile *.vim_* set filetype=vim
   au BufRead,BufNewFile *.BUILD,*.bazelrc set filetype=bzl
   " For better syntax highlight. (Looks poor if set ft=dockerfile)
