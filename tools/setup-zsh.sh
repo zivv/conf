@@ -27,8 +27,15 @@ if ! grep -q ".sh_base" ~/.zshrc; then
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc
 fi
 
+# Add custom prompt part.
+ZSH=${ZSH:-$HOME/.oh-my-zsh}
+if ! grep -q "prompt_custom" $ZSH/themes/agnoster.zsh-theme; then
+  sed -i "/build_prompt(/i prompt_custom() {}" $ZSH/themes/agnoster.zsh-theme
+  sed -i "/prompt_end$/i \ \ prompt_custom" $ZSH/themes/agnoster.zsh-theme
+fi
+
 # Download custom plugins.
-ZSH_CUSTOM=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}
+ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
 pushd $ZSH_CUSTOM/plugins >/dev/null
 
 if [[ ! -f ~/.zsh_local ]]; then

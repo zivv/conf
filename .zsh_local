@@ -71,9 +71,13 @@ fi
 if command -v docker-compose >/dev/null; then
   plugins+=(docker-compose)
 fi
-# $ZSH/plugins/kubectl/README.md
 if command -v kubectl >/dev/null; then
-  plugins+=(kubectl)
+  plugins+=(
+    # $ZSH/plugins/kubectl/README.md
+    kubectl
+    # $ZSH/plugins/kube-ps1/README.md
+    kube-ps1
+  )
 fi
 
 # $ZSH/plugins/golang/README.md
@@ -135,9 +139,12 @@ plugins+=(history-substring-search)
 
 # Final steps -------------------------------------------------------------{{{1
 
-# Conflict with `ts` tool in moreutils.
-unalias ts || true
-alias tn="tmux new-session -s"
+# Custom prompt part added in $ZSH/themes/agnoster.zsh-theme.
+prompt_custom() {
+  if [[ ! $KUBE_PS1_ENABLED == "off" ]]; then
+    prompt_segment cyan $CURRENT_FG "$KUBE_PS1_CONTEXT@$KUBE_PS1_NAMESPACE"
+  fi
+}
 
 # Settings for history-substring-search.
 # See $ZSH/plugins/history-substring-search/README.md
@@ -150,6 +157,10 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 # Perform a fuzzy search by words, matching in given order.
 # E.g. `ab c` will match `*ab*c*`
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
+
+# Conflict with `ts` tool in moreutils.
+unalias ts || true
+alias tn="tmux new-session -s"
 
 # Alias for git-fuzzy.
 if command -v git-fuzzy >/dev/null; then
