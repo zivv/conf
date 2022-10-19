@@ -212,6 +212,8 @@ alias kak="kubectl apply -k"
 alias kg="kubectl get -o wide"
 alias kd="kubectl describe"
 alias kdf="kubectl diff -f"
+alias kc="kubectx"
+alias kn="kubens"
 
 # bat -- A cat clone with syntax highlighting and Git integration
 #     -- https://github.com/sharkdp/bat
@@ -240,7 +242,15 @@ fi
 export COMPLETION_DIR=${COMPLETION_DIR:-$HOME/.completion}
 if [[ -d $COMPLETION_DIR ]]; then
   for f in $(find $COMPLETION_DIR -type f -name "*.$SH"); do
-    . $f
+    if [[ $SH == "zsh" && -f $ZSH/completions/_${f##*/} ]]; then
+      # Some zsh completion files can not be source-ed and so link them to a
+      # folder belongs to $fpath.
+      continue
+    fi
+    . $f || (
+      echo "Error for completion file: $f"
+      [[ $SH != "zsh" ]] || echo "Try: ln -s $f $ZSH/completions/_${f##*/}"
+    )
   done
 fi
 
