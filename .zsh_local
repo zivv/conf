@@ -141,7 +141,8 @@ plugins+=(history-substring-search)
 
 # Custom prompt part added in $ZSH/themes/agnoster.zsh-theme.
 prompt_custom() {
-  if [[ ! $KUBE_PS1_ENABLED == "off" ]]; then
+  # See $ZSH/plugins/kube-ps1/kube-ps1.plugin.zsh.
+  if command -v kubectl >/dev/null && [[ ! $KUBE_PS1_ENABLED == "off" ]]; then
     prompt_segment cyan $CURRENT_FG "$KUBE_PS1_CONTEXT@$KUBE_PS1_NAMESPACE"
   fi
 }
@@ -172,3 +173,6 @@ if command -v git-fuzzy >/dev/null; then
   alias gfh="git fuzzy stash"
   alias gfd="git fuzzy diff"
 fi
+
+alias kon="kubeon"
+alias koff="kubeoff"
