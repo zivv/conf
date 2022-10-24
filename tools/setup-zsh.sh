@@ -61,4 +61,11 @@ done
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/compfix.zsh
 chmod g-w,o-w $ZSH_CUSTOM/plugins/*
 
+# Add custom completions.
+if [[ -d $COMPLETION_DIR ]]; then
+  for f in $(find $COMPLETION_DIR -type f -name "*.zsh"); do
+    ln -sf $f $ZSH/completions/_$(basename $f .zsh)
+  done
+fi
+
 popd >/dev/null

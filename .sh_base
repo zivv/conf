@@ -242,14 +242,15 @@ fi
 export COMPLETION_DIR=${COMPLETION_DIR:-$HOME/.completion}
 if [[ -d $COMPLETION_DIR ]]; then
   for f in $(find $COMPLETION_DIR -type f -name "*.$SH"); do
-    if [[ $SH == "zsh" && -f $ZSH/completions/_${f##*/} ]]; then
+    if [[ $SH == "zsh" && -f $ZSH/completions/_$(basename $f .zsh) ]]; then
       # Some zsh completion files can not be source-ed and so link them to a
       # folder belongs to $fpath.
       continue
     fi
     . $f || (
       echo "Error for completion file: $f"
-      [[ $SH != "zsh" ]] || echo "Try: ln -s $f $ZSH/completions/_${f##*/}"
+      [[ $SH != "zsh" ]] ||
+        echo "Try: ln -s $f $ZSH/completions/_$(basename $f .zsh)"
     )
   done
 fi
