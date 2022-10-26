@@ -124,7 +124,7 @@ SH=${SH#-}
 [[ -f ~/.fzf.${SH} ]] && . ~/.fzf.${SH} || true
 
 # Custom commands ---------------------------------------------------------{{{1
-#   Use "unalias" to cancle.
+#   Use `unalias <alias>` / `unset -f <function>` to remove.
 
 # Always keep `conf` dir under $HOME :)
 alias ss="~/conf/set.sh"
@@ -203,6 +203,9 @@ alias gps="gp -u origin \$(git brn)"
 alias gid="g id"
 alias gidc="g id | tr -d '\n' | clipcopy"
 
+alias cdg="cd \$(git rev-parse --show-toplevel)"
+alias tu="(cdg && ./tmp/update.sh)"
+
 alias ip="ip -c -br"
 
 alias dk="docker"
@@ -214,6 +217,40 @@ alias kd="kubectl describe"
 alias kdf="kubectl diff -f"
 alias kc="kubectx"
 alias kn="kubens"
+alias kt="kubectl-tree"
+if command -v kubetail >/dev/null; then
+  export KUBETAIL_SINCE=0s
+  export KUBETAIL_FOLLOW=false
+  alias kl="kubetail"
+fi
+
+virip() {
+  arp -n | grep $(virsh domifaddr $1 | awk '/ipv4/ {print $2}') |
+    awk '{print $1}'
+}
+virdel() {
+  virsh destroy $1 || true
+  virsh undefine $1 --remove-all-storage || true
+}
+
+pass() {
+  PASS=$1
+  COMM=${@:2}
+  /usr/bin/expect <<-EOF
+set timeout 5
+spawn $COMM
+expect {
+  "Connection refused" { send_user "Refused\n" }
+  "yes/no" { send "yes\n"; exp_continue }
+  "password" { send "$PASS\n" }
+}
+expect {
+  "Permission denied" { send_user "\nDenied\n"; exit }
+  eof { send_user "EOF\n" }
+  timeout { send_user "Timeout\n" }
+}
+EOF
+}
 
 # bat -- A cat clone with syntax highlighting and Git integration
 #     -- https://github.com/sharkdp/bat
