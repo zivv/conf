@@ -532,6 +532,10 @@ set switchbuf=usetab,newtab
 " insert. See `:h 'bs'`.
 set backspace=indent,eol,start
 
+" Ignore case when the pattern contains lowercase letters only.
+set ignorecase
+set smartcase
+
 source ~/.vim/files/cscope_maps.vim
 
 aug ZSetting
