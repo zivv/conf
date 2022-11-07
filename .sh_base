@@ -234,22 +234,29 @@ virdel() {
 }
 
 pass() {
-  PASS=$1
-  COMM=${@:2}
+  local PASS=$1
+  local COMM=${@:2}
   /usr/bin/expect <<-EOF
-set timeout 5
+set timeout -1
 spawn $COMM
 expect {
-  "Connection refused" { send_user "Refused\n" }
+  "Connection refused" { send_user "Refused\n"; exit 1 }
   "yes/no" { send "yes\n"; exp_continue }
   "password" { send "$PASS\n" }
 }
 expect {
-  "Permission denied" { send_user "\nDenied\n"; exit }
+  "Permission denied" { send_user "\nDenied\n"; exit 1 }
   eof { send_user "EOF\n" }
-  timeout { send_user "Timeout\n" }
 }
+catch wait result
+exit [lindex \$result 3]
 EOF
+}
+
+uptag() {
+  local IMG=$1
+  local TAG=$2
+  grep -rl $IMG | xargs sed -i "s/$IMG:.*/$IMG:$TAG/g"
 }
 
 # bat -- A cat clone with syntax highlighting and Git integration
