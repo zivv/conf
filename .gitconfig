@@ -56,8 +56,8 @@
   spush = push --recurse-submodules=on-demand
   supdate = submodule update --remote --merge
 
-  u = !git co ${1:-master} && git pl && git co - && git rb ${1:-master} && :
-  bd = !B=$(git brn) && git co ${1:-master} && git pl && git br -D $B && :
+  u = !git co ${1:--} && git pl && git co - && git rb ${1:--} && :
+  bd = !B=$(git brn) && git co ${1:--} && git pl && git br -D $B && :
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
