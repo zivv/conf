@@ -33,6 +33,10 @@ if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
   eval $(dircolors -b ~/.dircolors.256dark)
 fi
 
+# For python virtualenv (https://github.com/pypa/virtualenv).
+# Use the prompt segment `prompt_virtualenv` in $ZSH/themes/agnoster.zsh-theme.
+VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # fzf -- General-purpose command-line fuzzy finder ------------------------{{{1
 #     -- https://github.com/junegunn/fzf
 #   Search syntax: https://github.com/junegunn/fzf#search-syntax
