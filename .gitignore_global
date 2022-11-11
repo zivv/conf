@@ -1,6 +1,8 @@
 # To add this to the config, run:
 # git config --global core.excludesfile ~/.gitignore_global
 
+# https://git-scm.com/docs/gitignore
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -9,7 +11,7 @@
 *.dylib
 
 # Compiled source
-*.pyc
+*.py[cod]
 *.class
 *.o
 
@@ -54,14 +56,10 @@ compile_commands.json
 # Mac files
 .DS_Store
 
-# SVN files
-.svn
-
 # Node modules
 node_modules/
 
 # Dirs
-/.git/
 /bin/
 /tmp/
 /dist/
