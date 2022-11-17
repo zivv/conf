@@ -28,14 +28,17 @@
 #
 # For more information, please refer to <http://unlicense.org/>
 
+from distutils.sysconfig import get_python_inc
 import platform
-import os
+import os.path as p
 import subprocess
-import ycm_core
 
-DIR_OF_THIS_SCRIPT = os.path.abspath( os.path.dirname( __file__ ) )
-DIR_OF_THIRD_PARTY = os.path.join( DIR_OF_THIS_SCRIPT, 'third_party' )
+DIR_OF_THIS_SCRIPT = p.abspath( p.dirname( __file__ ) )
+DIR_OF_THIRD_PARTY = p.join( DIR_OF_THIS_SCRIPT, 'third_party' )
+DIR_OF_WATCHDOG_DEPS = p.join( DIR_OF_THIRD_PARTY, 'watchdog_deps' )
 SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
+
+database = None
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -50,27 +53,35 @@ flags = [
 '-DNDEBUG',
 # You 100% do NOT need -DUSE_CLANG_COMPLETER and/or -DYCM_EXPORT in your flags;
 # only the YCM source code needs it.
-'-DUSE_CLANG_COMPLETER',
-'-DYCM_EXPORT=',
+#  '-DUSE_CLANG_COMPLETER',
+#  '-DYCM_EXPORT=',
+#  '-DYCM_ABSEIL_SUPPORTED',
 # THIS IS IMPORTANT! Without the '-x' flag, Clang won't know which language to
 # use when compiling headers. So it will guess. Badly. So C++ headers will be
 # compiled as C headers. You don't want that so ALWAYS specify the '-x' flag.
 # For a C project, you would set this to 'c' instead of 'c++'.
 '-x',
 'c++',
+'-isystem',
+'cpp/absl',
+'-isystem',
+'cpp/pybind11',
+'-isystem',
+'cpp/whereami',
+'-isystem',
+'cpp/BoostParts',
+'-isystem',
+get_python_inc(),
+'-isystem',
+'cpp/llvm/include',
+'-isystem',
+'cpp/llvm/tools/clang/include',
 '-I',
 '.',
 '-I',
 './bazel-genfiles',
+'-std=c++17',
 ]
-
-# Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
-# which is required for compiling the standard library, and to 'c++11' for older
-# versions.
-# if platform.system() != 'Windows':
-#   flags.append( '-std=c++11' )
-flags.append('-std=c++17')
-
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for
@@ -84,29 +95,42 @@ flags.append('-std=c++17')
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
 compilation_database_folder = ''
 
-if os.path.exists( compilation_database_folder ):
-  database = ycm_core.CompilationDatabase( compilation_database_folder )
-else:
-  database = None
-
 
 def IsHeaderFile( filename ):
-  extension = os.path.splitext( filename )[ 1 ]
+  extension = p.splitext( filename )[ 1 ]
   return extension in [ '.h', '.hxx', '.hpp', '.hh' ]
 
 
 def FindCorrespondingSourceFile( filename ):
   if IsHeaderFile( filename ):
-    basename = os.path.splitext( filename )[ 0 ]
+    basename = p.splitext( filename )[ 0 ]
     for extension in SOURCE_EXTENSIONS:
       replacement_file = basename + extension
-      if os.path.exists( replacement_file ):
+      if p.exists( replacement_file ):
         return replacement_file
   return filename
 
 
+def PathToPythonUsedDuringBuild():
+  try:
+    filepath = p.join( DIR_OF_THIS_SCRIPT, 'PYTHON_USED_DURING_BUILDING' )
+    with open( filepath ) as f:
+      return f.read().strip()
+  except OSError:
+    return None
+
+
 def Settings( **kwargs ):
-  if kwargs[ 'language' ] == 'cfamily':
+  # Do NOT import ycm_core at module scope.
+  import ycm_core
+
+  global database
+  if database is None and p.exists( compilation_database_folder ):
+    database = ycm_core.CompilationDatabase( compilation_database_folder )
+
+  language = kwargs[ 'language' ]
+
+  if language == 'cfamily':
     # If the file is a header, try to find the corresponding source file and
     # retrieve its flags from the compilation database if using one. This is
     # necessary since compilation databases don't have entries for header files.
@@ -143,33 +167,54 @@ def Settings( **kwargs ):
       'include_paths_relative_to_dir': compilation_info.compiler_working_dir_,
       'override_filename': filename
     }
+
+  if language == 'python':
+    # NOTE(ziv): See https://github.com/ycm-core/YouCompleteMe#working-with-virtual-environments.
+    import os
+    if 'VIRTUAL_ENV' in os.environ:
+      interpreter_path = p.join( os.environ['VIRTUAL_ENV'], 'bin', 'python' )
+    else:
+      interpreter_path = PathToPythonUsedDuringBuild()
+    return {
+      'interpreter_path': interpreter_path,
+      'ls': {
+        'python': {
+          'analysis': {
+            'extraPaths': [
+              p.join( DIR_OF_THIS_SCRIPT ),
+              p.join( DIR_OF_THIRD_PARTY, 'bottle' ),
+              p.join( DIR_OF_THIRD_PARTY, 'regex-build' ),
+              p.join( DIR_OF_THIRD_PARTY, 'frozendict' ),
+              p.join( DIR_OF_THIRD_PARTY, 'jedi_deps', 'jedi' ),
+              p.join( DIR_OF_THIRD_PARTY, 'jedi_deps', 'parso' ),
+              p.join( DIR_OF_WATCHDOG_DEPS, 'watchdog', 'build', 'lib3' ),
+              p.join( DIR_OF_WATCHDOG_DEPS, 'pathtools' ),
+              p.join( DIR_OF_THIRD_PARTY, 'waitress' )
+            ],
+            'useLibraryCodeForTypes': True
+          }
+        }
+      }
+    }
+
   return {}
-
-
-def GetStandardLibraryIndexInSysPath( sys_path ):
-  for path in sys_path:
-    if os.path.isfile( os.path.join( path, 'os.py' ) ):
-      return sys_path.index( path )
-  raise RuntimeError( 'Could not find standard library path in Python path.' )
 
 
 def PythonSysPath( **kwargs ):
   sys_path = kwargs[ 'sys_path' ]
-  for folder in os.listdir( DIR_OF_THIRD_PARTY ):
-    if folder == 'python-future':
-      folder = os.path.join( folder, 'src' )
-      sys_path.insert( GetStandardLibraryIndexInSysPath( sys_path ) + 1,
-                       os.path.realpath( os.path.join( DIR_OF_THIRD_PARTY,
-                                                       folder ) ) )
-      continue
 
-    if folder == 'cregex':
-      interpreter_path = kwargs[ 'interpreter_path' ]
-      major_version = subprocess.check_output( [
-        interpreter_path, '-c', 'import sys; print( sys.version_info[ 0 ] )' ]
-      ).rstrip().decode( 'utf8' )
-      folder = os.path.join( folder, 'regex_{}'.format( major_version ) )
+  sys_path[ 0:0 ] = [ p.join( DIR_OF_THIS_SCRIPT ),
+                      p.join( DIR_OF_THIRD_PARTY, 'bottle' ),
+                      p.join( DIR_OF_THIRD_PARTY, 'regex-build' ),
+                      p.join( DIR_OF_THIRD_PARTY, 'frozendict' ),
+                      p.join( DIR_OF_THIRD_PARTY, 'jedi_deps', 'jedi' ),
+                      p.join( DIR_OF_THIRD_PARTY, 'jedi_deps', 'parso' ),
+                      p.join( DIR_OF_WATCHDOG_DEPS,
+                              'watchdog',
+                              'build',
+                              'lib3' ),
+                      p.join( DIR_OF_WATCHDOG_DEPS, 'pathtools' ),
+                      p.join( DIR_OF_THIRD_PARTY, 'waitress' ) ]
 
-    sys_path.insert( 0, os.path.realpath( os.path.join( DIR_OF_THIRD_PARTY,
-                                                        folder ) ) )
+  sys_path.append( p.join( DIR_OF_THIRD_PARTY, 'jedi_deps', 'numpydoc' ) )
   return sys_path

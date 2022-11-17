@@ -293,8 +293,11 @@ endif
 " Default value is 'same-buffer'.
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 " Global conf file, use ycmd's own .ycm_extra_conf.py.
-let g:ycm_global_ycm_extra_conf =
-  \ '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf =
+"   \ '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+" Global conf file, see ycmd's own .ycm_extra_conf.py:
+"   https://github.com/ycm-core/ycmd/blob/master/.ycm_extra_conf.py
+let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 " YCM will automatically found '.ycm_extra_conf.py' file in path and ask if it
 " is safe to be loaded. To selectively get YCM to ask/not ask about loading
 " files, put the following line to '.vim_local' and add rules to it.
