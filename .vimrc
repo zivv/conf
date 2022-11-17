@@ -569,6 +569,11 @@ aug END
 " Powerline ---------------------------------------------------------------{{{2
 "           -- https://powerline.readthedocs.org/en/master/usage/other.html
 "   Check `vim --version | grep python3` first.
+" Workaround the issue with python virtualenv.
+" See https://github.com/powerline/powerline/issues/1908.
+if !empty($VIRTUAL_ENV)
+  python3 import os; sys.path.append(os.environ["POWERLINE_ROOT"]); del os
+endif
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
