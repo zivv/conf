@@ -35,8 +35,7 @@
 # https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 .idea
 
-# Logs and databases
-*.log
+# Databases
 *.sql
 *.sqlite
 
