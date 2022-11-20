@@ -27,8 +27,7 @@
 *.tgz
 
 # Vim swapfiles
-.*.swp
-.*.swo
+.*.sw[pon]
 # Gedit swapfiles
 *~
 # JetBrains IDEs' settings

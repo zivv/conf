@@ -5,12 +5,20 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
+  # https://github.com/dandavison/delta
   pager = delta
+[interactive]
+  # https://git-scm.com/docs/git-config#Documentation/git-config.txt-interactivediffFilter
+  diffFilter = delta --color-only
+[merge]
+  tool = vimdiff
+  # https://dandavison.github.io/delta/merge-conflicts.html
+  conflictstyle = diff3
 [diff]
   tool = vimdiff
   submodule = log
-[merge]
-  tool = vimdiff
+  # https://dandavison.github.io/delta/color-moved-support.html
+  colorMoved = default
 [difftool]
   prompt = true
 [alias]
@@ -66,7 +74,11 @@
 [status]
   submodulesummary = 1
 [delta]
+  # Use n and N to move between diff sections.
+  navigate = true
+  # TODO(ziv): Not working: https://github.com/dandavison/delta/issues/1103
+  # hyperlinks = true
+[delta "light"]
+  syntax-theme = Solarized (light)
+[delta "dark"]
   syntax-theme = Solarized (dark)
-  # Wait for auto side-by-side based on width:
-  # https://github.com/dandavison/delta/issues/359
-  # side-by-side = true

@@ -591,18 +591,20 @@ set noshowmode
 " Color settings ----------------------------------------------------------{{{2
 
 " See Solarized.
-if has('gui_running')
-  set background=light
-else
+if $COLORSCHEME_MODE ==# 'dark'
   set background=dark
+else
+  set background=light
 endif
 let g:solarized_termcolors = 256
 colorscheme solarized
 
 set cursorline
-hi CursorLine cterm=none ctermbg=237
 set cursorcolumn
-hi CursorColumn cterm=none ctermbg=237
+if $COLORSCHEME_MODE ==# 'dark'
+  hi CursorLine cterm=none ctermbg=237
+  hi CursorColumn cterm=none ctermbg=237
+endif
 
 " Highlight column 80 as well as 100 and onward.
 " Google java style accepts a column limit of either 80 or 100 characters.
@@ -610,13 +612,15 @@ let &colorcolumn = '80,'.join(range(100,256),',')
 
 " Highlight during search.
 set hlsearch
-hi Search cterm=none ctermfg=grey ctermbg=darkyellow
+if $COLORSCHEME_MODE ==# 'dark'
+  hi Search cterm=none ctermfg=grey ctermbg=darkyellow
+endif
 
 " Syntax highlight rules for all files.
 aug ZSyntaxHighlight
   au!
   " Show trailing whithspace.
-  hi TrailingWhitespace ctermbg=22
+  hi TrailingWhitespace ctermbg=64
   au BufWinEnter * call matchadd('TrailingWhitespace', '\s\+$')
 
   " Highlight TODO, FIXME, REVIEW, NOTE, XXX(for tricks).

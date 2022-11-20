@@ -29,6 +29,13 @@ export GOPATH="$WORK/goz"
 
 PATH="$PATH:$GOPATH/bin"
 
+# Set the mode as dark or light.
+if [[ ${COLORSCHEME_MODE} != "light" ]]; then
+  export COLORSCHEME_MODE="dark"
+fi
+# For prompt $ZSH/themes/agnoster.zsh-theme.
+SOLARIZED_THEME=$COLORSCHEME_MODE
+
 if [[ $_z_has_dircolors -eq 0 && -f ~/.dircolors.256dark ]]; then
   eval $(dircolors -b ~/.dircolors.256dark)
 fi
@@ -270,15 +277,6 @@ wex() {
     grep -v -e explainshell -e • -e □ -e "source manpages"
 }
 
-# bat -- A cat clone with syntax highlighting and Git integration
-#     -- https://github.com/sharkdp/bat
-if command -v bat >/dev/null; then
-  # https://github.com/sharkdp/bat#highlighting-theme
-  export BAT_THEME="Solarized (dark)"
-  # https://github.com/sharkdp/bat#man
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
-
 # ripgrep -- A regex pattern search tool respecting gitignore
 #         -- https://github.com/BurntSushi/ripgrep
 if command -v rg >/dev/null; then
@@ -291,6 +289,25 @@ if command -v rg >/dev/null; then
       fzf --bind "change:reload:$RG_PREFIX {q} || true" \
       --ansi --phony --query "$INITIAL_QUERY"
   }
+fi
+
+# bat -- A cat clone with syntax highlighting and Git integration
+#     -- https://github.com/sharkdp/bat
+if command -v bat >/dev/null; then
+  # https://github.com/sharkdp/bat#highlighting-theme
+  export BAT_THEME="Solarized ($COLORSCHEME_MODE)"
+  # https://github.com/sharkdp/bat#man
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# delta -- A syntax-highlighting pager for git, diff, and grep output
+#       -- https://github.com/dandavison/delta
+if command -v delta >/dev/null; then
+  export DELTA_FEATURES="$COLORSCHEME_MODE"
+  # Auto side-by-side: https://github.com/dandavison/delta/issues/359.
+  if [[ $(tput cols) -ge 170 ]]; then
+    export DELTA_FEATURES="$DELTA_FEATURES side-by-side"
+  fi
 fi
 
 # Load auto-completion files ----------------------------------------------{{{1
