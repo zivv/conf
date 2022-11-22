@@ -590,6 +590,10 @@ set noshowmode
 
 " Color settings ----------------------------------------------------------{{{2
 
+if empty($COLORSCHEME_MODE)
+  let $COLORSCHEME_MODE = 'dark'
+endif
+
 " See Solarized.
 if $COLORSCHEME_MODE ==# 'dark'
   set background=dark
