@@ -359,6 +359,8 @@ Plug 'scrooloose/nerdcommenter'
 let g:NERDBlockComIgnoreEmpty = 0
 let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDSpaceDelims = 1
+" Fix double spaces, see https://github.com/preservim/nerdcommenter/issues/202.
+let g:NERDAltDelims_python = 1
 
 
 " Fugitive -- a Git wrapper -----------------------------------------------{{{2
