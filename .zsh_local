@@ -175,4 +175,5 @@ if command -v git-fuzzy >/dev/null; then
 fi
 
 alias kon="kubeon"
-alias koff="kubeoff"
+# Unset to avoid accidentally running commands against the wrong cluster.
+alias koff="kubeoff; kubectl config unset current-context"
