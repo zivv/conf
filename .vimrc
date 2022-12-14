@@ -546,7 +546,7 @@ source ~/.vim/files/cscope_maps.vim
 aug ZSetting
   au!
   " Special indent.
-  au FileType python set softtabstop=4 | set shiftwidth=4 | set textwidth=79
+  " au FileType python set softtabstop=4 | set shiftwidth=4 | set textwidth=79
   au FileType go     set softtabstop=8 | set shiftwidth=8 | set noexpandtab
   au FileType bzl    set softtabstop=4 | set shiftwidth=4
 
