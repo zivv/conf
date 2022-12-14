@@ -60,6 +60,9 @@
   psm = push origin master
   pso = push origin
 
+  uia = update-index --assume-unchanged
+  uin = update-index --no-assume-unchanged
+
   sdiff = !git diff && git submodule foreach 'git diff'
   spush = push --recurse-submodules=on-demand
   supdate = submodule update --remote --merge
