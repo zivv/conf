@@ -236,8 +236,8 @@ if command -v kubetail >/dev/null; then
 fi
 
 virip() {
-  arp -n | grep $(virsh domifaddr $1 | awk '/ipv4/ {print $2}') |
-    awk '{print $1}'
+  mac=$(virsh domifaddr $1 | awk '/ipv4/ {print $2}')
+  [[ -n $mac ]] && arp -n | grep $mac | awk '{print $1}'
 }
 virdel() {
   virsh destroy $1 || true
