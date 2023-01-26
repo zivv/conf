@@ -16,12 +16,11 @@ fi
 if [[ $(uname) == "Darwin" ]]; then
   if ! command -v gsed >/dev/null; then
     $PKG_INSTALL gnu-sed
+    ln -sv $(command -v gsed) /usr/local/bin/sed
   fi
-  gsed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
-else
-  #sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
-  sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
 fi
+#sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
+sed -i 's/^ZSH_THEME\|^plugins=\|^source/#&/g' ~/.zshrc
 
 if ! grep -q ".sh_base" ~/.zshrc; then
   echo "[[ -f ~/.sh_base ]] && . ~/.sh_base" >>~/.zshrc
