@@ -345,6 +345,7 @@ Plug 'dense-analysis/ale'
 " ALE settings.
 let g:ale_linters = {
   \ 'cpp': [''],
+  \ 'go': [''],
   \ }
 " Use current path as include path.
 let g:ale_proto_protoc_gen_lint_options = '-I .'
@@ -423,8 +424,9 @@ aug GoShortcuts
   au FileType go nm gt <Plug>(go-test)
   " Beautifully annotated source code to see which functions are covered.
   au FileType go nm gc <Plug>(go-coverage)
+  " Comment to use YcmHover instead.
   " Open the relevant Godoc for the word under the cursor.
-  au FileType go nm ;d <Plug>(go-doc)
+  "au FileType go nm ;d <Plug>(go-doc)
   " Rename the identifier under the cursor to a new name.
   au FileType go nm ;;s <Plug>(go-rename)
   " Call `go-metalinter` for the current directory. By default the following
