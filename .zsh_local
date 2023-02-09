@@ -176,4 +176,4 @@ fi
 
 alias kon="kubeon"
 # Unset to avoid accidentally running commands against the wrong cluster.
-alias koff="kubeoff; kubectl config unset current-context"
+alias koff="kubeoff -g; kubectl config unset current-context"
