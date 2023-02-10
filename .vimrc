@@ -415,9 +415,10 @@ let g:go_def_reuse_buffer = 1
 " Use same shortcuts with YCM for consistency.
 aug GoShortcuts
   au!
+  " TODO(ziv): Not working in bazel projects. Use :YcmCompleter GoTo instead.
   " Open the target identifier in current buffer.
   " By default the mapping `gd` is enabled.
-  au FileType go nm ;j <Plug>(go-def-tab)
+  "au FileType go nm ;j <Plug>(go-def-tab)
   " go run/build/test for the current package.
   au FileType go nm gr <Plug>(go-run)
   au FileType go nm ;b <Plug>(go-build)
