@@ -96,6 +96,9 @@ call plug#begin('~/.vim/plugged')
 "           -- https://github.com/altercation/vim-colors-solarized
 Plug 'altercation/vim-colors-solarized'
 
+" NOTE(ziv): Workaround https://github.com/altercation/vim-colors-solarized/issues/221
+" sed -i 's/undercurl/underline/g' ~/.vim/plugged/vim-colors-solarized/colors/solarized.vim
+
 
 " Startify -- The fancy start screen for Vim ------------------------------{{{2
 "          -- https://github.com/mhinz/vim-startify
@@ -199,6 +202,14 @@ let g:ctrlp_custom_ignore = {
 nn ;<C-P> :CtrlP 
 
 
+" vim-grammarous -- A powerful grammar checker for Vim using LanguageTool -{{{2
+"                -- https://github.com/rhysd/vim-grammarous
+Plug 'rhysd/vim-grammarous'
+
+" NOTE(ziv): Workaround https://github.com/rhysd/vim-grammarous/issues/110
+let g:grammarous#jar_url = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
+
+
 " vim-autoformat -- format code with one button press ---------------------{{{2
 "                -- https://github.com/Chiel92/vim-autoformat
 Plug 'Chiel92/vim-autoformat'
@@ -271,7 +282,7 @@ Plug 'honza/vim-snippets'
 " vim-multiple-cursors -- True Sublime Text style multiple selections -----{{{2
 "                      -- https://github.com/terryma/vim-multiple-cursors
 " TODO(ziv): g:multi_cursor_quit_key & g:multi_cursor_normal_maps not working
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 
 
 " YCM -- code completion engine -------------------------------------------{{{2
