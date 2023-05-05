@@ -63,13 +63,15 @@ plugins+=(magic-enter)
 MAGIC_ENTER_GIT_COMMAND="g st -u"
 MAGIC_ENTER_OTHER_COMMAND="ll"
 
-# $ZSH/plugins/docker/README.md
+# NOTE: Fix completion for `docker compose`:
+# docker completion zsh >$ZSH/plugins/docker/_docker
 if command -v docker >/dev/null; then
-  plugins+=(docker)
-fi
-# $ZSH/plugins/docker-compose/README.md
-if command -v docker-compose >/dev/null; then
-  plugins+=(docker-compose)
+  plugins+=(
+    # $ZSH/plugins/docker/README.md
+    docker
+    # $ZSH/plugins/docker-compose/README.md
+    docker-compose
+  )
 fi
 if command -v kubectl >/dev/null; then
   plugins+=(
@@ -113,6 +115,9 @@ if [[ -f $HOME/.fzf.zsh ]]; then
   # https://github.com/changyuheng/fz
   # $ZSH_CUSTOM/plugins/fz/README.md
   plugins+=(fz)
+  # New plugin uses zshz instead of _z:
+  # https://github.com/ohmyzsh/ohmyzsh/issues/11282#issuecomment-1287430786
+  FZ_HISTORY_CD_CMD=zshz
   # https://github.com/bigH/git-fuzzy
   # $ZSH_CUSTOM/plugins/git-fuzzy/README.md
   PATH="$PATH:$ZSH_CUSTOM/plugins/git-fuzzy/bin"
