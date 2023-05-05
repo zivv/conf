@@ -364,6 +364,18 @@ let g:ale_linters = {
   \ }
 " Use current path as include path.
 let g:ale_proto_protoc_gen_lint_options = '-I .'
+" Set default flake8 config. See https://github.com/PyCQA/flake8/pull/1404.
+function s:ZFlake8Config()
+  let l:repo = trim(system('git rev-parse --show-toplevel'))
+  if v:shell_error != 0
+    return
+  end
+  if filereadable(simplify(join([l:repo, '.flake8'], '/')))
+    return
+  end
+  let g:ale_python_flake8_options = '--config=$HOME/.config/flake8'
+endfunction
+call s:ZFlake8Config()
 
 
 " NERDCommenter -- Vim plugin for intensely orgasmic commenting -----------{{{2
@@ -456,7 +468,7 @@ aug END
 " https://github.com/bazelbuild/rules_go/blob/master/docs/go/editors/vim.md.
 " TODO(ziv): The gopls server keeps running after exist Vim and needs to be
 " killed like `pkill -ef gopls` to revert the driver setting.
-function GoBazelDriver()
+function s:ZGoBazelDriver()
   if len($GOBAZELDRIVER) == 0
     return
   end
@@ -473,7 +485,7 @@ function GoBazelDriver()
   let $GOPACKAGESDRIVER = $GOBAZELDRIVER
   " echom 'Find golang+bazel, use driver '.$GOPACKAGESDRIVER
 endfunction
-call GoBazelDriver()
+call s:ZGoBazelDriver()
 
 
 " vim-javascript -- Vastly improved JS indentation and syntax support -----{{{2
