@@ -29,9 +29,9 @@
 " Install https://github.com/Valloric/YouCompleteMe
 "   # Completer options for install.py
 "   #   --clang-completer (need cmake, gcc, g++ and python-dev)
-"   #   --gocode-completer
+"   #   --go-completer
 "   #   --ts-completer (JavaScript and TypeScript support)
-"   #   --all (with everything enabled except --clangd-completer)
+"   #   --all (with everything enabled)
 "   cd ~/.vim/plugged/YouCompleteMe && ./install.py --clangd-completer
 " Install https://github.com/majutsushi/tagbar
 "   Depend on Exuberant Ctags or Universal Ctags (See https://ctags.io/).
@@ -315,13 +315,17 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/files/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = ['!~/conf/*']
 " C-family Semantic Completion:
 "   https://github.com/ycm-core/YouCompleteMe#c-family-semantic-completion
-" Check https://clang.llvm.org/extra/clangd/Installation.html#editor-plugins.
+" Check https://clangd.llvm.org/installation#editor-plugins.
 " Let clangd fully control code completion.
 let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = exepath('clangd')
 " The command line arguments passed to the clangd binary.
-"let g:ycm_clangd_args = ['-log=verbose', '-pretty']
+" Add the following line to debug:
+"  \ '-log=verbose', '-pretty',
+let g:ycm_clangd_args = [
+  \ '--header-insertion=never', '--query-driver=**',
+  \ ]
 
 " Shortcuts for YCM commands.
 " Jump to the header/definition/declaration.

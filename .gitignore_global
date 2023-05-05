@@ -54,8 +54,8 @@ compile_commands.json
 # Mac files
 .DS_Store
 
-# Node modules
-node_modules/
+# Node modules (may be softlinks)
+node_modules
 # Python virtual environment (may be softlinks)
 venv
 
