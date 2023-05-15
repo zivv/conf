@@ -727,10 +727,10 @@ nn <silent> ;a :qa!<CR>
 nn <silent> ;l :only!<CR>:NERDTreeTabsClose<CR>
 " Forced saving.
 nn ;w :w!<CR>
-" Edit file, empty for reading current file from disk again.
+" Edit the file, empty for reading the current file from the disk again.
 nn ;e :e 
-" Edit file in a new tab.
-nn ;t :tabe 
+" Edit the file in a new tab (or existing one).
+nn ;t :ZOpen 
 " Switch between tabs.
 " {count}gT - Go {count} tab pages back.
 nn ;i gT
@@ -788,7 +788,9 @@ vn ;s :s/
 nn gf <C-w>gf
 
 " Similar to :drop, but :drop can only be used in GUI.
-command -n=1 -complete=file ZFindBufOrNew call s:ZFindBufOrNew(<f-args>)
+command -n=1 ZFindBufOrNew call s:ZFindBufOrNew(<args>)
+" For use in command-line mode.
+command -n=1 -complete=file ZOpen call s:ZFindBufOrNew(<f-args>)
 function s:ZFindBufOrNew(filename)
   for tabnr in range(tabpagenr('$'))
     for bufnr in tabpagebuflist(tabnr + 1)
