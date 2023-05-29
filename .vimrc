@@ -800,7 +800,7 @@ function s:ZFindBufOrNew(filename)
       endif
     endfor
   endfor
-  exe 'tabf ' . a:filename
+  exe 'tabe ' . a:filename
 endfunction
 " Open the related file found first.
 command -n=+ ZSwitch call s:ZSwitch(<f-args>)
