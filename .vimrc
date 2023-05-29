@@ -216,25 +216,8 @@ Plug 'Chiel92/vim-autoformat'
 
 " Vim-autoformat settings.
 " Uncomment to DEBUG.
-"let g:autoformat_verbosemode=1
+"let g:autoformat_verbosemode=2
 " See ~/.vim/plugged/vim-autoformat/plugin/defaults.vim.
-" Only change the style option to Google.
-let g:formatdef_clangformat = "'clang-format ".
-  \ "-lines='.a:firstline.':'.a:lastline.' ".
-  \ "--assume-filename=\"'.expand('%:p').'\" ".
-  \ "-style=\"{BasedOnStyle: Google, ".
-  \ '          BinPackArguments: false, BinPackParameters: false, '.
-  \ "          DerivePointerAlignment: false, PointerAlignment: Left}\"'"
-" Default style is 'ansi'.
-" TODO(ziv): Consider if change to use .astylerc conf file.
-let g:formatdef_astyle_cs   = '"astyle --mode=cs   --style=google '.
-  \ '--indent-namespaces -pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_c    = '"astyle --mode=c    --style=google '.
-  \ '-pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_cpp  = '"astyle --mode=c    --style=google '.
-  \ '-pcH".(&expandtab ? "s".shiftwidth() : "t")'
-let g:formatdef_astyle_java = '"astyle --mode=java --style=google '.
-  \ '-pcH".(&expandtab ? "s".shiftwidth() : "t")'
 " Add formatter for bazel BUILD files.
 " See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
 let g:formatters_bzl = ['buildifier']

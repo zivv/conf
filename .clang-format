@@ -1,0 +1,10 @@
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+---
+# clang-format -style=google -dump-config > /tmp/.clang-format
+BasedOnStyle: Google
+---
+Language: Cpp
+BinPackArguments: false
+BinPackParameters: false
+DerivePointerAlignment: false
+PointerAlignment: Left

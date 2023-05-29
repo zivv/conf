@@ -19,6 +19,7 @@ files=(
   "tmux:.tmux.conf"
   "vim:.vimrc" "vim:.vim" "vim:.gvimrc"
   "git:.gitconfig" "git:.gitignore_global"
+  ".clang-format" ".astylerc"
   "flake8:.config/flake8"
   "mutt:.mutt/muttrc"
 )
