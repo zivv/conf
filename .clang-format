@@ -4,7 +4,9 @@
 BasedOnStyle: Google
 ---
 Language: Cpp
+Standard: Latest
 BinPackArguments: false
 BinPackParameters: false
 DerivePointerAlignment: false
 PointerAlignment: Left
+IncludeBlocks: Regroup
