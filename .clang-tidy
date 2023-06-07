@@ -1,0 +1,91 @@
+# https://clang.llvm.org/extra/clang-tidy/
+#
+# The list of clang-tidy checks:
+# https://clang.llvm.org/extra/clang-tidy/checks/list.html
+# Interesting ones:
+# https://clang.llvm.org/extra/clang-tidy/checks/modernize/pass-by-value.html
+#
+# clang-tidy --dump-config >/tmp/.clang-tidy
+
+Checks:           'bugprone-*,
+                   clang-analyzer-*,
+                   cppcoreguideline-*,
+                   google-*,
+                   misc-*,
+                   -misc-const-correctness,
+                   modernize-*,
+                   -modernize-avoid-c-arrays,
+                   -modernize-concat-nested-namespaces,
+                   -modernize-use-trailing-return-type,
+                   performance-*,
+                   readability-*,
+                   -readability-identifier-length,
+                   -readability-magic-numbers'
+
+WarningsAsErrors: 'bugprone-*,
+                   -bugprone-branch-clone,
+                   -bugprone-incorrect-roundings,
+                   -bugprone-integer-division,
+                   -bugprone-macro-parentheses,
+                   -bugprone-narrowing-conversions,
+                   clang-analyzer-*,
+                   -clang-analyzer-cplusplus.NewDeleteLeaks,
+                   -clang-analyzer-deadcode.DeadStores,
+                   -clang-analyzer-security.FloatLoopCounter,
+                   cppcoreguideline-*,
+                   google-*,
+                   -google-default-arguments,
+                   -google-readability-braces-around-statements,
+                   -google-readability-casting,
+                   misc-*,
+                   -misc-const-correctness,
+                   -misc-non-private-member-variables-in-classes,
+                   -misc-unused-parameters,
+                   modernize-*,
+                   -modernize-avoid-bind,
+                   -modernize-avoid-c-arrays,
+                   -modernize-concat-nested-namespaces,
+                   -modernize-deprecated-headers,
+                   -modernize-loop-convert,
+                   -modernize-make-unique,
+                   -modernize-pass-by-value,
+                   -modernize-raw-string-literal,
+                   -modernize-use-auto,
+                   -modernize-use-bool-literals,
+                   -modernize-use-equals-default,
+                   -modernize-use-nodiscard,
+                   -modernize-use-nullptr,
+                   -modernize-use-override,
+                   -modernize-use-trailing-return-type,
+                   -modernize-use-transparent-functors,
+                   performance-*,
+                   -performance-inefficient-string-concatenation,
+                   -performance-move-const-arg,
+                   -performance-type-promotion-in-math-fn,
+                   -performance-unnecessary-value-param,
+                   readability-*,
+                   -readability-avoid-const-params-in-decls,
+                   -readability-braces-around-statements,
+                   -readability-container-size-empty,
+                   -readability-convert-member-functions-to-static,
+                   -readability-else-after-return,
+                   -readability-identifier-length,
+                   -readability-implicit-bool-conversion,
+                   -readability-inconsistent-declaration-parameter-name,
+                   -readability-isolate-declaration,
+                   -readability-magic-numbers,
+                   -readability-make-member-function-const,
+                   -readability-named-parameter,
+                   -readability-qualified-auto,
+                   -readability-redundant-control-flow,
+                   -readability-redundant-member-init,
+                   -readability-redundant-string-init,
+                   -readability-simplify-boolean-expr,
+                   -readability-string-compare,
+                   -readability-uppercase-literal-suffix'
+
+CheckOptions:
+  - key:          modernize-use-auto.MinTypeNameLength
+    value:        '15'
+  - key:          performance-move-const-arg.CheckTriviallyCopyableMove
+    value:        '0'
