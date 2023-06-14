@@ -64,7 +64,10 @@ chmod g-w,o-w $ZSH_CUSTOM/plugins/*
 if [[ -d $COMPLETION_DIR ]]; then
   mkdir -pv $ZSH/completions
   for f in $(find $COMPLETION_DIR -type f -name "*.zsh"); do
-    ln -sf $f $ZSH/completions/_$(basename $f .zsh)
+    link=$ZSH/completions/_$(basename $f .zsh)
+    if [[ "$(readlink $link)" != "$f" ]]; then
+      ln -sfv $f $link
+    fi
   done
 fi
 
