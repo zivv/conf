@@ -16,10 +16,10 @@
 "     sudo apt-get install clang-format python3-pip && pip3 install black
 "   # Bazel BUILD - buildifier.
 "   # See https://github.com/bazelbuild/buildtools/tree/master/buildifier.
-"   go get github.com/bazelbuild/buildtools/buildifier
+"   go install github.com/bazelbuild/buildtools/buildifier@latest
 "   # Shell - shfmt. A shell formatter written in Go supporting POSIX Shell.
 "   # See https://github.com/mvdan/sh#shfmt.
-"   GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+"   go install mvdan.cc/sh/v3/cmd/shfmt@latest
 "   # Markdown - remark. A Javascript based markdown processor.
 "   # See https://github.com/wooorm/remark.
 "   npm install -g remark-cli
@@ -48,7 +48,7 @@
 "   pip3 install vim-vint
 "   # Protobuf - protoc-gen-lint. A plug-in for protobufs compiler to lint.
 "   # See https://github.com/ckaznocha/protoc-gen-lint.
-"   go get github.com/ckaznocha/protoc-gen-lint
+"   go install github.com/ckaznocha/protoc-gen-lint@latest
 "   # Python - flake8. Your Tool For Style Guide Enforcement.
 "   # See https://flake8.pycqa.org/.
 "   pip3 install flake8 flake8-awesome
