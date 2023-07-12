@@ -12,7 +12,7 @@ if ! locale -a | grep -q "$LOCALE"; then
   sudo dpkg-reconfigure --frontend=noninteractive locales
 fi
 
-$PKG_INSTALL python3-pip vim
+$PKG_INSTALL python3-pip vim-gtk3
 if (($(echo "$(
   vim --version | grep "IMproved" | sed 's/.*IMproved \(.*\) (.*/\1/'
 ) < 8.2" | bc -l))); then
