@@ -52,6 +52,9 @@
 "   # Python - flake8. Your Tool For Style Guide Enforcement.
 "   # See https://flake8.pycqa.org/.
 "   pip3 install flake8 flake8-awesome
+"   # Bash - shellcheck. A shell script static analysis tool.
+"   # See https://github.com/koalaman/shellcheck.
+"   sudo apt-get install shellcheck / brew install shellcheck
 "
 "
 " Notes -------------------------------------------------------------------{{{1
