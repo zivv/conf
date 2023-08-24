@@ -2,6 +2,7 @@
 # git config --global core.excludesfile ~/.gitignore_global
 
 # https://git-scm.com/docs/gitignore
+# https://gitignore.io
 
 # Binaries for programs and plugins
 *.exe
