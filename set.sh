@@ -2,13 +2,15 @@
 #
 # Set up configuration files.
 
+# shellcheck disable=SC2034,2046,2048,2086,2154
+
 set -e
 
-if [[ -z "$BASH_SOURCE" ]]; then
+if [[ -z "${BASH_SOURCE[0]}" ]]; then
   echo >&2 "Unable to find relative files"
   exit 1
 fi
-cd $(dirname $(realpath "$BASH_SOURCE"))
+cd $(dirname $(realpath "${BASH_SOURCE[0]}"))
 
 # Internal Field Separator.
 # Use newline instead of default setting which includes space.
@@ -64,8 +66,8 @@ function color() {
 # Auto generated variables to speed up shell initialization.
 function auto() {
   mkdir -p tmp/
-  >tmp/.sh_auto
-  for line in $(cat .sh_auto); do
+  true >tmp/.sh_auto
+  while read -r line; do
     if [[ "$line" =~ ^#.* ]]; then
       # Copy comments.
       echo $line >>tmp/.sh_auto
@@ -82,7 +84,7 @@ function auto() {
       # Add the variable.
       echo "$key=$value" >>tmp/.sh_auto
     fi
-  done
+  done <.sh_auto
   color blue echo "File tmp/.sh_auto has been generated"
 }
 if [[ .sh_auto -nt tmp/.sh_auto ]]; then
@@ -128,9 +130,9 @@ function cp_files() {
       fi
     fi
     if [[ -d $path ]]; then
-      for file in $(find $path -type f); do
+      while read -r file; do
         cp_file $file $HOME/$file
-      done
+      done < <(find $path -type f)
     else
       file=$path
       if [[ "$file" =~ "/" ]]; then
