@@ -1,0 +1,12 @@
+# https://rime.im/download/#linux
+# sudo apt install -y ibus-rime rime-data-double-pinyin
+# ibus-daemon -drx
+# https://github.com/rime/rime-emoji
+# rime-install emoji
+# rime-install emoji:customize:schema=double_pinyin_mspy
+patch:
+  schema_list:
+    # https://github.com/rime/rime-double-pinyin
+    - schema: double_pinyin_mspy
+  # menu:
+  #   page_size: 9

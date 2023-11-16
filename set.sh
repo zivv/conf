@@ -22,6 +22,7 @@ files=(
   ".clang-format" ".clang-tidy" ".astylerc"
   "flake8:.config/flake8"
   "mutt:.mutt/muttrc"
+  "rime_patch:.config/ibus/rime/default.custom.yaml"
 )
 
 z=(
