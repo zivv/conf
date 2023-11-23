@@ -11,6 +11,11 @@
 *.so
 *.dylib
 
+# Built application files
+*.apk
+*.ap_
+*.aab
+
 # Compiled source
 *.py[cod]
 *.class
