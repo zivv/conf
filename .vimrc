@@ -195,7 +195,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
 " Exclude files and directories from the results.
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn|clangd)|('.
+  \ 'dir':  '\v[\/](\.(git|hg|svn|clangd|cache)|('.
   \         'third_party|node_modules|dist))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'bazel-*',
