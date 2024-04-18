@@ -341,6 +341,9 @@ nn <silent> [k :TagbarToggle<CR>
 "     -- https://github.com/dense-analysis/ale
 "   Supported languages and tools:
 "     https://github.com/dense-analysis/ale/blob/master/supported-tools.md
+"   Useful commands:
+"     :ALEDetail  Show the full linter message in the preview window
+"     :ALEInfo    Print runtime information
 Plug 'dense-analysis/ale'
 
 " ALE settings.
