@@ -48,6 +48,7 @@ if [[ $(uname) == "Darwin" ]]; then
   export PKG_LIST_CMD="brew ls --versions"
   export PKG_INST_CMD="brew install -q"
   run tools/setup-mac.sh
+  FONT_DIR=~/Library/Fonts
 elif [[ $(uname) == "Linux" ]] && grep -q debian /etc/os-release; then
   export PKG_LIST_CMD="apt list --installed"
   export PKG_INST_CMD="sudo apt install -y --no-install-recommends --no-upgrade"
@@ -76,7 +77,7 @@ fi
 # https://powerline.readthedocs.io/en/latest/installation/linux.html#fonts-installation
 # To install all fonts:
 #   git clone https://github.com/powerline/fonts.git --depth=1 && (cd fonts && ./install.sh)
-FONT_DIR=~/.local/share/fonts
+FONT_DIR=${FONT_DIR:-~/.local/share/fonts}
 if ! ls $FONT_DIR/*Powerline*.otf >/dev/null; then
   mkdir -p $FONT_DIR
   pushd $FONT_DIR >/dev/null

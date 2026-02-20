@@ -16,7 +16,8 @@ fi
 if [[ $(uname) == "Darwin" ]]; then
   if ! command -v gsed >/dev/null; then
     $PKG_INSTALL gnu-sed
-    ln -sv $(command -v gsed) /usr/local/bin/sed
+    sudo mkdir -p /usr/local/bin
+    sudo ln -sv $(command -v gsed) /usr/local/bin/sed
   fi
 fi
 #sed -i "s/^ZSH_THEME\|^source/#&/g" ~/.zshrc && sed -zi "s/plugins=(\n  git\n)/#plugins=(git)/g" ~/.zshrc
