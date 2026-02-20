@@ -4,8 +4,8 @@
 "
 " Install https://github.com/ryanoasis/vim-devicons
 "   Install https://github.com/ryanoasis/nerd-fonts
-"     MacOS - https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
-"       brew tap caskroom/fonts && brew cask install font-hack-nerd-font
+"     MacOS - https://github.com/ryanoasis/nerd-fonts?tab=readme-ov-file#option-2-homebrew-fonts
+"       brew install font-hack-nerd-font
 "       # Then open iTerm2 and set `Preference`->`Profiles`->`Text`->
 "       # `Non-ASCII Font` as `Hack Nerd Font`.
 "     Linux - https://github.com/ryanoasis/nerd-fonts#linux
@@ -598,6 +598,8 @@ aug END
 if !empty($VIRTUAL_ENV)
   python3 import os; sys.path.append(os.environ["POWERLINE_ROOT"]); del os
 endif
+" TODO(ziv): Need to fix homebrew vim by:
+" /opt/homebrew/bin/pip3 install powerline-status --break-system-package
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup

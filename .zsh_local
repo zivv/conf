@@ -165,7 +165,7 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=magenta,fg=white"
 HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
 # Conflict with `ts` tool in moreutils.
-unalias ts || true
+unalias ts 2>/dev/null || true
 alias tn="tmux new-session -s"
 
 # Alias for git-fuzzy.
