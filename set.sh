@@ -47,6 +47,7 @@ z_lenovo=(
 )
 
 z_mac=(
+  ".sh_local"
   "vim:.vim_local"
 )
 
