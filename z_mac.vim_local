@@ -3,6 +3,6 @@ let g:startify_bookmarks = [
       \ { 'v': '~/conf/.vimrc' },
       \ { 'u': '~/.vim/UltiSnips' },
       \ { 'd': '~/Study/D' },
-      \ { 'w': '~/Study/CST/website.txt' },
+      \ { 'w': '~/ziv/notes/website.txt' },
       \ { 'z': '~/ziv' },
       \ ]
