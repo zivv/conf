@@ -599,7 +599,7 @@ if !empty($VIRTUAL_ENV)
   python3 import os; sys.path.append(os.environ["POWERLINE_ROOT"]); del os
 endif
 " TODO(ziv): Need to fix homebrew vim by:
-" /opt/homebrew/bin/pip3 install powerline-status --break-system-package
+" /opt/homebrew/bin/pip3 install powerline-status psutil --break-system-package
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
